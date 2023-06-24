@@ -1,0 +1,28 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@myreactapp/modules/editor": ["modules/editor/src/index.ts"],
+      "@myreactapp/modules/gallery": ["modules/gallery/src/index.ts"],
+      "@myreactapp/modules/music": ["modules/music/src/index.ts"],
+      "@myreactapp/modules/planner": ["modules/planner/src/index.ts"],
+      "@myreactapp/modules/reader": ["modules/reader/src/index.ts"],
+      "@myreactapp/modules/shared/ui": ["modules/shared/ui/src/index.ts"],
+      "@myreactapp/modules/video": ["modules/video/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
