@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import './styles.css';
+import { CustomRoutes } from './routes';
 
-import NxWelcome from './nx-welcome';
 
 const StyledApp = styled.div`
   // Your style here
@@ -9,7 +10,7 @@ const StyledApp = styled.div`
 export function App() {
   return (
     <StyledApp>
-      <NxWelcome title="myreactapp" />
+      <CustomRoutes />
     </StyledApp>
   );
 }
