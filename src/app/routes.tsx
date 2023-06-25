@@ -15,6 +15,7 @@ import {
   Read,
   Plan,
 } from './routeImports';
+import { MainHeading } from '@myreactapp/modules/shared/ui';
 
 const {
   authLogin: { authenticated, registered },
@@ -23,15 +24,64 @@ const {
 export const CustomRoutes = () => {
   return (
     <Routes>
-      {authenticated === false ? (
+      {authenticated === true ? (
         <Route path="/" element={<Dashboard />}>
-          <Route path="/listen" element={<Suspense><Listen /></Suspense>} />
-          <Route path="/watch" element={<Suspense><Watch /></Suspense>} />
-          <Route path="/plan" element={<Suspense><Plan /></Suspense>} />
-          <Route path="/read" element={<Suspense><Read /></Suspense>} />
-          <Route path="/write" element={<Suspense><Write /></Suspense>} />
-          <Route path="/shop" element={<Suspense><Shop /></Suspense>} />
-          <Route path="/feed" element={<Suspense><Feed /></Suspense>} />
+          <Route
+            path="/listen"
+            element={
+              <Suspense>
+                <Listen />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/watch"
+            element={
+              <Suspense>
+                <Watch />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/plan"
+            element={
+              <Suspense>
+                <Plan />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/read"
+            element={
+              <Suspense>
+                <Read />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/write"
+            element={
+              <Suspense>
+                <Write />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/shop"
+            element={
+              <Suspense>
+                <Shop />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/feed"
+            element={
+              <Suspense>
+                <Feed />
+              </Suspense>
+            }
+          />
         </Route>
       ) : (
         <Route
@@ -42,6 +92,14 @@ export const CustomRoutes = () => {
             </Suspense>
           }
         >
+          <Route
+            path="/"
+            element={
+              <Suspense>
+                <MainHeading />
+              </Suspense>
+            }
+          ></Route>
           <Route
             path="/login"
             element={
