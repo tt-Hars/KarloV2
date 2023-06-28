@@ -2,12 +2,12 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Link } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface NavbarProps {}
 
-const StyledNavbar = styled.div`
-`;
+const StyledNavbar = styled.div``;
 
 const UserAvatar = styled.span`
   height: 2rem;
@@ -29,29 +29,36 @@ const FooterText = styled.span`
   bottom: 1em;
   left: 50%;
   transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
 `;
 
 export function Navbar(props: NavbarProps) {
   return (
     <StyledNavbar>
       <HomeIcon>
-        <Typography
-          color="primary"
-          fontWeight="black"
-          variant="h4"
-          component="h1"
-        >
-          KARLO
-        </Typography>
+        <Link to="/">
+          <Typography
+            color="primary"
+            fontWeight="black"
+            variant="h4"
+            component="h1"
+          >
+            •K•A•R•L•O•
+          </Typography>
+        </Link>
       </HomeIcon>
-      <UserAvatar>
-        <AccountCircleIcon fontSize="large" />
-      </UserAvatar>
+      <Link to="/login">
+        <UserAvatar>
+          <AccountCircleIcon fontSize="large" />
+        </UserAvatar>
+      </Link>
       <FooterText>
-        <Typography fontWeight="light" variant="h5" component="h6">
-          <span>Made in India with</span>{' '}
-          <FavoriteIcon fontSize="large" color="primary" />
+        <Typography fontWeight="light" variant="h5" component="h2">
+          <span>Made with&nbsp;</span>
         </Typography>
+        <FavoriteIcon fontSize="large" color="primary" />
+        <Typography fontWeight="light" variant="h5" component="h3">&nbsp;in भारत </Typography>
       </FooterText>
     </StyledNavbar>
   );

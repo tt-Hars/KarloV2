@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import {
   Dashboard,
   Landing,
@@ -14,6 +14,7 @@ import {
   Write,
   Read,
   Plan,
+  Welcome,
 } from './routeImports';
 import { MainHeading } from '@myreactapp/modules/shared/ui';
 
@@ -25,7 +26,14 @@ export const CustomRoutes = () => {
   return (
     <Routes>
       {authenticated === true ? (
-        <Route path="/" element={<Dashboard />}>
+        <Route
+          path="/"
+          element={
+            <Suspense>
+              <Dashboard />
+            </Suspense>
+          }
+        >
           <Route
             path="/listen"
             element={
@@ -97,6 +105,14 @@ export const CustomRoutes = () => {
             element={
               <Suspense>
                 <MainHeading />
+              </Suspense>
+            }
+          ></Route>
+          <Route
+            path="/welcome"
+            element={
+              <Suspense>
+                <Welcome />
               </Suspense>
             }
           ></Route>

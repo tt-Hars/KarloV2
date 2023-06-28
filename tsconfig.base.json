@@ -22,6 +22,7 @@
       "@myreactapp/modules/planner": ["modules/planner/src/index.ts"],
       "@myreactapp/modules/reader": ["modules/reader/src/index.ts"],
       "@myreactapp/modules/shared/ui": ["modules/shared/ui/src/index.ts"],
+      "@myreactapp/modules/shared/models": ["modules/shared/models/index.ts"],
       "@myreactapp/modules/shop": ["modules/shop/src/index.ts"],
       "@myreactapp/modules/watch": ["modules/watch/src/index.ts"]
     }
