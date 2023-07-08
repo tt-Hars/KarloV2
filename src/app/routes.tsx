@@ -17,6 +17,7 @@ import {
   Welcome,
 } from './routeImports';
 import { MainHeading } from '@myreactapp/modules/shared/ui';
+import { BackdropLoader } from '@myreactapp/modules/shared/ui';
 
 const {
   authLogin: { authenticated, registered },
@@ -34,6 +35,14 @@ export const CustomRoutes = () => {
             </Suspense>
           }
         >
+          <Route
+            path="/"
+            element={
+              <Suspense fallback={<BackdropLoader />}>
+                <Welcome />
+              </Suspense>
+            }
+          ></Route>
           <Route
             path="/listen"
             element={
@@ -119,7 +128,7 @@ export const CustomRoutes = () => {
           <Route
             path="/login"
             element={
-              <Suspense>
+              <Suspense fallback={<BackdropLoader />}>
                 <Login />
               </Suspense>
             }
@@ -142,7 +151,14 @@ export const CustomRoutes = () => {
           ></Route>
         </Route>
       )}
-      <Route path="*" element={<PageNotFound />} />
+      <Route
+        path="*"
+        element={
+          <Suspense fallback={<BackdropLoader />}>
+            <PageNotFound />
+          </Suspense>
+        }
+      />
     </Routes>
   );
 };

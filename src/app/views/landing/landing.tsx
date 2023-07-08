@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
-import {MainHeading, Navbar} from '@myreactapp/modules/shared/ui'
 
 /* eslint-disable-next-line */
 export interface LandingProps {}
@@ -14,7 +13,6 @@ const StyledLanding = styled.div`
 export function Landing(props: LandingProps) {
   return (
     <StyledLanding>
-        <Navbar></Navbar>
       <Grid height='100%' width='100vw' container >
       <Grid item
         flexDirection="column"
