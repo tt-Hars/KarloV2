@@ -12,15 +12,16 @@ const StyledRegister = styled.div`
 export function Register(props: RegisterProps) {
   return (
     <StyledRegister>
-      <h1>Welcome to Register!</h1>
+      <h1>Please register</h1>
       <Button
+        onClick={() => localStorage.setItem('registered', 'true')}
         component={Link}
-        to="/register"
+        to="/payment"
         size="large"
         variant="outlined"
         endIcon={<ArrowCircleRightOutlinedIcon />}
       >
-        Make payment
+        Register
       </Button>
     </StyledRegister>
   );

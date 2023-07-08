@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import {
   Dashboard,
   Landing,
@@ -15,13 +15,84 @@ import {
   Read,
   Plan,
   Welcome,
-} from './routeImports';
+} from './routing/routeImports';
 import { MainHeading } from '@myreactapp/modules/shared/ui';
 import { BackdropLoader } from '@myreactapp/modules/shared/ui';
+
+interface GuardedRouteProps {
+  /**
+   * Permission check for route
+   * @default false
+   */
+  authenticated?: boolean;
+  /**
+   * Permission check for route
+   * @default false
+   */
+  registered?: boolean;
+  /**
+   * Route to be redirected to
+   * @default '/'
+   */
+  redirectRoute?: string;
+}
 
 const {
   authLogin: { authenticated, registered },
 } = { authLogin: { authenticated: false, registered: false } };
+
+const routes = [
+  { path: '/welcome', component: Welcome, subscribed: false },
+  { path: '/login', component: Login, subscribed: false },
+  {
+    path: '/register',
+    component: Register,
+    subscribed: false,
+    registered: false,
+  },
+  {
+    path: '/payment',
+    component: Payment,
+    subscribed: false,
+    registered: true,
+  },
+  { path: '/watch', component: Watch, subscribed: true },
+  { path: '/listen', component: Listen, subscribed: true },
+  { path: '/feed', component: Feed, subscribed: true },
+  { path: '/shop', component: Shop, subscribed: true },
+  { path: '/write', component: Write, subscribed: true },
+  { path: '/read', component: Read, subscribed: true },
+  { path: '/plan', component: Plan, subscribed: true },
+];
+
+export const GuardedRoute = ({
+  authenticated = false,
+  registered = false,
+  redirectRoute = '/',
+}: GuardedRouteProps) =>
+  authenticated ? (
+    <Outlet />
+  ) : registered ? (
+    <Navigate to="/payment" replace />
+  ) : (
+    <Navigate to="/login" replace />
+  );
+
+export const AppRoutess = (
+  authState = { subscribed: false, registered: false }
+) => {
+  const { subscribed, registered } = authState;
+  <Routes>
+    <Route path="/" element={subscribed ? <Dashboard /> : <Landing />}>
+      {routes.map((route) => (
+        <GuardedRoute
+          authenticated={subscribed}
+          registered={registered}
+        ></GuardedRoute>
+      ))}
+    </Route>
+  </Routes>;
+};
 
 export const CustomRoutes = () => {
   return (
@@ -30,7 +101,7 @@ export const CustomRoutes = () => {
         <Route
           path="/"
           element={
-            <Suspense>
+            <Suspense fallback={<BackdropLoader />}>
               <Dashboard />
             </Suspense>
           }
@@ -46,7 +117,7 @@ export const CustomRoutes = () => {
           <Route
             path="/listen"
             element={
-              <Suspense>
+              <Suspense fallback={<BackdropLoader />}>
                 <Listen />
               </Suspense>
             }
@@ -54,7 +125,7 @@ export const CustomRoutes = () => {
           <Route
             path="/watch"
             element={
-              <Suspense>
+              <Suspense fallback={<BackdropLoader />}>
                 <Watch />
               </Suspense>
             }
@@ -62,7 +133,7 @@ export const CustomRoutes = () => {
           <Route
             path="/plan"
             element={
-              <Suspense>
+              <Suspense fallback={<BackdropLoader />}>
                 <Plan />
               </Suspense>
             }
@@ -70,7 +141,7 @@ export const CustomRoutes = () => {
           <Route
             path="/read"
             element={
-              <Suspense>
+              <Suspense fallback={<BackdropLoader />}>
                 <Read />
               </Suspense>
             }
@@ -78,7 +149,7 @@ export const CustomRoutes = () => {
           <Route
             path="/write"
             element={
-              <Suspense>
+              <Suspense fallback={<BackdropLoader />}>
                 <Write />
               </Suspense>
             }
@@ -86,7 +157,7 @@ export const CustomRoutes = () => {
           <Route
             path="/shop"
             element={
-              <Suspense>
+              <Suspense fallback={<BackdropLoader />}>
                 <Shop />
               </Suspense>
             }
@@ -94,7 +165,7 @@ export const CustomRoutes = () => {
           <Route
             path="/feed"
             element={
-              <Suspense>
+              <Suspense fallback={<BackdropLoader />}>
                 <Feed />
               </Suspense>
             }
@@ -104,7 +175,7 @@ export const CustomRoutes = () => {
         <Route
           path="/"
           element={
-            <Suspense>
+            <Suspense fallback={<BackdropLoader />}>
               <Landing />
             </Suspense>
           }
@@ -112,7 +183,7 @@ export const CustomRoutes = () => {
           <Route
             path="/"
             element={
-              <Suspense>
+              <Suspense fallback={<BackdropLoader />}>
                 <MainHeading />
               </Suspense>
             }
@@ -120,7 +191,7 @@ export const CustomRoutes = () => {
           <Route
             path="/welcome"
             element={
-              <Suspense>
+              <Suspense fallback={<BackdropLoader />}>
                 <Welcome />
               </Suspense>
             }
@@ -136,7 +207,7 @@ export const CustomRoutes = () => {
           <Route
             path="register"
             element={
-              <Suspense>
+              <Suspense fallback={<BackdropLoader />}>
                 <Register />
               </Suspense>
             }
@@ -144,7 +215,7 @@ export const CustomRoutes = () => {
           <Route
             path="payment"
             element={
-              <Suspense>
+              <Suspense fallback={<BackdropLoader />}>
                 <Payment />
               </Suspense>
             }

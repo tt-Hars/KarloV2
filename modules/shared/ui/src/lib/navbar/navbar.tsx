@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { Typography } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from 'react-router-dom';
+import { useRef } from 'react';
 
 /* eslint-disable-next-line */
 export interface NavbarProps {}
@@ -34,6 +35,7 @@ const FooterText = styled.span`
 `;
 
 export function Navbar(props: NavbarProps) {
+  const isAuthenticated = useRef<string>(localStorage.getItem('authenticated'));
   return (
     <StyledNavbar>
       <HomeIcon>
@@ -48,17 +50,31 @@ export function Navbar(props: NavbarProps) {
           </Typography>
         </Link>
       </HomeIcon>
-      <Link to="/login">
-        <UserAvatar>
-          <AccountCircleIcon fontSize="large" />
-        </UserAvatar>
-      </Link>
+      {isAuthenticated.current === 'true' ? (
+        <Link to="/"
+          onClick={() => {
+            console.log('here')
+            localStorage.setItem('authenticated', 'false');
+          }}>
+          <UserAvatar>
+            <AccountCircleIcon fontSize="large" />
+          </UserAvatar>
+        </Link>
+      ) : (
+        <Link to="/login">
+          <UserAvatar>
+            <AccountCircleIcon fontSize="large" />
+          </UserAvatar>
+        </Link>
+      )}
       <FooterText>
         <Typography fontWeight="light" variant="h5" component="h2">
           <span>Made with&nbsp;</span>
         </Typography>
         <FavoriteIcon fontSize="large" color="primary" />
-        <Typography fontWeight="light" variant="h5" component="h3">&nbsp;in भारत </Typography>
+        <Typography fontWeight="light" variant="h5" component="h3">
+          &nbsp;in भारत{' '}
+        </Typography>
       </FooterText>
     </StyledNavbar>
   );

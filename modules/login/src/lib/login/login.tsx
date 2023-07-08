@@ -13,19 +13,16 @@ const StyledLogin = styled.div`
 export function Login(props: LoginProps) {
   return (
     <StyledLogin>
-      <h1>Welcome to Login!</h1>
-      <Button
-        component={Link}
-        color="secondary"
-        to="/register"
-        size="large"
-        endIcon={<ArrowCircleRightOutlinedIcon />}
-      >
+      <h1>Please register or login</h1>
+      <Button component={Link} color="secondary" to="/register" size="large">
         Register
       </Button>
       <Button
+        onClick={() => {
+          localStorage.setItem('authenticated', 'true');
+        }}
         component={Link}
-        to="/welcome"
+        to="/"
         variant="outlined"
         size="large"
         endIcon={<ArrowCircleRightOutlinedIcon />}
