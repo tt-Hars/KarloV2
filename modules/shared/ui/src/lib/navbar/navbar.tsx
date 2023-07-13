@@ -1,9 +1,11 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import styled from '@emotion/styled';
-import { Typography } from '@mui/material';
+import { Paper, Typography } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from 'react-router-dom';
 import { useRef } from 'react';
+import {useLocalStorageManager} from '@myreactapp/modules/shared/hooks'
+import CustomizedMenu from '../customized-menu/customized-menu'
 
 /* eslint-disable-next-line */
 export interface NavbarProps {}
@@ -35,7 +37,9 @@ const FooterText = styled.span`
 `;
 
 export function Navbar(props: NavbarProps) {
-  const isAuthenticated = useRef<string>(localStorage.getItem('authenticated'));
+  const isAuthenticated = useLocalStorageManager('authenticated', false)
+  const isRegistered = useLocalStorageManager('registered', false)
+  const isSubscribed = useLocalStorageManager('subscribed', false)
   return (
     <StyledNavbar>
       <HomeIcon>
@@ -50,16 +54,20 @@ export function Navbar(props: NavbarProps) {
           </Typography>
         </Link>
       </HomeIcon>
-      {isAuthenticated.current === 'true' ? (
+      {isAuthenticated.value === true ? (
+        <Paper>
         <Link to="/"
           onClick={() => {
             console.log('here')
-            localStorage.removeItem('authenticated');
+            isAuthenticated.action(false)
+            isRegistered.action(false)
+            isSubscribed.action(false)
           }}>
           <UserAvatar>
             <AccountCircleIcon fontSize="large" />
           </UserAvatar>
         </Link>
+        </Paper>
       ) : (
         <Link to="/login">
           <UserAvatar>

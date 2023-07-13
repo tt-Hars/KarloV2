@@ -1,3 +1,4 @@
+export * from './lib/customized-menu/customized-menu';
 export * from './lib/tiles-list/tiles-list';
 export * from './lib/tile-card/tile-card';
 export * from './lib/navbar/navbar';
