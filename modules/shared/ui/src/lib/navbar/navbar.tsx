@@ -54,7 +54,7 @@ export function Navbar(props: NavbarProps) {
         <Link to="/"
           onClick={() => {
             console.log('here')
-            localStorage.setItem('authenticated', 'false');
+            localStorage.removeItem('authenticated');
           }}>
           <UserAvatar>
             <AccountCircleIcon fontSize="large" />
