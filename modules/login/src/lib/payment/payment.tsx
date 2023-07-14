@@ -17,31 +17,36 @@ export function Payment(props: PaymentProps) {
   const isSubscribed = useLocalStorageManager('subscribed', false);
   return (
     <StyledPayment>
-      <h1>You've successfully registered, please make the payment</h1>
       {isRegistered.value ? (
-        <Button
-          onClick={() => {
-            isSubscribed.action(true);
-            isAuthenticated.action(true);
-          }}
-          component={Link}
-          to="/dashboard"
-          size="large"
-          variant="outlined"
-          endIcon={<ArrowCircleRightOutlinedIcon />}
-        >
-          Pay
-        </Button>
+        <>
+          <h1>You've successfully registered, please make the payment</h1>
+          <Button
+            onClick={() => {
+              isAuthenticated.action(true);
+              isSubscribed.action(true);
+            }}
+            component={Link}
+            to="/home"
+            size="large"
+            variant="outlined"
+            endIcon={<ArrowCircleRightOutlinedIcon />}
+          >
+            Pay
+          </Button>
+        </>
       ) : (
-        <Button
-          component={Link}
-          to="/register"
-          size="large"
-          variant="outlined"
-          endIcon={<ArrowCircleRightOutlinedIcon />}
-        >
-          Register
-        </Button>
+        <>
+          <h1>You need to register before payment</h1>
+          <Button
+            component={Link}
+            to="/register"
+            size="large"
+            variant="outlined"
+            endIcon={<ArrowCircleRightOutlinedIcon />}
+          >
+            Register
+          </Button>
+        </>
       )}
     </StyledPayment>
   );

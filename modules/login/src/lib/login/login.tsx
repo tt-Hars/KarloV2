@@ -13,6 +13,8 @@ const StyledLogin = styled.div`
 
 export function Login(props: LoginProps) {
   const isAuthenticated = useLocalStorageManager('authenticated', false)
+  const isRegistered = useLocalStorageManager('registered', false)
+  const isSubscribed = useLocalStorageManager('subscribed', false)
   return (
     <StyledLogin>
       <h1>Please register or login</h1>
@@ -22,9 +24,11 @@ export function Login(props: LoginProps) {
       <Button
         onClick={() => {
           isAuthenticated.action()
+          isRegistered.action()
+          isSubscribed.action()
         }}
         component={Link}
-        to="/"
+        to="/home"
         variant="outlined"
         size="large"
         endIcon={<ArrowCircleRightOutlinedIcon />}

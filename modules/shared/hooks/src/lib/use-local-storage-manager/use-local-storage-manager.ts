@@ -2,7 +2,7 @@ import { useLocalStorage } from 'usehooks-ts';
 
 export function useLocalStorageManager(
   initialValue: string,
-  stateVal: boolean
+  stateVal?: boolean
 ) {
   const [value, setValue] = useLocalStorage(`${initialValue}`, stateVal);
 

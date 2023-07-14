@@ -16,21 +16,35 @@ interface GuardedRouteProps {
    * @default false
    */
   registered?: boolean;
+  /**
+   * Route to be redirected to
+   * @default false
+   */
+  subscribed?: boolean;
 }
 
 const GuardedRoutePrivate = ({
   authenticated = false,
   redirectRoute = '/login',
-  registered=false
+  registered=false,
+  subscribed=false
 }: GuardedRouteProps) => {
-  console.log(authenticated);
-  return authenticated ? (
-    <Outlet />
-  ) : registered ? (
+
+  if(authenticated && subscribed) {
+    return <Outlet></Outlet>
+  } else if(authenticated || registered) {
     <Navigate to="/payment" replace />
-  ) : (
-    <Navigate to={redirectRoute} replace />
-  );
+  } else {
+    <Navigate to="/login" replace />
+  }
+
+  // return authenticated ? (
+  //   <Outlet />
+  // ) : registered ? (
+  //   <Navigate to="/payment" replace />
+  // ) : (
+  //   <Navigate to={redirectRoute} replace />
+  // );
 };
 
 export default GuardedRoutePrivate;

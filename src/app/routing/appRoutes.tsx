@@ -4,11 +4,12 @@ import {
   privateRoutesList,
   publicRoutesList,
 } from './routesConfig';
-import { Dashboard, Landing } from './routeImports';
+import { Dashboard, Landing, PageNotFound } from './routeImports';
 import { Suspense } from 'react';
 import { BackdropLoader } from '@myreactapp/modules/shared/ui';
 import GuardedRoutePublic from './guards/publicRouteGuard';
 import GuardedRoutePrivate from './guards/privateRouteGuard';
+import { useLocalStorageManager } from '@myreactapp/modules/shared/hooks';
 
 export const renderRouteWithChildren = (
   routes: RouteWithChildrenInterface[]
@@ -27,15 +28,21 @@ export const renderRouteWithChildren = (
 };
 
 export const AppRoutes = () => {
-  const isAuthenticated = localStorage.getItem('authenticated') === 'true';
-  const isRegistered = localStorage.getItem('registered') === 'true';
-  console.log(isAuthenticated, isRegistered)
+  const isAuthenticated = useLocalStorageManager('authenticated');
+  const isRegistered = useLocalStorageManager('registered');
+  const isSubscribed = useLocalStorageManager('subscribed');
+  console.log(
+    'these are the states:::',
+    isAuthenticated,
+    isRegistered,
+    isSubscribed
+  );
   return (
     <Routes>
       <Route
         path="/"
         element={
-          isAuthenticated ? (
+          isAuthenticated.value && isSubscribed.value ? (
             <Suspense fallback={<BackdropLoader />}>
               <Dashboard />
             </Suspense>
@@ -48,20 +55,36 @@ export const AppRoutes = () => {
       >
         <Route
           element={
-            <GuardedRoutePrivate authenticated={isAuthenticated} redirectRoute="/login" />
+            <GuardedRoutePrivate
+              authenticated={isAuthenticated.value}
+              registered={isRegistered.value}
+              subscribed={isSubscribed.value}
+              redirectRoute="/login"
+            />
           }
         >
           {renderRouteWithChildren(privateRoutesList)}
         </Route>
         <Route
           element={
-            <GuardedRoutePublic authenticated={isAuthenticated} registered={isRegistered} />
+            <GuardedRoutePublic
+              authenticated={isAuthenticated.value}
+              registered={isRegistered.value}
+              subscribed={isSubscribed.value}
+            />
           }
         >
           {renderRouteWithChildren(publicRoutesList)}
         </Route>
-        
       </Route>
+      <Route
+        path="*"
+        element={
+          <Suspense fallback={<BackdropLoader />}>
+            <PageNotFound />
+          </Suspense>
+        }
+      />
     </Routes>
   );
 };

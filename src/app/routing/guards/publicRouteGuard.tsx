@@ -11,6 +11,11 @@ interface GuardedRouteProps {
    * @default false
    */
   registered?: boolean;
+  /**
+   * Route to be redirected to
+   * @default false
+   */
+  subscribed?: boolean;
 }
 
 const GuardedRoutePublic = ({

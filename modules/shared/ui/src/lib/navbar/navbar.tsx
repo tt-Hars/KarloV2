@@ -58,7 +58,7 @@ export function Navbar(props: NavbarProps) {
         <Paper>
         <Link to="/"
           onClick={() => {
-            console.log('here')
+            console.log('!!logged out!!')
             isAuthenticated.action(false)
             isRegistered.action(false)
             isSubscribed.action(false)

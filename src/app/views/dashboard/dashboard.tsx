@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 
 /* eslint-disable-next-line */
@@ -24,6 +24,7 @@ export function Dashboard(props: DashboardProps) {
           justifyContent="center"
           bgcolor="#eee"
         >
+          <Typography variant='h4'>Weclome, User!</Typography>
           <Outlet></Outlet>
         </Grid>
       </Grid>
