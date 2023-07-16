@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import { Box, Grid, Typography } from '@mui/material';
-import { iModuleDetails } from '@myreactapp/modules/shared/models';
 import { TilesList } from '@myreactapp/modules/shared/ui';
 import { moduleDetails } from 'src/app/moduleDetails';
 

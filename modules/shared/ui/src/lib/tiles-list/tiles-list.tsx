@@ -1,9 +1,22 @@
 import styled from '@emotion/styled';
 import { Grid } from '@mui/material';
-import { iRoute } from '@myreactapp/modules/shared/models';
 import TileCard from '../tile-card/tile-card';
 
 /* eslint-disable-next-line */
+
+export interface iModuleDetails {
+  route: string;
+  meta: Array<string>;
+}
+
+export interface iRoute {
+  route: string;
+}
+
+export interface iCategoricalClassification {
+  category: Array<string>;
+}
+
 export interface TilesListProps {
   routes: iRoute[];
 }

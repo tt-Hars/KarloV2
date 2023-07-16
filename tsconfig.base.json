@@ -22,7 +22,7 @@
       "@myreactapp/modules/planner": ["modules/planner/src/index.ts"],
       "@myreactapp/modules/reader": ["modules/reader/src/index.ts"],
       "@myreactapp/modules/shared/hooks": ["modules/shared/hooks/src/index.ts"],
-      "@myreactapp/modules/shared/models": ["modules/shared/models/index.ts"],
+      // "@myreactapp/modules/shared/models": ["modules/shared/models/index.ts"],
       "@myreactapp/modules/shared/store": ["modules/shared/store/src/index.ts"],
       "@myreactapp/modules/shared/ui": ["modules/shared/ui/src/index.ts"],
       "@myreactapp/modules/shop": ["modules/shop/src/index.ts"],
