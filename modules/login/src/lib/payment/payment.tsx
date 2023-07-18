@@ -26,7 +26,7 @@ export function Payment(props: PaymentProps) {
               isSubscribed.action(true);
             }}
             component={Link}
-            to="/home"
+            to="/"
             size="large"
             variant="outlined"
             endIcon={<ArrowCircleRightOutlinedIcon />}

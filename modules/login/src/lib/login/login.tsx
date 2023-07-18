@@ -28,7 +28,7 @@ export function Login(props: LoginProps) {
           isSubscribed.action()
         }}
         component={Link}
-        to="/home"
+        to="/"
         variant="outlined"
         size="large"
         endIcon={<ArrowCircleRightOutlinedIcon />}

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import './styles.css';
 import { Navbar} from '@myreactapp/modules/shared/ui'
-import { AppRoutes } from './routing/appRoutes';
+import { AppRoutes } from './routing/routes';
 
 const StyledApp = styled.div`
   // Your style here

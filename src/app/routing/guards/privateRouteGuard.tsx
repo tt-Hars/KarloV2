@@ -30,13 +30,13 @@ const GuardedRoutePrivate = ({
   subscribed=false
 }: GuardedRouteProps) => {
 
-  if(authenticated && subscribed) {
+  // if(authenticated && subscribed) {
     return <Outlet></Outlet>
-  } else if(authenticated || registered) {
-    <Navigate to="/payment" replace />
-  } else {
-    <Navigate to="/login" replace />
-  }
+  // } else if(authenticated && !subscribed) {
+  //   <Navigate to="/payment" replace />
+  // } else {
+  //   <Navigate to="/login" replace />
+  // }
 
   // return authenticated ? (
   //   <Outlet />

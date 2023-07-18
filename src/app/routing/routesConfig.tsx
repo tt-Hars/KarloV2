@@ -22,62 +22,102 @@ interface RouteInterface {
 
 export interface RouteWithChildrenInterface extends RouteInterface {
   children?: RouteWithChildrenInterface[];
+  redirect?: string,
+  authRequired?: boolean,
+  subscriptionRequired?: boolean
 }
 
 export const publicRoutesList: RouteWithChildrenInterface[] = [
   {
     element: <MainHeading />,
     path: '/',
+    authRequired: false,
+    subscriptionRequired: false
   },
   {
     element: <Welcome />,
     path: '/welcome',
+    authRequired: false,
+    subscriptionRequired: false
   },
   {
     element: <Login />,
     path: '/login',
+    authRequired: false,
+    subscriptionRequired: false,
+    redirect: '/',
   },
   {
     element: <Register />,
     path: '/register',
-  },
-  {
-    element: <Payment />,
-    path: '/payment',
-  },
+    authRequired: false,
+    subscriptionRequired: false,
+    redirect: '/',
+  }
 ];
 
 export const privateRoutesList: RouteWithChildrenInterface[] = [
   {
     element: <Welcome />,
     path: '/home',
+    authRequired: true,
+    subscriptionRequired: true,
+    redirect: '/login',
+  },
+  {
+    element: <Payment />,
+    path: '/payment',
+    authRequired: true,
+    subscriptionRequired: false,
+    redirect: '/login',
   },
   {
     element: <Read />,
     path: '/read',
+    redirect: '/login',
+    authRequired: true,
+    subscriptionRequired: true
   },
   {
     element: <Write />,
     path: '/write',
+    redirect: '/login',
+    authRequired: true,
+    subscriptionRequired: true
   },
   {
     element: <Plan />,
     path: '/plan',
+    redirect: '/login',
+    authRequired: true,
+    subscriptionRequired: true
   },
   {
     element: <Listen />,
     path: '/listen',
+    redirect: '/login',
+    authRequired: true,
+    subscriptionRequired: true
   },
   {
     element: <Watch />,
     path: '/watch',
+    redirect: '/login',
+    authRequired: true,
+    subscriptionRequired: true
   },
   {
     element: <Feed />,
     path: '/feed',
+    redirect: '/login',
+    authRequired: true,
+    subscriptionRequired: true
   },
   {
     element: <Shop />,
     path: '/shop',
+    redirect: '/login',
+    authRequired: true,
+    subscriptionRequired: true
   },
 ];

@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, redirect } from 'react-router-dom';
 import {
   RouteWithChildrenInterface,
   privateRoutesList,
@@ -11,8 +11,30 @@ import GuardedRoutePublic from './guards/publicRouteGuard';
 import GuardedRoutePrivate from './guards/privateRouteGuard';
 import { useLocalStorageManager } from '@myreactapp/modules/shared/hooks';
 
-export const renderRouteWithChildren = (
-  routes: RouteWithChildrenInterface[]
+const loaderFnPr = (
+  route: RouteWithChildrenInterface,
+  auth = false,
+  subscribed = false
+) => {
+  if (auth === true && subscribed === true)
+    throw redirect(route.redirect ?? route.path);
+  return undefined;
+};
+
+const loaderFnPb = (
+  route: RouteWithChildrenInterface,
+  auth = false,
+  subscribed = false
+) => {
+  if (auth === false && subscribed === false)
+    throw redirect(route.redirect ?? route.path);
+  return undefined;
+};
+
+export const renderRouteWithChildrenPb = (
+  routes: RouteWithChildrenInterface[],
+  auth = false,
+  subscribed = false
 ) => {
   return routes.map((route, index) => (
     <Route
@@ -21,8 +43,40 @@ export const renderRouteWithChildren = (
       element={
         <Suspense fallback={<BackdropLoader />}>{route.element}</Suspense>
       }
+      loader={async () => {
+        if (
+          auth === false &&
+          subscribed === false
+        )
+          throw redirect(route.redirect ?? route.path);
+        return null;
+      }}
     >
-      {/* {route.children && renderRouteWithChildren(route.children)} */}
+    </Route>
+  ));
+};
+
+export const renderRouteWithChildrenPr = (
+  routes: RouteWithChildrenInterface[],
+  auth = false,
+  subscribed = false
+) => {
+  return routes.map((route, index) => (
+    <Route
+      key={index}
+      path={route.path}
+      element={
+        <Suspense fallback={<BackdropLoader />}>{route.element}</Suspense>
+      }
+      loader={async () => {
+        if (
+          auth === true &&
+          subscribed === false
+        )
+          throw redirect(route.redirect ?? route.path);
+        return null;
+      }}
+    >
     </Route>
   ));
 };
@@ -63,7 +117,11 @@ export const AppRoutes = () => {
             />
           }
         >
-          {renderRouteWithChildren(privateRoutesList)}
+          {renderRouteWithChildrenPr(
+            privateRoutesList,
+            isAuthenticated.value,
+            isSubscribed.value
+          )}
         </Route>
         <Route
           element={
@@ -74,7 +132,11 @@ export const AppRoutes = () => {
             />
           }
         >
-          {renderRouteWithChildren(publicRoutesList)}
+          {renderRouteWithChildrenPb(
+            publicRoutesList,
+            isAuthenticated.value,
+            isSubscribed.value
+          )}
         </Route>
       </Route>
       <Route

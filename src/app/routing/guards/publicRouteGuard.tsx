@@ -21,13 +21,13 @@ interface GuardedRouteProps {
 const GuardedRoutePublic = ({
   authenticated = false,
   registered = false,
-}: GuardedRouteProps) =>
-  !authenticated ? (
-    <Outlet />
-  ) : registered ? (
-    <Navigate to="/payment" replace />
-  ) : (
-    <Navigate to="/login" replace />
-  );
+}: GuardedRouteProps) => <Outlet />;
+// !authenticated ? (
+//
+// ) : registered ? (
+//   <Navigate to="/login" replace />
+// ) : (
+//   <Navigate to="/login" replace />
+// );
 
 export default GuardedRoutePublic;

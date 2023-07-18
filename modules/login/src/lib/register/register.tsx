@@ -18,7 +18,7 @@ export function Register(props: RegisterProps) {
       <Button
         onClick={() => isRegistered.action(true)}
         component={Link}
-        to="/payment"
+        to="/login"
         size="large"
         variant="outlined"
         endIcon={<ArrowCircleRightOutlinedIcon />}
