@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 import { useLocalStorageManager } from '@myreactapp/modules/shared/hooks';
 
@@ -12,21 +12,21 @@ const StyledPayment = styled.div`
 `;
 
 export function Payment(props: PaymentProps) {
+  const location = useLocation()
+  console.log(location.state)
   const isAuthenticated = useLocalStorageManager('authenticated', false);
   const isRegistered = useLocalStorageManager('registered', false);
   const isSubscribed = useLocalStorageManager('subscribed', false);
   return (
     <StyledPayment>
-      {isRegistered.value ? (
         <>
           <h1>You've successfully registered, please make the payment</h1>
           <Button
             onClick={() => {
-              isAuthenticated.action(true);
               isSubscribed.action(true);
             }}
             component={Link}
-            to="/"
+            to={location.state ?? '/'}
             size="large"
             variant="outlined"
             endIcon={<ArrowCircleRightOutlinedIcon />}
@@ -34,20 +34,6 @@ export function Payment(props: PaymentProps) {
             Pay
           </Button>
         </>
-      ) : (
-        <>
-          <h1>You need to register before payment</h1>
-          <Button
-            component={Link}
-            to="/register"
-            size="large"
-            variant="outlined"
-            endIcon={<ArrowCircleRightOutlinedIcon />}
-          >
-            Register
-          </Button>
-        </>
-      )}
     </StyledPayment>
   );
 }

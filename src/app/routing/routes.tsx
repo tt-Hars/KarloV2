@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 import {
   Dashboard,
@@ -22,14 +22,30 @@ import { BackdropLoader } from '@myreactapp/modules/shared/ui';
 import { useLocalStorageManager } from '@myreactapp/modules/shared/hooks';
 
 export const PrivateRoute = (props: { children: EmotionJSX.Element }) => {
+  const location = useLocation();
   const { children } = props;
   const isAuthenticated = useLocalStorageManager('authenticated');
   const isSubscribed = useLocalStorageManager('subscribed');
 
-  return isAuthenticated.value && isSubscribed.value === true ? (
+  return isAuthenticated.value === true ? (
+    children
+  ) : location.pathname === '/' ? (
+    <Navigate to="/hello" replace />
+  ) : (
+    <Navigate to="/login" replace state={location.pathname} />
+  );
+};
+
+export const SubscribedRoute = (props: { children: EmotionJSX.Element }) => {
+  const location = useLocation();
+  const { children } = props;
+  const isAuthenticated = useLocalStorageManager('authenticated');
+  const isSubscribed = useLocalStorageManager('subscribed');
+
+  return isAuthenticated.value === true && isSubscribed.value === true ? (
     children
   ) : (
-    <Navigate to="/hello" replace />
+    <Navigate to="/payment" replace state={location.pathname} />
   );
 };
 
@@ -55,10 +71,20 @@ export const AppRoutes = () => {
           }
         ></Route>
         <Route
+          path="payment"
+          element={
+            <Suspense fallback={<BackdropLoader />}>
+              <Payment />
+            </Suspense>
+          }
+        ></Route>
+        <Route
           path="/listen"
           element={
             <Suspense fallback={<BackdropLoader />}>
-              <Listen />
+              <SubscribedRoute>
+                <Listen />
+              </SubscribedRoute>
             </Suspense>
           }
         />
@@ -66,7 +92,9 @@ export const AppRoutes = () => {
           path="/watch"
           element={
             <Suspense fallback={<BackdropLoader />}>
-              <Watch />
+              <SubscribedRoute>
+                <Watch />
+              </SubscribedRoute>
             </Suspense>
           }
         />
@@ -74,7 +102,9 @@ export const AppRoutes = () => {
           path="/plan"
           element={
             <Suspense fallback={<BackdropLoader />}>
-              <Plan />
+              <SubscribedRoute>
+                <Plan />
+              </SubscribedRoute>
             </Suspense>
           }
         />
@@ -82,7 +112,9 @@ export const AppRoutes = () => {
           path="/read"
           element={
             <Suspense fallback={<BackdropLoader />}>
-              <Read />
+              <SubscribedRoute>
+                <Read />
+              </SubscribedRoute>
             </Suspense>
           }
         />
@@ -90,7 +122,9 @@ export const AppRoutes = () => {
           path="/write"
           element={
             <Suspense fallback={<BackdropLoader />}>
-              <Write />
+              <SubscribedRoute>
+                <Write />
+              </SubscribedRoute>
             </Suspense>
           }
         />
@@ -98,7 +132,9 @@ export const AppRoutes = () => {
           path="/shop"
           element={
             <Suspense fallback={<BackdropLoader />}>
-              <Shop />
+              <SubscribedRoute>
+                <Shop />
+              </SubscribedRoute>
             </Suspense>
           }
         />
@@ -106,7 +142,9 @@ export const AppRoutes = () => {
           path="/feed"
           element={
             <Suspense fallback={<BackdropLoader />}>
-              <Feed />
+              <SubscribedRoute>
+                <Feed />
+              </SubscribedRoute>
             </Suspense>
           }
         />
@@ -147,14 +185,6 @@ export const AppRoutes = () => {
           element={
             <Suspense fallback={<BackdropLoader />}>
               <Register />
-            </Suspense>
-          }
-        ></Route>
-        <Route
-          path="payment"
-          element={
-            <Suspense fallback={<BackdropLoader />}>
-              <Payment />
             </Suspense>
           }
         ></Route>
