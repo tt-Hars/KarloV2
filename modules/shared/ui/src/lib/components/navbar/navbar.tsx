@@ -99,7 +99,7 @@ export function Navbar(props: NavbarProps) {
         </Typography>
         <FavoriteIcon fontSize="large" color="primary" />
         <Typography fontWeight="light" variant="h5" component="h3">
-          &nbsp;in भारत{' '}
+        &nbsp;{' in भारत'}
         </Typography>
       </FooterText>
     </StyledNavbar>

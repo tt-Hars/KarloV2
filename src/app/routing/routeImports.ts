@@ -10,7 +10,7 @@ export const Payment = lazy(
   () => import('modules/login/src/lib/payment/payment')
 );
 export const MainHeading = lazy(
-  () => import ('modules/shared/ui/src/lib/main-heading/main-heading')
+  () => import ('modules/shared/ui/src/lib/components/main-heading/main-heading')
 )
 
 //Post Login
