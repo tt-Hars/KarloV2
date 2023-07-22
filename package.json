@@ -4,8 +4,9 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
-    "build": "nx build",
-    "test": "nx test"
+    "build": "nx build && add_redirect",
+    "test": "nx test",
+    "add_redirect": "cp ./_redirect  ./dist/myreactapp"
   },
   "private": true,
   "dependencies": {
