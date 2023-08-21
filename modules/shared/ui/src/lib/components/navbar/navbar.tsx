@@ -18,6 +18,7 @@ const UserAvatar = styled.span`
   position: absolute;
   top: 2.5rem;
   right: 2.5rem;
+  z-index: 2;
 `;
 
 const HomeIcon = styled.span`
@@ -25,6 +26,7 @@ const HomeIcon = styled.span`
   position: absolute;
   top: 2.5rem;
   left: 2.5rem;
+  z-index: 2;
 `;
 
 const FooterText = styled.span`
@@ -34,6 +36,7 @@ const FooterText = styled.span`
   transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
+  z-index: 2;
 `;
 
 export function Navbar(props: NavbarProps) {
@@ -67,7 +70,10 @@ export function Navbar(props: NavbarProps) {
               }}
             >
               <UserAvatar>
-                <AccountCircleIcon fontSize="large" />
+                <AccountCircleIcon
+                  style={{ color: 'green' }}
+                  fontSize="large"
+                />
               </UserAvatar>
             </Link>
           </Paper>
@@ -94,12 +100,22 @@ export function Navbar(props: NavbarProps) {
         </>
       )}
       <FooterText>
-        <Typography fontWeight="light" variant="h5" component="h2">
+        <Typography
+          color="secondary"
+          fontWeight="light"
+          variant="h5"
+          component="h2"
+        >
           <span>Made with&nbsp;</span>
         </Typography>
         <FavoriteIcon fontSize="large" color="primary" />
-        <Typography fontWeight="light" variant="h5" component="h3">
-        &nbsp;{' in भारत'}
+        <Typography
+          color="secondary"
+          fontWeight="light"
+          variant="h5"
+          component="h3"
+        >
+          &nbsp;{' in भारत'}
         </Typography>
       </FooterText>
     </StyledNavbar>

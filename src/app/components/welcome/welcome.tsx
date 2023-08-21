@@ -46,7 +46,7 @@ export function Welcome(props: WelcomeProps) {
         spacing={10}
       >
         {categoryRoutes.map((category, index) => (
-          <Grid item xs={12} key={index} display='flex' flexDirection='column'>
+          <Grid item sx={{paddingTop: '15px !important'}} xs={12} key={index} display='flex' flexDirection='column'>
             <Typography variant='h4' my='1rem'>{categorykeys[index]}</Typography>
             <TilesList routes={category}></TilesList>
           </Grid>

@@ -21,7 +21,7 @@ export function Landing(props: LandingProps) {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        bgcolor="#eee"
+        bgcolor="background.default"
       >
         <Outlet></Outlet>
       </Grid>

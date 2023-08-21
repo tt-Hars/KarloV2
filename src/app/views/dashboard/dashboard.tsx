@@ -31,7 +31,7 @@ export function Dashboard(props: DashboardProps) {
           display="flex"
           alignItems="center"
           justifyContent="center"
-          bgcolor="#eee"
+          bgcolor="background.default"
         >
           <Typography variant='h4'>Weclome, User!</Typography>
           <Outlet></Outlet>
