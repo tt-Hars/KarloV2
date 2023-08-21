@@ -70,10 +70,7 @@ export function Navbar(props: NavbarProps) {
               }}
             >
               <UserAvatar>
-                <AccountCircleIcon
-                  style={{ color: 'green' }}
-                  fontSize="large"
-                />
+                <AccountCircleIcon color="secondary" fontSize="large" />
               </UserAvatar>
             </Link>
           </Paper>
@@ -94,7 +91,7 @@ export function Navbar(props: NavbarProps) {
           </HomeIcon>
           <Link to="/login">
             <UserAvatar>
-              <AccountCircleIcon fontSize="large" />
+              <AccountCircleIcon color="secondary" fontSize="large" />
             </UserAvatar>
           </Link>
         </>
