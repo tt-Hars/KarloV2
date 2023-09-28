@@ -4,13 +4,20 @@ import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOu
 import { Link } from 'react-router-dom';
 
 import Typewriter from 'typewriter-effect';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 /* eslint-disable-next-line */
 export interface MainHeadingProps {}
 
 export function MainHeading(props: MainHeadingProps) {
   const headingRef = useRef(null);
+  const [strings, setStrings] = useState([
+    'कुछ करें।',
+    'Do Something.',
+    'Etwas Tun.',
+    'Hacer Algo.',
+    '何かをしてください。',
+  ]);
   return (
     <>
       <Typography
@@ -28,13 +35,7 @@ export function MainHeading(props: MainHeadingProps) {
           options={{
             loop: true,
             delay: 75,
-            strings: [
-              'कुछ करें।',
-              'Do Something.',
-              'Etwas Tun.',
-              'Hacer Algo.',
-              '何かをしてください。',
-            ],
+            strings,
             autoStart: true,
           }}
         />

@@ -9,13 +9,26 @@ import ArchiveIcon from '@mui/icons-material/Archive';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Link } from 'react-router-dom';
+import { useLocalStorageManager } from '@myreactapp/modules/shared/hooks';
+import { IconButton } from '@mui/material';
+
+const UserAvatar = styled('span')`
+  height: 2rem;
+  width: 2rem;
+  position: absolute;
+  top: 2.5rem;
+  right: 2.5rem;
+  z-index: 2;
+`;
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
     elevation={0}
     anchorOrigin={{
       vertical: 'bottom',
-      horizontal: 'right',
+      horizontal: 'left',
     }}
     transformOrigin={{
       vertical: 'top',
@@ -29,7 +42,9 @@ const StyledMenu = styled((props: MenuProps) => (
     marginTop: theme.spacing(1),
     minWidth: 180,
     color:
-      theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
+      theme.palette.mode === 'light'
+        ? 'rgb(55, 65, 81)'
+        : theme.palette.grey[300],
     boxShadow:
       'rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px',
     '& .MuiMenu-list': {
@@ -44,7 +59,7 @@ const StyledMenu = styled((props: MenuProps) => (
       '&:active': {
         backgroundColor: alpha(
           theme.palette.primary.main,
-          theme.palette.action.selectedOpacity,
+          theme.palette.action.selectedOpacity
         ),
       },
     },
@@ -52,29 +67,47 @@ const StyledMenu = styled((props: MenuProps) => (
 }));
 
 function CustomizedMenu() {
+  const isAuthenticated = useLocalStorageManager('authenticated', false);
+  const isRegistered = useLocalStorageManager('registered', false);
+  const isSubscribed = useLocalStorageManager('subscribed', false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl2, setAnchorEl2] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const open2 = Boolean(anchorEl2);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
+    if (isAuthenticated.value === true) {
+      console.log('!!logged out!!');
+      isAuthenticated.action(false);
+      isRegistered.action(false);
+      isSubscribed.action(false);
+    }
+  };
+
+  const handleClick2 = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl2(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+    setAnchorEl2(null);
+  };
+
+  const handleClose2 = () => {
+    setAnchorEl2(null);
   };
 
   return (
-    <div>
-      <Button
-        id="demo-customized-button"
-        aria-controls={open ? 'demo-customized-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        variant="contained"
-        disableElevation
-        onClick={handleClick}
-        endIcon={<KeyboardArrowDownIcon />}
-      >
-        Options
-      </Button>
+    <>
+      <UserAvatar>
+        <IconButton
+          aria-controls={open ? 'demo-customized-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={handleClick}
+        >
+          <AccountCircleIcon color="secondary" fontSize="large" />
+        </IconButton>
+      </UserAvatar>
       <StyledMenu
         id="demo-customized-menu"
         MenuListProps={{
@@ -82,6 +115,7 @@ function CustomizedMenu() {
         }}
         anchorEl={anchorEl}
         open={open}
+        key="1"
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose} disableRipple>
@@ -97,13 +131,47 @@ function CustomizedMenu() {
           <ArchiveIcon />
           Archive
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem
+        >
           <MoreHorizIcon />
-          More
+          <Button aria-controls={open2 ? 'demo-more-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onMouseOver={handleClick2}
+          disableRipple> More</Button>
         </MenuItem>
+        <StyledMenu
+          id="demo-more-menu"
+          MenuListProps={{
+            'aria-labelledby': 'demo-more-button',
+          }}
+          anchorEl={anchorEl2}
+          open={open2}
+          key="2"
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose} disableRipple>
+            <EditIcon />
+            Edit
+          </MenuItem>
+          <MenuItem onClick={handleClose} disableRipple>
+            <FileCopyIcon />
+            Duplicate
+          </MenuItem>
+          <Divider sx={{ my: 0.5 }} />
+          <MenuItem onClick={handleClose} disableRipple>
+            <ArchiveIcon />
+            Archive
+          </MenuItem>
+          <MenuItem onClick={handleClose2} disableRipple>
+            <MoreHorizIcon />
+            More
+          </MenuItem>
+          <CustomizedMenu></CustomizedMenu>
+        </StyledMenu>
       </StyledMenu>
-    </div>
+    </>
   );
 }
 
-export default CustomizedMenu
+export default CustomizedMenu;

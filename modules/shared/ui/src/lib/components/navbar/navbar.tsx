@@ -10,7 +10,9 @@ import CustomizedMenu from '../customized-menu/customized-menu';
 /* eslint-disable-next-line */
 export interface NavbarProps {}
 
-const StyledNavbar = styled.div``;
+const StyledNavbar = styled.div`
+background: linear-gradient(180deg,hsla(0,0%,100%,0) 0,#fff 300px),fixed 0 0 /20px 20px radial-gradient(#d1d1d1 1px,transparent 0),fixed 10px 10px /20px 20px radial-gradient(#d1d1d1 1px,transparent 0)
+`;
 
 const UserAvatar = styled.span`
   height: 2rem;
@@ -60,19 +62,7 @@ export function Navbar(props: NavbarProps) {
             </Link>
           </HomeIcon>
           <Paper>
-            <Link
-              to="/"
-              onClick={() => {
-                console.log('!!logged out!!');
-                isAuthenticated.action(false);
-                isRegistered.action(false);
-                isSubscribed.action(false);
-              }}
-            >
-              <UserAvatar>
-                <AccountCircleIcon color="secondary" fontSize="large" />
-              </UserAvatar>
-            </Link>
+            <CustomizedMenu></CustomizedMenu>
           </Paper>
         </>
       ) : (
@@ -89,11 +79,7 @@ export function Navbar(props: NavbarProps) {
               </Typography>
             </Link>
           </HomeIcon>
-          <Link to="/login">
-            <UserAvatar>
-              <AccountCircleIcon color="secondary" fontSize="large" />
-            </UserAvatar>
-          </Link>
+          <CustomizedMenu></CustomizedMenu>
         </>
       )}
       <FooterText>
