@@ -19,16 +19,17 @@ import {
   deepOceanTheme,
   forestNightTheme,
 } from './theme';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useInterval, useTimeout } from 'usehooks-ts';
 
 const themeOptions = [
   { id: 'light', label: 'Light', theme: lightTheme },
-  { id: 'blueberry', label: 'Blueberry', theme: blueberryTheme },
   { id: 'mint', label: 'Mint', theme: mintTheme },
+  { id: 'blueberry', label: 'Blueberry', theme: blueberryTheme },
   { id: 'sunset', label: 'Sunset', theme: sunsetTheme },
   { id: 'ocean', label: 'Ocean', theme: oceanTheme },
   { id: 'lavender', label: 'Lavender', theme: lavenderTheme },
-  
+
   { id: 'dark', label: 'Dark', theme: darkTheme },
   { id: 'nightSky', label: 'Night Sky', theme: nightSkyTheme },
   { id: 'charcoal', label: 'Charcoal', theme: charcoalTheme },
@@ -42,34 +43,54 @@ const StyledApp = styled.div`
 `;
 
 export function App() {
-  const [selectedTheme, setSelectedTheme] = useState(themeOptions[4].id);
+  const [selectedTheme, setSelectedTheme] = useState(themeOptions[0].id);
+  const [count, setCount] = useState(0);
   const currentTheme =
     themeOptions.find((theme) => theme.id === selectedTheme)?.theme ||
     lightTheme;
   const handleThemeChange = (themeId: string) => {
     setSelectedTheme(themeId);
   };
+  useInterval(() => {
+    count < themeOptions.length - 1 ? setCount(count + 1) : setCount(0);
+    handleThemeChange(themeOptions[count].id);
+  }, 20000);
   return (
     <ThemeProvider theme={currentTheme}>
       <StyledApp>
         <Navbar></Navbar>
-        <Paper sx={{
-          position: "absolute",
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-          top: '2.9rem',
-          background: 'transparent',
-          border: '0',
-          outline: '0',
-          boxShadow: 'none',
-        }}>
-        {themeOptions.map((theme) => (
-          <Button key={theme.id} onClick={() => handleThemeChange(theme.id)}>
-            {theme.label}
-          </Button>
-        ))}
+        <Paper
+          sx={{
+            position: 'absolute',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100%',
+            top: '1rem',
+            background: 'transparent',
+            border: '0',
+            outline: '0',
+            boxShadow: 'none',
+          }}
+        >
+          <Paper
+            sx={{
+              maxWidth: '200px',
+              overflow: 'auto',
+              display: 'flex',
+              background: 'transparent',
+              boxShadow: 'none'
+            }}
+          >
+            {themeOptions.map((theme) => (
+              <Button
+                key={theme.id}
+                onClick={() => handleThemeChange(theme.id)}
+              >
+                {theme.label}
+              </Button>
+            ))}
+          </Paper>
         </Paper>
         <AppRoutes />
       </StyledApp>

@@ -35,11 +35,12 @@ export { generatePalette, generateTheme };
 const lightPalette = generatePalette(
   '#1976d2',
   '#f50057',
-  '#f5f5f5',
+  '#f9f9fb',
   '#ffffff',
   '#333333',
-  '#757575'
+  '#5a5a5a'
 );
+
 const darkPalette = generatePalette(
   '#1976d2',
   '#f50057',
@@ -54,7 +55,7 @@ const blueberryPalette = generatePalette(
   '#e91e63',
   '#f5f8fd',
   '#ffffff',
-  '#333333',
+  '#1b1b1b',
   '#6a7a8d'
 );
 const mintPalette = generatePalette(
