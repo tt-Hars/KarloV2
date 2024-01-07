@@ -6,10 +6,10 @@ import {
 } from './routesConfig';
 import { Dashboard, Landing, PageNotFound } from './routeImports';
 import { Suspense } from 'react';
-import { BackdropLoader } from '@myreactapp/modules/shared/ui';
+import { BackdropLoader } from '@karlo/modules/shared/ui';
 import GuardedRoutePublic from './guards/publicRouteGuard';
 import GuardedRoutePrivate from './guards/privateRouteGuard';
-import { useLocalStorageManager } from '@myreactapp/modules/shared/hooks';
+import { useLocalStorageManager } from '@karlo/modules/shared/hooks';
 
 const loaderFnPr = (
   route: RouteWithChildrenInterface,

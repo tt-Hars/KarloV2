@@ -17,9 +17,9 @@ import {
   Plan,
   Welcome,
 } from './routeImports';
-import { MainHeading } from '@myreactapp/modules/shared/ui';
-import { BackdropLoader } from '@myreactapp/modules/shared/ui';
-import { useLocalStorageManager } from '@myreactapp/modules/shared/hooks';
+import { MainHeading } from '@karlo/modules/shared/ui';
+import { BackdropLoader } from '@karlo/modules/shared/ui';
+import { useLocalStorageManager } from '@karlo/modules/shared/hooks';
 
 export const PrivateRoute = (props: { children: EmotionJSX.Element }) => {
   const location = useLocation();

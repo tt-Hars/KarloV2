@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Box, Grid, Typography } from '@mui/material';
-import { TilesList } from '@myreactapp/modules/shared/ui';
+import { TilesList } from '@karlo/modules/shared/ui';
 import { moduleDetails } from 'src/app/moduleDetails';
 
 /* eslint-disable-next-line */

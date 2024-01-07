@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Button } from '@mui/material';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 import { Link, useLocation } from 'react-router-dom';
-import { useLocalStorageManager } from '@myreactapp/modules/shared/hooks';
+import { useLocalStorageManager } from '@karlo/modules/shared/hooks';
 
 /* eslint-disable-next-line */
 export interface LoginProps {}

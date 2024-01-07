@@ -9,9 +9,9 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {
   ThemeContext,
   useLocalStorageManager,
-} from '@myreactapp/modules/shared/hooks';
+} from '@karlo/modules/shared/hooks';
 import { IconButton } from '@mui/material';
-import { themeOptions } from '@myreactapp/modules/shared/data';
+import { themeOptions } from '@karlo/modules/shared/data';
 import { useNavigate } from 'react-router-dom';
 
 const UserAvatar = styled('span')`

@@ -15,18 +15,18 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@myreactapp/modules/editor": ["modules/editor/src/index.ts"],
-      "@myreactapp/modules/feed": ["modules/feed/src/index.ts"],
-      "@myreactapp/modules/listen": ["modules/listen/src/index.ts"],
-      "@myreactapp/modules/login": ["modules/login/src/index.ts"],
-      "@myreactapp/modules/planner": ["modules/planner/src/index.ts"],
-      "@myreactapp/modules/reader": ["modules/reader/src/index.ts"],
-      "@myreactapp/modules/shared/data": ["modules/shared/data/src/index.ts"],
-      "@myreactapp/modules/shared/hooks": ["modules/shared/hooks/src/index.ts"],
-      "@myreactapp/modules/shared/store": ["modules/shared/store/src/index.ts"],
-      "@myreactapp/modules/shared/ui": ["modules/shared/ui/src/index.ts"],
-      "@myreactapp/modules/shop": ["modules/shop/src/index.ts"],
-      "@myreactapp/modules/watch": ["modules/watch/src/index.ts"]
+      "@karlo/modules/editor": ["modules/editor/src/index.ts"],
+      "@karlo/modules/feed": ["modules/feed/src/index.ts"],
+      "@karlo/modules/listen": ["modules/listen/src/index.ts"],
+      "@karlo/modules/login": ["modules/login/src/index.ts"],
+      "@karlo/modules/planner": ["modules/planner/src/index.ts"],
+      "@karlo/modules/reader": ["modules/reader/src/index.ts"],
+      "@karlo/modules/shared/data": ["modules/shared/data/src/index.ts"],
+      "@karlo/modules/shared/hooks": ["modules/shared/hooks/src/index.ts"],
+      "@karlo/modules/shared/store": ["modules/shared/store/src/index.ts"],
+      "@karlo/modules/shared/ui": ["modules/shared/ui/src/index.ts"],
+      "@karlo/modules/shop": ["modules/shop/src/index.ts"],
+      "@karlo/modules/watch": ["modules/watch/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Grid, Typography } from '@mui/material';
-import { useLocalStorageManager } from '@myreactapp/modules/shared/hooks';
+import { useLocalStorageManager } from '@karlo/modules/shared/hooks';
 import { useEffect } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 

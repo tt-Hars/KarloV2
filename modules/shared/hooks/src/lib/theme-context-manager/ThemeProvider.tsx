@@ -3,7 +3,7 @@ import React, { ReactNode, useState } from 'react';
 import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
 import { ThemeContext, IThemeContext } from './themeContext';
 
-import {themeOptions} from '@myreactapp/modules/shared/data';
+import {themeOptions} from '@karlo/modules/shared/data';
 
 import { useInterval } from 'usehooks-ts';
 

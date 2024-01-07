@@ -4,7 +4,7 @@ import { Paper, Typography } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from 'react-router-dom';
 import { useRef } from 'react';
-import { useLocalStorageManager } from '@myreactapp/modules/shared/hooks';
+import { useLocalStorageManager } from '@karlo/modules/shared/hooks';
 import CustomizedMenu from '../customized-menu/customized-menu';
 
 /* eslint-disable-next-line */

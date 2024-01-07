@@ -1,5 +1,5 @@
 {
-  "name": "myreactapp",
+  "name": "karlo",
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "./src",
   "projectType": "application",
@@ -10,7 +10,7 @@
       "defaultConfiguration": "production",
       "options": {
         "compiler": "babel",
-        "outputPath": "dist/myreactapp",
+        "outputPath": "dist/karlo",
         "index": "src/index.html",
         "baseHref": "/",
         "main": "src/main.tsx",
@@ -49,15 +49,15 @@
       "executor": "@nx/webpack:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "myreactapp:build",
+        "buildTarget": "karlo:build",
         "hmr": true
       },
       "configurations": {
         "development": {
-          "buildTarget": "myreactapp:build:development"
+          "buildTarget": "karlo:build:development"
         },
         "production": {
-          "buildTarget": "myreactapp:build:production",
+          "buildTarget": "karlo:build:production",
           "hmr": false
         }
       }
@@ -72,7 +72,7 @@
     "serve-static": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "myreactapp:build"
+        "buildTarget": "karlo:build"
       }
     },
     "test": {
