@@ -1,0 +1,1387 @@
+{
+  "version": "6.0",
+  "nxVersion": "16.5.1",
+  "deps": {
+    "@emotion/react": "11.11.1",
+    "@emotion/styled": "11.11.0",
+    "@fontsource/roboto": "^5.0.3",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.13.6",
+    "@swc/helpers": "~0.5.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-router-dom": "^6.14.0",
+    "tslib": "^2.3.0",
+    "typewriter-effect": "^2.20.1",
+    "usehooks-ts": "^2.9.1",
+    "@babel/preset-react": "^7.14.5",
+    "@emotion/babel-plugin": "11.11.0",
+    "@nx/cypress": "16.5.1",
+    "@nx/eslint-plugin": "16.5.1",
+    "@nx/jest": "16.5.1",
+    "@nx/js": "16.5.1",
+    "@nx/linter": "16.5.1",
+    "@nx/react": "16.5.1",
+    "@nx/rollup": "16.5.1",
+    "@nx/webpack": "16.5.1",
+    "@nx/workspace": "16.5.1",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
+    "@rollup/plugin-url": "^7.0.0",
+    "@svgr/rollup": "^8.0.1",
+    "@svgr/webpack": "^8.0.1",
+    "@swc/cli": "~0.1.62",
+    "@swc/core": "~1.3.51",
+    "@testing-library/react": "14.0.0",
+    "@types/jest": "^29.4.0",
+    "@types/node": "18.14.2",
+    "@types/react": "18.2.14",
+    "@types/react-dom": "18.2.6",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
+    "autoprefixer": "10.4.13",
+    "babel-jest": "^29.4.1",
+    "cypress": "^12.15.0",
+    "eslint": "~8.15.0",
+    "eslint-config-prettier": "8.1.0",
+    "eslint-plugin-cypress": "^2.10.3",
+    "eslint-plugin-import": "2.27.5",
+    "eslint-plugin-jsx-a11y": "6.7.1",
+    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "jest": "^29.4.1",
+    "jest-environment-jsdom": "^29.4.1",
+    "nx": "16.5.1",
+    "postcss": "8.4.21",
+    "prettier": "^2.6.2",
+    "react-refresh": "^0.10.0",
+    "tailwindcss": "3.2.7",
+    "ts-jest": "^29.1.0",
+    "ts-node": "10.9.1",
+    "typescript": "~5.1.3",
+    "url-loader": "^4.1.1"
+  },
+  "pathMappings": {
+    "@myreactapp/modules/editor": [
+      "modules/editor/src/index.ts"
+    ],
+    "@myreactapp/modules/feed": [
+      "modules/feed/src/index.ts"
+    ],
+    "@myreactapp/modules/listen": [
+      "modules/listen/src/index.ts"
+    ],
+    "@myreactapp/modules/login": [
+      "modules/login/src/index.ts"
+    ],
+    "@myreactapp/modules/planner": [
+      "modules/planner/src/index.ts"
+    ],
+    "@myreactapp/modules/reader": [
+      "modules/reader/src/index.ts"
+    ],
+    "@myreactapp/modules/shared/data": [
+      "modules/shared/data/src/index.ts"
+    ],
+    "@myreactapp/modules/shared/hooks": [
+      "modules/shared/hooks/src/index.ts"
+    ],
+    "@myreactapp/modules/shared/store": [
+      "modules/shared/store/src/index.ts"
+    ],
+    "@myreactapp/modules/shared/ui": [
+      "modules/shared/ui/src/index.ts"
+    ],
+    "@myreactapp/modules/shop": [
+      "modules/shop/src/index.ts"
+    ],
+    "@myreactapp/modules/watch": [
+      "modules/watch/src/index.ts"
+    ]
+  },
+  "nxJsonPlugins": [],
+  "projectFileMap": {
+    "modules-editor": [
+      {
+        "file": "modules/editor/.babelrc",
+        "hash": "12229791027711577977"
+      },
+      {
+        "file": "modules/editor/.eslintrc.json",
+        "hash": "889646198666480193"
+      },
+      {
+        "file": "modules/editor/README.md",
+        "hash": "612129852124798983"
+      },
+      {
+        "file": "modules/editor/jest.config.ts",
+        "hash": "2523500002103269391"
+      },
+      {
+        "file": "modules/editor/package.json",
+        "hash": "7103532137648181987"
+      },
+      {
+        "file": "modules/editor/project.json",
+        "hash": "11769232956994418934"
+      },
+      {
+        "file": "modules/editor/src/index.ts",
+        "hash": "12151163515335245741"
+      },
+      {
+        "file": "modules/editor/src/lib/write/write.spec.tsx",
+        "hash": "5123845382361985181",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "modules/editor/src/lib/write/write.tsx",
+        "hash": "5962172464347948340",
+        "deps": [
+          "npm:@emotion/styled"
+        ]
+      },
+      {
+        "file": "modules/editor/tsconfig.json",
+        "hash": "871659642299958311"
+      },
+      {
+        "file": "modules/editor/tsconfig.lib.json",
+        "hash": "17190776767862500632"
+      },
+      {
+        "file": "modules/editor/tsconfig.spec.json",
+        "hash": "6514620907549802163"
+      }
+    ],
+    "modules-feed": [
+      {
+        "file": "modules/feed/.babelrc",
+        "hash": "12229791027711577977"
+      },
+      {
+        "file": "modules/feed/.eslintrc.json",
+        "hash": "889646198666480193"
+      },
+      {
+        "file": "modules/feed/README.md",
+        "hash": "338134212666873906"
+      },
+      {
+        "file": "modules/feed/jest.config.ts",
+        "hash": "1679241417208787544"
+      },
+      {
+        "file": "modules/feed/package.json",
+        "hash": "1608094168769767187"
+      },
+      {
+        "file": "modules/feed/project.json",
+        "hash": "16904602153985200809"
+      },
+      {
+        "file": "modules/feed/src/index.ts",
+        "hash": "13381793172726377606"
+      },
+      {
+        "file": "modules/feed/src/lib/feed/feed.spec.tsx",
+        "hash": "6056820404707483567",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "modules/feed/src/lib/feed/feed.tsx",
+        "hash": "16288762688082974737",
+        "deps": [
+          "npm:@emotion/styled"
+        ]
+      },
+      {
+        "file": "modules/feed/tsconfig.json",
+        "hash": "871659642299958311"
+      },
+      {
+        "file": "modules/feed/tsconfig.lib.json",
+        "hash": "17190776767862500632"
+      },
+      {
+        "file": "modules/feed/tsconfig.spec.json",
+        "hash": "6514620907549802163"
+      }
+    ],
+    "modules-reader": [
+      {
+        "file": "modules/reader/.babelrc",
+        "hash": "12229791027711577977"
+      },
+      {
+        "file": "modules/reader/.eslintrc.json",
+        "hash": "889646198666480193"
+      },
+      {
+        "file": "modules/reader/README.md",
+        "hash": "4821511541888590868"
+      },
+      {
+        "file": "modules/reader/jest.config.ts",
+        "hash": "5948066316604399618"
+      },
+      {
+        "file": "modules/reader/package.json",
+        "hash": "16575208455227996146"
+      },
+      {
+        "file": "modules/reader/project.json",
+        "hash": "12406245161937325171"
+      },
+      {
+        "file": "modules/reader/src/index.ts",
+        "hash": "12846183735620682762"
+      },
+      {
+        "file": "modules/reader/src/lib/read/read.spec.tsx",
+        "hash": "4539144371010329695",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "modules/reader/src/lib/read/read.tsx",
+        "hash": "11322017727390721220",
+        "deps": [
+          "npm:@emotion/styled"
+        ]
+      },
+      {
+        "file": "modules/reader/tsconfig.json",
+        "hash": "871659642299958311"
+      },
+      {
+        "file": "modules/reader/tsconfig.lib.json",
+        "hash": "17190776767862500632"
+      },
+      {
+        "file": "modules/reader/tsconfig.spec.json",
+        "hash": "6514620907549802163"
+      }
+    ],
+    "e2e": [
+      {
+        "file": "e2e/.eslintrc.json",
+        "hash": "6232838264858069097"
+      },
+      {
+        "file": "e2e/cypress.config.ts",
+        "hash": "15414076024138857470",
+        "deps": [
+          "npm:cypress",
+          "npm:@nx/cypress"
+        ]
+      },
+      {
+        "file": "e2e/project.json",
+        "hash": "17144191893425341167"
+      },
+      {
+        "file": "e2e/src/e2e/app.cy.ts",
+        "hash": "10166475625043896320"
+      },
+      {
+        "file": "e2e/src/fixtures/example.json",
+        "hash": "11614668686582597233"
+      },
+      {
+        "file": "e2e/src/support/app.po.ts",
+        "hash": "11157016311132186162"
+      },
+      {
+        "file": "e2e/src/support/commands.ts",
+        "hash": "7314691991044890572"
+      },
+      {
+        "file": "e2e/src/support/e2e.ts",
+        "hash": "3666078656922506009"
+      },
+      {
+        "file": "e2e/tsconfig.json",
+        "hash": "3213783022078611433"
+      }
+    ],
+    "modules-shared-hooks": [
+      {
+        "file": "modules/shared/hooks/.babelrc",
+        "hash": "12229791027711577977"
+      },
+      {
+        "file": "modules/shared/hooks/.eslintrc.json",
+        "hash": "18132053918848999080"
+      },
+      {
+        "file": "modules/shared/hooks/README.md",
+        "hash": "15791694092855173040"
+      },
+      {
+        "file": "modules/shared/hooks/index.ts",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "modules/shared/hooks/jest.config.ts",
+        "hash": "9365790721314248282"
+      },
+      {
+        "file": "modules/shared/hooks/package.json",
+        "hash": "1583859878956987514"
+      },
+      {
+        "file": "modules/shared/hooks/project.json",
+        "hash": "7683365513697526390"
+      },
+      {
+        "file": "modules/shared/hooks/src/index.ts",
+        "hash": "6215130376062191432"
+      },
+      {
+        "file": "modules/shared/hooks/src/lib/theme-context-manager/ThemeProvider.tsx",
+        "hash": "7580646223183695889",
+        "deps": [
+          "npm:react",
+          "npm:@mui/material",
+          "modules-shared-data",
+          "npm:usehooks-ts"
+        ]
+      },
+      {
+        "file": "modules/shared/hooks/src/lib/theme-context-manager/themeContext.ts",
+        "hash": "11401269994439094761",
+        "deps": [
+          "npm:react"
+        ]
+      },
+      {
+        "file": "modules/shared/hooks/src/lib/use-local-storage-manager/use-local-storage-manager.spec.tsx",
+        "hash": "17544097096505569713",
+        "deps": [
+          "npm:@testing-library/react",
+          "npm:react"
+        ]
+      },
+      {
+        "file": "modules/shared/hooks/src/lib/use-local-storage-manager/use-local-storage-manager.ts",
+        "hash": "13619984273991303138",
+        "deps": [
+          "npm:usehooks-ts"
+        ]
+      },
+      {
+        "file": "modules/shared/hooks/tsconfig.json",
+        "hash": "13907040950227867846"
+      },
+      {
+        "file": "modules/shared/hooks/tsconfig.lib.json",
+        "hash": "1261950536210511632"
+      },
+      {
+        "file": "modules/shared/hooks/tsconfig.spec.json",
+        "hash": "622485232520597903"
+      }
+    ],
+    "modules-shared-ui": [
+      {
+        "file": "modules/shared/ui/.babelrc",
+        "hash": "12229791027711577977"
+      },
+      {
+        "file": "modules/shared/ui/.eslintrc.json",
+        "hash": "18132053918848999080"
+      },
+      {
+        "file": "modules/shared/ui/README.md",
+        "hash": "6982638281666818358"
+      },
+      {
+        "file": "modules/shared/ui/jest.config.ts",
+        "hash": "10940184855316950948"
+      },
+      {
+        "file": "modules/shared/ui/package.json",
+        "hash": "9202388995813370458"
+      },
+      {
+        "file": "modules/shared/ui/project.json",
+        "hash": "2385013367912980077"
+      },
+      {
+        "file": "modules/shared/ui/src/index.ts",
+        "hash": "4469479230793558924",
+        "deps": [
+          "modules-shared-data"
+        ]
+      },
+      {
+        "file": "modules/shared/ui/src/lib/components/backdrop-loader/backdrop-loader.spec.tsx",
+        "hash": "13785847478739169625",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "modules/shared/ui/src/lib/components/backdrop-loader/backdrop-loader.tsx",
+        "hash": "17939279892741087192",
+        "deps": [
+          "npm:@emotion/styled",
+          "npm:react",
+          "npm:@mui/material"
+        ]
+      },
+      {
+        "file": "modules/shared/ui/src/lib/components/backdrop-loader/loader.svg",
+        "hash": "17861765082033325746"
+      },
+      {
+        "file": "modules/shared/ui/src/lib/components/customized-menu/customized-menu.spec.tsx",
+        "hash": "2158995089073808328",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "modules/shared/ui/src/lib/components/customized-menu/customized-menu.tsx",
+        "hash": "17859647255088359067",
+        "deps": [
+          "npm:react",
+          "npm:@mui/material",
+          "npm:@mui/icons-material",
+          "modules-shared-hooks",
+          "modules-shared-data"
+        ]
+      },
+      {
+        "file": "modules/shared/ui/src/lib/components/main-heading/main-heading.spec.tsx",
+        "hash": "2302615032626048538",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "modules/shared/ui/src/lib/components/main-heading/main-heading.tsx",
+        "hash": "10986050200323987041",
+        "deps": [
+          "npm:@emotion/styled",
+          "npm:@mui/material",
+          "npm:@mui/icons-material",
+          "npm:react-router-dom",
+          "npm:typewriter-effect",
+          "npm:react"
+        ]
+      },
+      {
+        "file": "modules/shared/ui/src/lib/components/navbar/navbar.spec.tsx",
+        "hash": "12005008785561020363",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "modules/shared/ui/src/lib/components/navbar/navbar.tsx",
+        "hash": "2604879891316976990",
+        "deps": [
+          "npm:@mui/icons-material",
+          "npm:@emotion/styled",
+          "npm:@mui/material",
+          "npm:react-router-dom",
+          "npm:react",
+          "modules-shared-hooks"
+        ]
+      },
+      {
+        "file": "modules/shared/ui/src/lib/components/tile-card/tile-card.spec.tsx",
+        "hash": "10590732947805172546",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "modules/shared/ui/src/lib/components/tile-card/tile-card.tsx",
+        "hash": "10836345177772445919",
+        "deps": [
+          "npm:react",
+          "npm:@mui/material",
+          "npm:react-router-dom"
+        ]
+      },
+      {
+        "file": "modules/shared/ui/src/lib/components/tiles-list/tiles-list.spec.tsx",
+        "hash": "3784284234012061493",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "modules/shared/ui/src/lib/components/tiles-list/tiles-list.tsx",
+        "hash": "7092413435197604815",
+        "deps": [
+          "npm:@emotion/styled",
+          "npm:@mui/material"
+        ]
+      },
+      {
+        "file": "modules/shared/ui/tsconfig.json",
+        "hash": "13907040950227867846"
+      },
+      {
+        "file": "modules/shared/ui/tsconfig.lib.json",
+        "hash": "1261950536210511632"
+      },
+      {
+        "file": "modules/shared/ui/tsconfig.spec.json",
+        "hash": "622485232520597903"
+      }
+    ],
+    "modules-planner": [
+      {
+        "file": "modules/planner/.babelrc",
+        "hash": "12229791027711577977"
+      },
+      {
+        "file": "modules/planner/.eslintrc.json",
+        "hash": "889646198666480193"
+      },
+      {
+        "file": "modules/planner/README.md",
+        "hash": "13467165833361752532"
+      },
+      {
+        "file": "modules/planner/jest.config.ts",
+        "hash": "16641233689890461041"
+      },
+      {
+        "file": "modules/planner/package.json",
+        "hash": "9978795899755968138"
+      },
+      {
+        "file": "modules/planner/project.json",
+        "hash": "7585623733113724548"
+      },
+      {
+        "file": "modules/planner/src/index.ts",
+        "hash": "14416748433145869595"
+      },
+      {
+        "file": "modules/planner/src/lib/plan/plan.spec.tsx",
+        "hash": "14557982971490684820",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "modules/planner/src/lib/plan/plan.tsx",
+        "hash": "5622627667836473924",
+        "deps": [
+          "npm:@emotion/styled"
+        ]
+      },
+      {
+        "file": "modules/planner/tsconfig.json",
+        "hash": "871659642299958311"
+      },
+      {
+        "file": "modules/planner/tsconfig.lib.json",
+        "hash": "17190776767862500632"
+      },
+      {
+        "file": "modules/planner/tsconfig.spec.json",
+        "hash": "6514620907549802163"
+      }
+    ],
+    "modules-watch": [
+      {
+        "file": "modules/watch/.babelrc",
+        "hash": "12229791027711577977"
+      },
+      {
+        "file": "modules/watch/.eslintrc.json",
+        "hash": "889646198666480193"
+      },
+      {
+        "file": "modules/watch/README.md",
+        "hash": "5938821023101375556"
+      },
+      {
+        "file": "modules/watch/jest.config.ts",
+        "hash": "14251879565926704962"
+      },
+      {
+        "file": "modules/watch/package.json",
+        "hash": "4773310020801793889"
+      },
+      {
+        "file": "modules/watch/project.json",
+        "hash": "9121880489524545627"
+      },
+      {
+        "file": "modules/watch/src/index.ts",
+        "hash": "12534486727553200659"
+      },
+      {
+        "file": "modules/watch/src/lib/watch/watch.spec.tsx",
+        "hash": "11624008147491303817",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "modules/watch/src/lib/watch/watch.tsx",
+        "hash": "3856554819526471552",
+        "deps": [
+          "npm:@emotion/styled"
+        ]
+      },
+      {
+        "file": "modules/watch/tsconfig.json",
+        "hash": "871659642299958311"
+      },
+      {
+        "file": "modules/watch/tsconfig.lib.json",
+        "hash": "17190776767862500632"
+      },
+      {
+        "file": "modules/watch/tsconfig.spec.json",
+        "hash": "6514620907549802163"
+      }
+    ],
+    "modules-listen": [
+      {
+        "file": "modules/listen/.babelrc",
+        "hash": "12229791027711577977"
+      },
+      {
+        "file": "modules/listen/.eslintrc.json",
+        "hash": "889646198666480193"
+      },
+      {
+        "file": "modules/listen/README.md",
+        "hash": "10756733752727843538"
+      },
+      {
+        "file": "modules/listen/jest.config.ts",
+        "hash": "10133801619052008600"
+      },
+      {
+        "file": "modules/listen/package.json",
+        "hash": "13855518656935322473"
+      },
+      {
+        "file": "modules/listen/project.json",
+        "hash": "3350333921181001173"
+      },
+      {
+        "file": "modules/listen/src/index.ts",
+        "hash": "7119729758974492978"
+      },
+      {
+        "file": "modules/listen/src/lib/listen/listen.spec.tsx",
+        "hash": "9330962315677574460",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "modules/listen/src/lib/listen/listen.tsx",
+        "hash": "10358617381077128311",
+        "deps": [
+          "npm:@emotion/styled",
+          "npm:react-router-dom"
+        ]
+      },
+      {
+        "file": "modules/listen/tsconfig.json",
+        "hash": "871659642299958311"
+      },
+      {
+        "file": "modules/listen/tsconfig.lib.json",
+        "hash": "17190776767862500632"
+      },
+      {
+        "file": "modules/listen/tsconfig.spec.json",
+        "hash": "6514620907549802163"
+      }
+    ],
+    "modules-login": [
+      {
+        "file": "modules/login/.babelrc",
+        "hash": "12229791027711577977"
+      },
+      {
+        "file": "modules/login/.eslintrc.json",
+        "hash": "889646198666480193"
+      },
+      {
+        "file": "modules/login/README.md",
+        "hash": "17430558735267080966"
+      },
+      {
+        "file": "modules/login/jest.config.ts",
+        "hash": "10196364158048268405"
+      },
+      {
+        "file": "modules/login/package.json",
+        "hash": "5108882697218572969"
+      },
+      {
+        "file": "modules/login/project.json",
+        "hash": "1764564349271330397"
+      },
+      {
+        "file": "modules/login/src/index.ts",
+        "hash": "12921234727346131771"
+      },
+      {
+        "file": "modules/login/src/lib/login/login.spec.tsx",
+        "hash": "2304635682265206053",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "modules/login/src/lib/login/login.tsx",
+        "hash": "11881416814032220957",
+        "deps": [
+          "npm:@emotion/styled",
+          "npm:@mui/material",
+          "npm:@mui/icons-material",
+          "npm:react-router-dom",
+          "modules-shared-hooks"
+        ]
+      },
+      {
+        "file": "modules/login/src/lib/payment/payment.spec.tsx",
+        "hash": "4514204878582080874",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "modules/login/src/lib/payment/payment.tsx",
+        "hash": "17207468139528888284",
+        "deps": [
+          "npm:@emotion/styled",
+          "npm:@mui/material",
+          "npm:react-router-dom",
+          "npm:@mui/icons-material",
+          "modules-shared-hooks"
+        ]
+      },
+      {
+        "file": "modules/login/src/lib/register/register.spec.tsx",
+        "hash": "10224601726470333234",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "modules/login/src/lib/register/register.tsx",
+        "hash": "9712950232371149819",
+        "deps": [
+          "npm:@emotion/styled",
+          "npm:@mui/material",
+          "npm:@mui/icons-material",
+          "npm:react-router-dom",
+          "modules-shared-hooks"
+        ]
+      },
+      {
+        "file": "modules/login/tsconfig.json",
+        "hash": "871659642299958311"
+      },
+      {
+        "file": "modules/login/tsconfig.lib.json",
+        "hash": "17190776767862500632"
+      },
+      {
+        "file": "modules/login/tsconfig.spec.json",
+        "hash": "6514620907549802163"
+      }
+    ],
+    "modules-shared-data": [
+      {
+        "file": "modules/shared/data/.babelrc",
+        "hash": "12229791027711577977"
+      },
+      {
+        "file": "modules/shared/data/.eslintrc.json",
+        "hash": "18132053918848999080"
+      },
+      {
+        "file": "modules/shared/data/README.md",
+        "hash": "5810434149240121314"
+      },
+      {
+        "file": "modules/shared/data/jest.config.ts",
+        "hash": "3562822986791546463"
+      },
+      {
+        "file": "modules/shared/data/package.json",
+        "hash": "1193958924089354481"
+      },
+      {
+        "file": "modules/shared/data/project.json",
+        "hash": "3987060296998918571"
+      },
+      {
+        "file": "modules/shared/data/src/index.ts",
+        "hash": "7765477810858780308"
+      },
+      {
+        "file": "modules/shared/data/src/lib/constants/theme.ts",
+        "hash": "13208941600146457045",
+        "deps": [
+          "npm:@mui/material"
+        ]
+      },
+      {
+        "file": "modules/shared/data/tsconfig.json",
+        "hash": "13907040950227867846"
+      },
+      {
+        "file": "modules/shared/data/tsconfig.lib.json",
+        "hash": "1261950536210511632"
+      },
+      {
+        "file": "modules/shared/data/tsconfig.spec.json",
+        "hash": "622485232520597903"
+      }
+    ],
+    "modules-shared-store": [
+      {
+        "file": "modules/shared/store/.babelrc",
+        "hash": "12229791027711577977"
+      },
+      {
+        "file": "modules/shared/store/.eslintrc.json",
+        "hash": "18132053918848999080"
+      },
+      {
+        "file": "modules/shared/store/README.md",
+        "hash": "13831043799588501225"
+      },
+      {
+        "file": "modules/shared/store/index.ts",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "modules/shared/store/jest.config.ts",
+        "hash": "10267537568862023284"
+      },
+      {
+        "file": "modules/shared/store/package.json",
+        "hash": "8621114218577261402"
+      },
+      {
+        "file": "modules/shared/store/project.json",
+        "hash": "6671077469578396765"
+      },
+      {
+        "file": "modules/shared/store/src/index.ts",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "modules/shared/store/tsconfig.json",
+        "hash": "13907040950227867846"
+      },
+      {
+        "file": "modules/shared/store/tsconfig.lib.json",
+        "hash": "1261950536210511632"
+      },
+      {
+        "file": "modules/shared/store/tsconfig.spec.json",
+        "hash": "622485232520597903"
+      }
+    ],
+    "myreactapp": [
+      {
+        "file": ".babelrc",
+        "hash": "3309448101048490971"
+      },
+      {
+        "file": ".eslintignore",
+        "hash": "7663861978715868291"
+      },
+      {
+        "file": ".eslintrc.base.json",
+        "hash": "18315524891129148814"
+      },
+      {
+        "file": ".eslintrc.json",
+        "hash": "12203754865377642676"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "11608181557323256120"
+      },
+      {
+        "file": ".npmrc",
+        "hash": "1880664178033616490"
+      },
+      {
+        "file": ".nx/cache/d/daemon.log",
+        "hash": "6039155861277460208"
+      },
+      {
+        "file": ".nx/cache/d/server-process.json",
+        "hash": "15226064974932722310"
+      },
+      {
+        "file": ".nx/cache/file-map.json",
+        "hash": "2959736216809362121"
+      },
+      {
+        "file": ".nx/cache/lockfile.hash",
+        "hash": "17737728117038211628"
+      },
+      {
+        "file": ".nx/cache/nx-console-project-graph/project-graph.html",
+        "hash": "17036869540637447991"
+      },
+      {
+        "file": ".nx/cache/nx-console-project-graph/static/3rdpartylicenses.txt",
+        "hash": "5667550289807473445"
+      },
+      {
+        "file": ".nx/cache/nx-console-project-graph/static/environment.js",
+        "hash": "2439210348692365539"
+      },
+      {
+        "file": ".nx/cache/nx-console-project-graph/static/favicon.ico",
+        "hash": "9303420814833116677"
+      },
+      {
+        "file": ".nx/cache/nx-console-project-graph/static/main.js",
+        "hash": "17108493703970937027",
+        "deps": [
+          "npm:util"
+        ]
+      },
+      {
+        "file": ".nx/cache/nx-console-project-graph/static/polyfills.js",
+        "hash": "3181124310005851816"
+      },
+      {
+        "file": ".nx/cache/nx-console-project-graph/static/runtime.js",
+        "hash": "9652903316845995179"
+      },
+      {
+        "file": ".nx/cache/nx-console-project-graph/static/styles.css",
+        "hash": "14388753047742269978"
+      },
+      {
+        "file": ".nx/cache/nx-console-project-graph/static/styles.js",
+        "hash": "13596360365094399219"
+      },
+      {
+        "file": ".nx/cache/parsed-lock-file.json",
+        "hash": "4952231623721724516"
+      },
+      {
+        "file": ".nx/cache/project-graph.json",
+        "hash": "5249454129329441681"
+      },
+      {
+        "file": ".nx/cache/terminalOutputs/14513499495342604364",
+        "hash": "16190842171921483935"
+      },
+      {
+        "file": ".prettierignore",
+        "hash": "8865097869854018350"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "16267754514737964994"
+      },
+      {
+        "file": ".vscode/extensions.json",
+        "hash": "4637156562308165301"
+      },
+      {
+        "file": "README.md",
+        "hash": "2311768153716057578"
+      },
+      {
+        "file": "_redirect",
+        "hash": "7289026612628632489"
+      },
+      {
+        "file": "jest.config.app.ts",
+        "hash": "11371313000306582486"
+      },
+      {
+        "file": "jest.config.ts",
+        "hash": "12333515226966617182",
+        "deps": [
+          "npm:@nx/jest"
+        ]
+      },
+      {
+        "file": "jest.preset.js",
+        "hash": "9430166341120122740",
+        "deps": [
+          "npm:@nx/jest"
+        ]
+      },
+      {
+        "file": "nx.json",
+        "hash": "2402466149369188245"
+      },
+      {
+        "file": "package.json",
+        "hash": "7286276876295365435",
+        "deps": [
+          "npm:@emotion/react",
+          "npm:@emotion/styled",
+          "npm:@fontsource/roboto",
+          "npm:@mui/icons-material",
+          "npm:@mui/material",
+          "npm:@swc/helpers",
+          "npm:react",
+          "npm:react-dom",
+          "npm:react-router-dom",
+          "npm:tslib",
+          "npm:typewriter-effect",
+          "npm:usehooks-ts",
+          "npm:@babel/preset-react",
+          "npm:@emotion/babel-plugin",
+          "npm:@nx/cypress",
+          "npm:@nx/eslint-plugin",
+          "npm:@nx/jest",
+          "npm:@nx/js",
+          "npm:@nx/linter",
+          "npm:@nx/react",
+          "npm:@nx/rollup",
+          "npm:@nx/webpack",
+          "npm:@nx/workspace",
+          "npm:@pmmmwh/react-refresh-webpack-plugin",
+          "npm:@rollup/plugin-url",
+          "npm:@svgr/rollup",
+          "npm:@svgr/webpack",
+          "npm:@swc/cli",
+          "npm:@swc/core",
+          "npm:@testing-library/react",
+          "npm:@types/jest",
+          "npm:@types/node",
+          "npm:@types/react",
+          "npm:@types/react-dom",
+          "npm:@typescript-eslint/eslint-plugin",
+          "npm:@typescript-eslint/parser",
+          "npm:autoprefixer",
+          "npm:babel-jest",
+          "npm:cypress",
+          "npm:eslint",
+          "npm:eslint-config-prettier",
+          "npm:eslint-plugin-cypress",
+          "npm:eslint-plugin-import",
+          "npm:eslint-plugin-jsx-a11y",
+          "npm:eslint-plugin-react",
+          "npm:eslint-plugin-react-hooks",
+          "npm:jest",
+          "npm:jest-environment-jsdom",
+          "npm:nx",
+          "npm:postcss",
+          "npm:prettier",
+          "npm:react-refresh",
+          "npm:tailwindcss",
+          "npm:ts-jest",
+          "npm:ts-node",
+          "npm:typescript",
+          "npm:url-loader"
+        ]
+      },
+      {
+        "file": "pnpm-lock.yaml",
+        "hash": "18141809856728738454"
+      },
+      {
+        "file": "postcss.config.js",
+        "hash": "2759402739052110475",
+        "deps": [
+          "npm:path"
+        ]
+      },
+      {
+        "file": "project.json",
+        "hash": "10781223630813536026"
+      },
+      {
+        "file": "src/app/app.spec.tsx",
+        "hash": "12297429055467579189",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "src/app/app.tsx",
+        "hash": "18401029453412933853",
+        "deps": [
+          "npm:@emotion/styled",
+          "modules-shared-ui",
+          "npm:react",
+          "modules-shared-hooks"
+        ]
+      },
+      {
+        "file": "src/app/components/welcome/welcome.spec.tsx",
+        "hash": "13909703423525653552",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "src/app/components/welcome/welcome.tsx",
+        "hash": "7057189097265346787",
+        "deps": [
+          "npm:@emotion/styled",
+          "npm:@mui/material",
+          "modules-shared-ui"
+        ]
+      },
+      {
+        "file": "src/app/components/welcome/welcomeProps.ts",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/app/moduleDetails.ts",
+        "hash": "9051025666552269336"
+      },
+      {
+        "file": "src/app/routing/appRoutes_old.tsx",
+        "hash": "514229690131696490",
+        "deps": [
+          "npm:react-router-dom",
+          "npm:react",
+          "modules-shared-ui",
+          "modules-shared-hooks"
+        ]
+      },
+      {
+        "file": "src/app/routing/guards/privateRouteGuard.tsx",
+        "hash": "9566606131230227878",
+        "deps": [
+          "npm:react-router-dom"
+        ]
+      },
+      {
+        "file": "src/app/routing/guards/publicRouteGuard.tsx",
+        "hash": "12257692612630971001",
+        "deps": [
+          "npm:react-router-dom"
+        ]
+      },
+      {
+        "file": "src/app/routing/routeImports.ts",
+        "hash": "4182919660103111994",
+        "deps": [
+          "npm:react",
+          "modules-login",
+          "modules-shared-ui",
+          "modules-watch",
+          "modules-listen",
+          "modules-feed",
+          "modules-shop",
+          "modules-editor",
+          "modules-reader",
+          "modules-planner"
+        ]
+      },
+      {
+        "file": "src/app/routing/routes.tsx",
+        "hash": "15339584978608918391",
+        "deps": [
+          "npm:react",
+          "npm:react-router-dom",
+          "npm:@emotion/react",
+          "modules-shared-ui",
+          "modules-shared-hooks"
+        ]
+      },
+      {
+        "file": "src/app/routing/routesConfig.tsx",
+        "hash": "14460423475449708655",
+        "deps": [
+          "npm:@emotion/react"
+        ]
+      },
+      {
+        "file": "src/app/styles.css",
+        "hash": "11855546407738933268"
+      },
+      {
+        "file": "src/app/views/dashboard/dashboard.spec.tsx",
+        "hash": "4142469231320892276",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "src/app/views/dashboard/dashboard.tsx",
+        "hash": "5591943400517124876",
+        "deps": [
+          "npm:@emotion/styled",
+          "npm:@mui/material",
+          "modules-shared-hooks",
+          "npm:react",
+          "npm:react-router-dom"
+        ]
+      },
+      {
+        "file": "src/app/views/landing/landing.spec.tsx",
+        "hash": "3046332954005101073",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "src/app/views/landing/landing.tsx",
+        "hash": "11328251999477874828",
+        "deps": [
+          "npm:@emotion/styled",
+          "npm:@mui/material",
+          "npm:react-router-dom",
+          "npm:react"
+        ]
+      },
+      {
+        "file": "src/app/views/page-not-found/page-not-found.spec.tsx",
+        "hash": "1990970182715926184",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "src/app/views/page-not-found/page-not-found.tsx",
+        "hash": "1130873826637041868",
+        "deps": [
+          "npm:@emotion/styled"
+        ]
+      },
+      {
+        "file": "src/assets/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "src/environments/environment.prod.ts",
+        "hash": "10220522844224226756"
+      },
+      {
+        "file": "src/environments/environment.ts",
+        "hash": "11309522437153898482"
+      },
+      {
+        "file": "src/favicon.ico",
+        "hash": "14210121171122720354"
+      },
+      {
+        "file": "src/index.html",
+        "hash": "385525835117078932"
+      },
+      {
+        "file": "src/main.tsx",
+        "hash": "12981734868755062014",
+        "deps": [
+          "npm:react",
+          "npm:react-dom",
+          "npm:react-router-dom",
+          "npm:@fontsource/roboto"
+        ]
+      },
+      {
+        "file": "tailwind.config.js",
+        "hash": "13090734457927965885",
+        "deps": [
+          "npm:@nx/react",
+          "npm:path"
+        ]
+      },
+      {
+        "file": "tsconfig.app.json",
+        "hash": "11939153416232911134"
+      },
+      {
+        "file": "tsconfig.base.json",
+        "hash": "13186341978757426703"
+      },
+      {
+        "file": "tsconfig.json",
+        "hash": "285703423684205298"
+      },
+      {
+        "file": "tsconfig.spec.json",
+        "hash": "11346448171808780786"
+      },
+      {
+        "file": "webpack.config.js",
+        "hash": "1043731587818967490",
+        "deps": [
+          "npm:@nx/webpack",
+          "npm:@nx/react"
+        ]
+      }
+    ],
+    "modules-shop": [
+      {
+        "file": "modules/shop/.babelrc",
+        "hash": "12229791027711577977"
+      },
+      {
+        "file": "modules/shop/.eslintrc.json",
+        "hash": "889646198666480193"
+      },
+      {
+        "file": "modules/shop/README.md",
+        "hash": "16005181303816144125"
+      },
+      {
+        "file": "modules/shop/jest.config.ts",
+        "hash": "5027310546235448834"
+      },
+      {
+        "file": "modules/shop/package.json",
+        "hash": "13128870566105525954"
+      },
+      {
+        "file": "modules/shop/project.json",
+        "hash": "11755152086962759800"
+      },
+      {
+        "file": "modules/shop/src/index.ts",
+        "hash": "9797221103238743250"
+      },
+      {
+        "file": "modules/shop/src/lib/shop/shop.spec.tsx",
+        "hash": "15631239942392897443",
+        "deps": [
+          "npm:@testing-library/react"
+        ]
+      },
+      {
+        "file": "modules/shop/src/lib/shop/shop.tsx",
+        "hash": "2708288605791244432",
+        "deps": [
+          "npm:@emotion/styled"
+        ]
+      },
+      {
+        "file": "modules/shop/tsconfig.json",
+        "hash": "871659642299958311"
+      },
+      {
+        "file": "modules/shop/tsconfig.lib.json",
+        "hash": "17190776767862500632"
+      },
+      {
+        "file": "modules/shop/tsconfig.spec.json",
+        "hash": "6514620907549802163"
+      }
+    ]
+  }
+}

@@ -14,7 +14,7 @@ const StyledWelcome = styled.div`
   justify-content: center;
 `;
 
-function categoricalClassifcation(
+function categoricalClassification(
   listOfRoutes: Array<{ route: string; meta: string[] }>
 ): Record<string, Array<{ route: string }>> {
   const categories: Record<string, Array<{ route: string }>> = {};
@@ -32,8 +32,8 @@ function categoricalClassifcation(
 }
 
 export function Welcome(props: WelcomeProps) {
-  const categoryRoutes = Object.values(categoricalClassifcation(moduleDetails));
-  const categorykeys = Object.keys(categoricalClassifcation(moduleDetails));
+  const categoryRoutes = Object.values(categoricalClassification(moduleDetails));
+  const categoryKeys = Object.keys(categoricalClassification(moduleDetails));
 
   return (
     <StyledWelcome>
@@ -47,7 +47,7 @@ export function Welcome(props: WelcomeProps) {
       >
         {categoryRoutes.map((category, index) => (
           <Grid item sx={{paddingTop: '15px !important'}} xs={12} key={index} display='flex' flexDirection='column'>
-            <Typography variant='h4' my='1rem'>{categorykeys[index]}</Typography>
+            <Typography variant='h4' my='1rem'>{categoryKeys[index]}</Typography>
             <TilesList routes={category}></TilesList>
           </Grid>
         ))}

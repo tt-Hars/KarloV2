@@ -3,16 +3,12 @@ import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Menu, { MenuProps } from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import EditIcon from '@mui/icons-material/Edit';
-import Divider from '@mui/material/Divider';
-import ArchiveIcon from '@mui/icons-material/Archive';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
+import LoginIcon from '@mui/icons-material/LoginRounded';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Link } from 'react-router-dom';
-import { useLocalStorageManager } from '@myreactapp/modules/shared/hooks';
-import { IconButton } from '@mui/material';
+import { ThemeContext, useLocalStorageManager } from '@myreactapp/modules/shared/hooks';
+import { IconButton, Paper } from '@mui/material';
+import {themeOptions} from '@myreactapp/modules/shared/data';
 
 const UserAvatar = styled('span')`
   height: 2rem;
@@ -66,7 +62,41 @@ const StyledMenu = styled((props: MenuProps) => (
   },
 }));
 
+const ThemeMenuItems = () => (
+  <Paper
+    sx={{
+      position: 'absolute',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+      top: '1rem',
+      background: 'transparent',
+      border: '0',
+      outline: '0',
+      boxShadow: 'none',
+    }}
+  >
+    <Paper
+      sx={{
+        maxWidth: '200px',
+        overflow: 'auto',
+        display: 'flex',
+        background: 'transparent',
+        boxShadow: 'none',
+      }}
+    ></Paper>
+  </Paper>
+);
+
 function CustomizedMenu() {
+  const { selectedTheme, setSelectedTheme } = React.useContext(ThemeContext);
+
+
+  const handleThemeChange = (themeId: string) => {
+    setSelectedTheme(themeId);
+  };
+
   const isAuthenticated = useLocalStorageManager('authenticated', false);
   const isRegistered = useLocalStorageManager('registered', false);
   const isSubscribed = useLocalStorageManager('subscribed', false);
@@ -119,26 +149,21 @@ function CustomizedMenu() {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose} disableRipple>
-          <EditIcon />
-          Edit
+          <LoginIcon />
+          Login
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
-          <FileCopyIcon />
-          Duplicate
-        </MenuItem>
-        <Divider sx={{ my: 0.5 }} />
-        <MenuItem onClick={handleClose} disableRipple>
-          <ArchiveIcon />
-          Archive
-        </MenuItem>
-        <MenuItem
-        >
+        <MenuItem>
           <MoreHorizIcon />
-          <Button aria-controls={open2 ? 'demo-more-menu' : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
-          onMouseOver={handleClick2}
-          disableRipple> More</Button>
+          <Button
+            aria-controls={open2 ? 'demo-more-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            onMouseOver={handleClick2}
+            disableRipple
+          >
+            {' '}
+            Themes
+          </Button>
         </MenuItem>
         <StyledMenu
           id="demo-more-menu"
@@ -148,26 +173,16 @@ function CustomizedMenu() {
           anchorEl={anchorEl2}
           open={open2}
           key="2"
-          onClose={handleClose}
+          onClose={handleClose2}
         >
-          <MenuItem onClick={handleClose} disableRipple>
-            <EditIcon />
-            Edit
-          </MenuItem>
-          <MenuItem onClick={handleClose} disableRipple>
-            <FileCopyIcon />
-            Duplicate
-          </MenuItem>
-          <Divider sx={{ my: 0.5 }} />
-          <MenuItem onClick={handleClose} disableRipple>
-            <ArchiveIcon />
-            Archive
-          </MenuItem>
-          <MenuItem onClick={handleClose2} disableRipple>
-            <MoreHorizIcon />
-            More
-          </MenuItem>
-          <CustomizedMenu></CustomizedMenu>
+          {themeOptions.map((theme: any) => (
+            <MenuItem
+              key={theme.id}
+              onClick={() => handleThemeChange(theme.id)}
+            >
+              {theme.label}
+            </MenuItem>
+          ))}
         </StyledMenu>
       </StyledMenu>
     </>

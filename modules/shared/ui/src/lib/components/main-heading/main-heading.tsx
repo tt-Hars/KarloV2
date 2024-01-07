@@ -4,7 +4,7 @@ import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOu
 import { Link } from 'react-router-dom';
 
 import Typewriter from 'typewriter-effect';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 /* eslint-disable-next-line */
 export interface MainHeadingProps {}
@@ -17,6 +17,14 @@ export function MainHeading(props: MainHeadingProps) {
     'Etwas Tun.',
     'Hacer Algo.',
     '何かをしてください。',
+    'Haz algo.',
+    'Fais quelque chose.',
+    'Fai qualcosa.',
+    'Faça alguma coisa.',
+    'Сделай что-нибудь.',
+    '뭔가를 해.',
+    'Κάνε κάτι.',
+    'Gör något.'
   ]);
   return (
     <>
@@ -31,12 +39,15 @@ export function MainHeading(props: MainHeadingProps) {
       >
         <Typewriter
           component={styled.span``}
-          onInit={(t) => t.start()}
+          onInit={(t) => t.callFunction(() => {
+            console.log('String typed out!');
+          }).start()}
           options={{
             loop: true,
             delay: 75,
             strings,
             autoStart: true,
+            devMode: true
           }}
         />
       </Typography>
