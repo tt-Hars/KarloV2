@@ -39,15 +39,13 @@ export function MainHeading(props: MainHeadingProps) {
       >
         <Typewriter
           component={styled.span``}
-          onInit={(t) => t.callFunction(() => {
-            console.log('String typed out!');
-          }).start()}
+          onInit={(t) => t.start()}
           options={{
             loop: true,
             delay: 75,
             strings,
             autoStart: true,
-            devMode: true
+            
           }}
         />
       </Typography>

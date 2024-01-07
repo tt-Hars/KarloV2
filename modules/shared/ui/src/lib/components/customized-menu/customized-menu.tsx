@@ -6,9 +6,13 @@ import MenuItem from '@mui/material/MenuItem';
 import LoginIcon from '@mui/icons-material/LoginRounded';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { ThemeContext, useLocalStorageManager } from '@myreactapp/modules/shared/hooks';
-import { IconButton, Paper } from '@mui/material';
-import {themeOptions} from '@myreactapp/modules/shared/data';
+import {
+  ThemeContext,
+  useLocalStorageManager,
+} from '@myreactapp/modules/shared/hooks';
+import { IconButton } from '@mui/material';
+import { themeOptions } from '@myreactapp/modules/shared/data';
+import { useNavigate } from 'react-router-dom';
 
 const UserAvatar = styled('span')`
   height: 2rem;
@@ -62,36 +66,9 @@ const StyledMenu = styled((props: MenuProps) => (
   },
 }));
 
-const ThemeMenuItems = () => (
-  <Paper
-    sx={{
-      position: 'absolute',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
-      top: '1rem',
-      background: 'transparent',
-      border: '0',
-      outline: '0',
-      boxShadow: 'none',
-    }}
-  >
-    <Paper
-      sx={{
-        maxWidth: '200px',
-        overflow: 'auto',
-        display: 'flex',
-        background: 'transparent',
-        boxShadow: 'none',
-      }}
-    ></Paper>
-  </Paper>
-);
-
 function CustomizedMenu() {
+  const navigate = useNavigate();
   const { selectedTheme, setSelectedTheme } = React.useContext(ThemeContext);
-
 
   const handleThemeChange = (themeId: string) => {
     setSelectedTheme(themeId);
@@ -148,7 +125,13 @@ function CustomizedMenu() {
         key="1"
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem
+          onClick={() => {
+            navigate('/login');
+            handleClose();
+          }}
+          disableRipple
+        >
           <LoginIcon />
           Login
         </MenuItem>
