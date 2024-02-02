@@ -26,7 +26,7 @@ const UserAvatar = styled.span`
 const HomeIcon = styled.span`
   height: 2rem;
   position: absolute;
-  top: 2.5rem;
+  top: 1.5rem;
   left: 2.5rem;
   z-index: 2;
 `;
@@ -54,7 +54,7 @@ export function Navbar(props: NavbarProps) {
               <Typography
                 color="primary"
                 fontWeight="black"
-                variant="h4"
+                variant="h2"
                 component="h1"
               >
                 •K•A•R•L•O•
@@ -72,7 +72,7 @@ export function Navbar(props: NavbarProps) {
               <Typography
                 color="primary"
                 fontWeight="black"
-                variant="h4"
+                variant="h2"
                 component="h1"
               >
                 •K•A•R•L•O•
