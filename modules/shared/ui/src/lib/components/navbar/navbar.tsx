@@ -14,19 +14,11 @@ const StyledNavbar = styled.div`
 background: linear-gradient(180deg,hsla(0,0%,100%,0) 0,#fff 300px),fixed 0 0 /20px 20px radial-gradient(#d1d1d1 1px,transparent 0),fixed 10px 10px /20px 20px radial-gradient(#d1d1d1 1px,transparent 0)
 `;
 
-const UserAvatar = styled.span`
-  height: 2rem;
-  width: 2rem;
-  position: absolute;
-  top: 2.5rem;
-  right: 2.5rem;
-  z-index: 2;
-`;
 
 const HomeIcon = styled.span`
   height: 2rem;
   position: absolute;
-  top: 1.5rem;
+  top: 2.5rem;
   left: 2.5rem;
   z-index: 2;
 `;

@@ -18,7 +18,7 @@ const UserAvatar = styled('span')`
   height: 2rem;
   width: 2rem;
   position: absolute;
-  top: 2.5rem;
+  top: 1.5rem;
   right: 2.5rem;
   z-index: 2;
 `;
