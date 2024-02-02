@@ -17,20 +17,16 @@ export const ThemeProvider = ({ children }: IThemeProvider) => {
 
   const currentTheme = themeOptions.find((theme: any) => theme.id === selectedTheme)?.theme || themeOptions[0].theme;
 
-  const handleThemeChange = (themeId: string) => {
-    setSelectedTheme(themeId);
-  };
   
   useInterval(() => {
     count < themeOptions.length - 1 ? setCount(count + 1) : setCount(0);
-    handleThemeChange(themeOptions[count].id);
   }, 2000);
 
   const value: IThemeContext = { selectedTheme, setSelectedTheme };
 
   return (
     <ThemeContext.Provider value={value}>
-      <MuiThemeProvider theme={createTheme(currentTheme)}>{children}</MuiThemeProvider>
+      <MuiThemeProvider theme={currentTheme}>{children}</MuiThemeProvider>
     </ThemeContext.Provider>
   );
 };

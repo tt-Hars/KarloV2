@@ -13,11 +13,11 @@ const StyledLanding = styled.div`
 export function Landing(props: LandingProps) {
   return (
     <StyledLanding>
-      <Grid height='100%' width='100vw' container >
+      <Grid height='100%' width='100%' container >
       <Grid item
         flexDirection="column"
         height="100%"
-        width="100vw"
+        width="100%"
         display="flex"
         alignItems="center"
         justifyContent="center"

@@ -1,1 +1,1 @@
-export * from './lib/constants/theme';
+export * from './lib/constants/theme/theme';

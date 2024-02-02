@@ -22,18 +22,18 @@ export function Dashboard(props: DashboardProps) {
   }, [isSubscribed, navigate])
   return (
     <StyledDashboard>
-      <Grid height="100%" width="100vw" container>
+      <Grid height="100%">
         <Grid
           item
           flexDirection="column"
           height="100%"
-          width="100vw"
+          width="xl"
           display="flex"
           alignItems="center"
           justifyContent="center"
           bgcolor="background.default"
         >
-          <Typography variant='h4'>Weclome, User!</Typography>
+          <Typography variant='h4'>Welcome, User!</Typography>
           <Outlet></Outlet>
         </Grid>
       </Grid>
