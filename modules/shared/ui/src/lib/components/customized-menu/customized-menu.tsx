@@ -10,17 +10,11 @@ import {
   ThemeContext,
   useLocalStorageManager,
 } from '@karlo/modules/shared/hooks';
-import { IconButton } from '@mui/material';
+import { IconButton, Paper, Typography } from '@mui/material';
 import { themeOptions } from '@karlo/modules/shared/data';
 import { useNavigate } from 'react-router-dom';
 
 const UserAvatar = styled('span')`
-  height: 2rem;
-  width: 2rem;
-  position: absolute;
-  top: 1.5rem;
-  right: 2.5rem;
-  z-index: 2;
 `;
 
 const StyledMenu = styled((props: MenuProps) => (
@@ -59,7 +53,7 @@ const StyledMenu = styled((props: MenuProps) => (
       '&:active': {
         backgroundColor: alpha(
           theme.palette.primary.main,
-          theme.palette.action.selectedOpacity
+          theme.palette.action.selectedOpacity,
         ),
       },
     },
@@ -104,7 +98,12 @@ function CustomizedMenu() {
   };
 
   return (
-    <>
+    <Paper sx={{display: 'flex', alignItems: 'center'}}>
+      {isAuthenticated.value === true ? (
+        <Typography variant="h4">Welcome, User!</Typography>
+      ) : (
+        <></>
+      )}
       <UserAvatar>
         <IconButton
           aria-controls={open ? 'demo-customized-menu' : undefined}
@@ -112,7 +111,7 @@ function CustomizedMenu() {
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
         >
-          <AccountCircleIcon color="secondary" fontSize="large" />
+          <AccountCircleIcon color="primary" fontSize="large" />
         </IconButton>
       </UserAvatar>
       <StyledMenu
@@ -168,7 +167,7 @@ function CustomizedMenu() {
           ))}
         </StyledMenu>
       </StyledMenu>
-    </>
+    </Paper>
   );
 }
 

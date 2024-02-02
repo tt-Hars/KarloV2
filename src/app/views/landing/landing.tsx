@@ -7,21 +7,23 @@ import { useEffect, useRef } from 'react';
 export interface LandingProps {}
 
 const StyledLanding = styled.div`
-  height: 100vh;
+  min-height: calc(100vh - 112px);
 `;
 
 export function Landing(props: LandingProps) {
   return (
     <StyledLanding>
-      <Grid height='100%' width='100%' container >
+      <Grid minHeight='calc(100vh - 112px)' width='100%' container >
       <Grid item
         flexDirection="column"
-        height="100%"
+        height="calc(100% - 40px)"
         width="100%"
         display="flex"
         alignItems="center"
         justifyContent="center"
         bgcolor="background.default"
+        my='20px'
+        minHeight='calc(100vh - 152px)'
       >
         <Outlet></Outlet>
       </Grid>

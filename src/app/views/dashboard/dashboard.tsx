@@ -8,8 +8,8 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 export interface DashboardProps {}
 
 const StyledDashboard = styled.div`
-  color: pink;
-  height: 100vh;
+  color: primary;
+  min-height: calc(100vh - 112px);
 `;
 
 
@@ -22,18 +22,19 @@ export function Dashboard(props: DashboardProps) {
   }, [isSubscribed, navigate])
   return (
     <StyledDashboard>
-      <Grid height="100%">
+      <Grid minHeight='calc(100vh - 112px)' height="100%" container>
         <Grid
           item
           flexDirection="column"
-          height="100%"
+          height="calc(100% - 40px)"
           width="xl"
           display="flex"
           alignItems="center"
           justifyContent="center"
           bgcolor="background.default"
+          my="20px"
+          minHeight='calc(100vh - 152px)'
         >
-          <Typography variant='h4'>Welcome, User!</Typography>
           <Outlet></Outlet>
         </Grid>
       </Grid>

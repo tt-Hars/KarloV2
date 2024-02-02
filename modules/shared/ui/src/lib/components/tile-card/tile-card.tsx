@@ -6,10 +6,12 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
-import { Grid, styled } from '@mui/material';
+import { Grid, Paper, styled } from '@mui/material';
 
 export interface TileCardProps {
-  tileRoute: string;
+  label: string;
+  content: string;
+  route: string;
 }
 
 const BoxContainer = styled('div')`
@@ -27,39 +29,35 @@ const bull = (
   </Box>
 );
 
-export default function TileCard({ ...props }: TileCardProps) {
+export function TileCard({ label, content, route }: TileCardProps) {
   return (
-    <Grid item xs={4}>
-      <Box>
-        <BoxContainer>
-          <Card variant="outlined">
-            <React.Fragment>
-              <CardContent>
-                <Typography
-                  sx={{ fontSize: 14 }}
-                  color="text.secondary"
-                  gutterBottom
-                >
-                  Word of the Day
-                </Typography>
-                <Typography variant="h5" component="div">
-                  be{bull}nev{bull}o{bull}lent
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button
-                  component={Link}
-                  to={props.tileRoute.replace('_', '/')}
-                  // to='/login'
-                  size="small"
-                >
-                  {props.tileRoute.replace('_', '')}
-                </Button>
-              </CardActions>
-            </React.Fragment>
-          </Card>
-        </BoxContainer>
-      </Box>
-    </Grid>
+    <Paper
+      sx={{
+        padding: 2,
+        textAlign: 'center',
+        color: 'text.secondary',
+        height: '100%',
+        transition: 'background-color 0.3s ease',
+        '&:hover': {
+          backgroundColor: 'action.hover',
+        },
+      }}
+    >
+      <Typography textTransform="capitalize" variant="h6" gutterBottom>
+        {label}
+      </Typography>
+      <Typography variant="body1" paragraph>
+        {content}
+      </Typography>
+      <Button
+        variant="contained"
+        component={Link}
+        to={route.replace('_', '/')}
+        fullWidth
+        sx={{ marginTop: 2 }}
+      >
+        {label}
+      </Button>
+    </Paper>
   );
 }
