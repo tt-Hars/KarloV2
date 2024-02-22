@@ -1,0 +1,7 @@
+[functions]
+  node_bundler = "esbuild"
+  directory = "netlify/functions"
+
+[dev]
+  command = "pnpm start"
+  targetPort = 4200
