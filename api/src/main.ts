@@ -4,6 +4,8 @@
  */
 
 import express from 'express';
+import register from './routes/register'
+
 import * as path from 'path';
 
 const app = express();
@@ -17,6 +19,8 @@ app.get('/api', (req, res) => {
   res.status(200)
   res.send({ message: 'Welcome to api!' });
 });
+
+app.post('/register1', register);
 
 const port = process.env.PORT;
 const server = app.listen(port, () => {

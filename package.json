@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
+    "dev": "nx serveWithApi",
     "build": "nx build && cp ./_redirects  ./dist/karlo",
     "test": "nx test"
   },

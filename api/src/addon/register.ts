@@ -6,7 +6,9 @@ import { Request, Response } from 'express';
 
 export async function register(req: Request, res: Response) {
   // todo: encrypt payload from UI
-  const { email, password, username } = req.body;
+  const payload = typeof req.body === 'string' ? JSON.parse(req.body) : req.body
+  console.log(payload)
+  const { email, password, username } = payload
   const user_id: UUID = randomUUID();
   const {ASTRA_DB_APPLICATION_TOKEN, ASTRA_DB_API_ENDPOINT, USER_COLLECTION, KEYSPACE} = process.env
   const db = new AstraDB(
