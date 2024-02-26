@@ -50,7 +50,8 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "karlo:build",
-        "hmr": true
+        "hmr": true,
+        "proxyConfig": "./proxy.conf.json"
       },
       "configurations": {
         "development": {
@@ -60,6 +61,12 @@
           "buildTarget": "karlo:build:production",
           "hmr": false
         }
+      }
+    },
+    "serveWithApi": {
+      "executor": "nx:run-commands",
+      "options": {
+      "commands": ["nx run karlo:serve", "nx run api:serve --inspect"]
       }
     },
     "lint": {

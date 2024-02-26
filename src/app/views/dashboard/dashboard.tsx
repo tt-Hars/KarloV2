@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Grid, Typography } from '@mui/material';
 import { useLocalStorageManager } from '@karlo/modules/shared/hooks';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 /* eslint-disable-next-line */
@@ -14,15 +14,20 @@ const StyledDashboard = styled.div`
 
 
 export function Dashboard(props: DashboardProps) {
+  const [data, setData] = useState({} as {message: string})
   const isSubscribed = useLocalStorageManager('subscribed');
   const navigate = useNavigate()
   useEffect(() => {
     console.log(isSubscribed.value)
     // if(isSubscribed.value === false) navigate('/payment')
   }, [isSubscribed, navigate])
+  useEffect(() => {
+    fetch('/api').then(data => data.json()).then(data => setData(data))
+  }, [])
   return (
     <StyledDashboard>
       <Grid minHeight='calc(100vh - 112px)' height="100%" container>
+        {data.message}
         <Grid
           item
           flexDirection="column"
