@@ -20,18 +20,17 @@ export function Register(props: RegisterProps) {
   const isRegistered = useLocalStorageManager('registered');
 
   async function handleRegister() {
-    const resp = await fetch('/register1', {
+    const resp = await fetch('/api/v1/register', {
       method: 'POST',
       body: JSON.stringify({ email, username, password }),
       headers: {
-        'Content-Type': 'application/json',
-        // 'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json'
       },
     });
     if (resp.status === 201) {
       isAuthenticated.action(true);
       isRegistered.action(true);
-      navigate('/');
+      navigate('/payment');
     }
   }
 

@@ -27,12 +27,11 @@ export function Dashboard(props: DashboardProps) {
   return (
     <StyledDashboard>
       <Grid minHeight='calc(100vh - 112px)' height="100%" container>
-        {data.message}
         <Grid
           item
           flexDirection="column"
           height="calc(100% - 40px)"
-          width="xl"
+          width="100%"
           display="flex"
           alignItems="center"
           justifyContent="center"

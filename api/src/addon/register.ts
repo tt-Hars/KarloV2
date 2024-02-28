@@ -4,18 +4,20 @@ import { encryptPassword } from '../utils/password';
 import { User } from '../models/User';
 import { Request, Response } from 'express';
 
+// should be moved with collection to a class returning a singleton
+const {ASTRA_DB_APPLICATION_TOKEN, ASTRA_DB_API_ENDPOINT, USER_COLLECTION, KEYSPACE} = process.env
+const db = new AstraDB(
+  ASTRA_DB_APPLICATION_TOKEN,
+  ASTRA_DB_API_ENDPOINT,
+  KEYSPACE,
+);
+
 export async function register(req: Request, res: Response) {
   // todo: encrypt payload from UI
   const payload = typeof req.body === 'string' ? JSON.parse(req.body) : req.body
   console.log(payload)
   const { email, password, username } = payload
   const user_id: UUID = randomUUID();
-  const {ASTRA_DB_APPLICATION_TOKEN, ASTRA_DB_API_ENDPOINT, USER_COLLECTION, KEYSPACE} = process.env
-  const db = new AstraDB(
-    ASTRA_DB_APPLICATION_TOKEN,
-    ASTRA_DB_API_ENDPOINT,
-    KEYSPACE,
-  );
   const encryptedPassword = await encryptPassword(password);
   const user: User = {
     user_id,

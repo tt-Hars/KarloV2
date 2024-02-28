@@ -42,7 +42,7 @@ export function Login(props: LoginProps) {
           // isSubscribed.action(false);
         }}
         component={Link}
-        to="/"
+        to="/payment"
         variant="outlined"
         size="large"
         endIcon={<ArrowCircleRightOutlinedIcon />}
