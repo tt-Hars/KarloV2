@@ -49,6 +49,8 @@ const Payment: React.FC<PaymentProps> = () => {
   }, [sessionId]);
 
   useEffect(() => {
+    /* create a function taking method, url, params, headers
+     * all apis should be called from there, can be used as an inteceptor too*/
     fetch('/api/v1/get_products')
       .then((data) => data.json())
       .then((products) => setProducts(products));
@@ -203,7 +205,7 @@ const Payment: React.FC<PaymentProps> = () => {
   if (!success && message === '') {
     return <Subscribe />;
   } else if (success && sessionId !== '') {
-    const userId = 'f5c80b14-8579-4831-b5c5-beaa80688b56'; // should come from redux
+    const userId = '3fb82086-654a-4bc0-abbd-96a64b31a0fe'; // should come from redux
     return (
       <Success
         onManageBilling={onManageBilling}
