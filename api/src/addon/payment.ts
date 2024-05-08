@@ -1,4 +1,4 @@
-import { AstraDB } from '@datastax/astra-db-ts';
+import { DataAPIClient } from '@datastax/astra-db-ts';
 import { Stripe } from 'stripe';
 import { Request, Response } from 'express';
 import * as process from 'process';
@@ -9,11 +9,13 @@ const {
   USER_COLLECTION,
   KEYSPACE,
 } = process.env;
-const db = new AstraDB(
-  ASTRA_DB_APPLICATION_TOKEN,
-  ASTRA_DB_API_ENDPOINT,
-  KEYSPACE,
+const client = new DataAPIClient(
+  ASTRA_DB_APPLICATION_TOKEN
 );
+
+const db = client.db(ASTRA_DB_API_ENDPOINT)
+
+
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const DOMAIN = 'http://localhost:4200';

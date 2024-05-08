@@ -30,7 +30,7 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools: process.env.NODE_ENV !== 'production',
   // Optional Redux store enhancers
-  enhancers: [],
+  // enhancers: [],
 });
 
 root.render(

@@ -1,4 +1,4 @@
-import { AstraDB } from '@datastax/astra-db-ts';
+import { DataAPIClient } from '@datastax/astra-db-ts';
 import { UUID, randomUUID } from 'crypto';
 import { encryptPassword } from '../utils/password';
 import { User } from '../models/User';
@@ -6,11 +6,8 @@ import { Request, Response } from 'express';
 
 // should be moved with collection to a class returning a singleton
 const {ASTRA_DB_APPLICATION_TOKEN, ASTRA_DB_API_ENDPOINT, USER_COLLECTION, KEYSPACE} = process.env
-const db = new AstraDB(
-  ASTRA_DB_APPLICATION_TOKEN,
-  ASTRA_DB_API_ENDPOINT,
-  KEYSPACE,
-);
+const client = new DataAPIClient(ASTRA_DB_APPLICATION_TOKEN)
+const db = client.db(ASTRA_DB_API_ENDPOINT)
 
 export async function register(req: Request, res: Response) {
   // todo: encrypt payload from UI

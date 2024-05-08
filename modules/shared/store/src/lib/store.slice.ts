@@ -16,7 +16,9 @@ export interface StoreEntity {
   id: number;
 }
 
-export interface StoreState extends EntityState<StoreEntity> {
+export type StoreEntityId = StoreEntity['id'];
+
+export interface StoreState extends EntityState<StoreEntity, StoreEntityId> {
   loadingStatus: 'not loaded' | 'loading' | 'loaded' | 'error';
   error?: string | null;
 }
