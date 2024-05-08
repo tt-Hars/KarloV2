@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, Box, Button, Tab, Tabs } from '@mui/material';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
+import { useLocalStorageManager } from '@karlo/modules/shared/hooks';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface PaymentProps {
@@ -130,6 +131,7 @@ const Payment: React.FC<PaymentProps> = () => {
     userId,
     subscriptionLevel,
   }) => {
+    const isSubscribed = useLocalStorageManager('subscribed');
     useEffect(() => {
       fetch('/api/v1/update_user_data', {
         method: 'POST',
@@ -141,7 +143,7 @@ const Payment: React.FC<PaymentProps> = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-      });
+      }).then(() => isSubscribed.action(true));
     }, []);
     return (
       <Box sx={{ maxWidth: 600, margin: 'auto' }}>
