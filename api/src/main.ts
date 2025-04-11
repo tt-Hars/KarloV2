@@ -1,19 +1,22 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
+import path from 'path';
 import express from 'express';
+import dotenv from 'dotenv';
 import register from './routes/register';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import connectToAstraDb from './config/db'
+import { notFound, errorHandler } from './middleware/errorMiddleware';
 import ROUTE_CONSTANTS, { BASE_PATH } from './constants/routes';
+import userRoutes from './routes/userRoutes';
 
-import * as path from 'path';
+dotenv.config()
 import {
   create_checkout_session,
   products_route,
   update_user_data,
 } from './addon/payment';
+
+connectToAstraDb();
 
 const app = express();
 
@@ -22,6 +25,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
+
+app.use('/api/users', userRoutes);
 
 app.get(BASE_PATH, (req, res) => {
   console.log(process.env.KEYSPACE);
@@ -34,6 +39,10 @@ app.post(ROUTE_CONSTANTS.INITIATE_PAYMENT, cors(), create_checkout_session);
 app.get(ROUTE_CONSTANTS.GET_PRODUCTS, products_route);
 app.post(ROUTE_CONSTANTS.UPDATE_USER_DATA, update_user_data);
 const port = process.env.PORT;
+
+app.use(notFound);
+app.use(errorHandler);
+
 const server = app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}/`);
 });

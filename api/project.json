@@ -8,7 +8,7 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "api:build",
+        "buildTarget": "api:build:development",
         "inspect": true
       },
       "configurations": {
@@ -16,7 +16,7 @@
           "buildTarget": "api:build:development"
         },
         "production": {
-          "buildTarget": "api:build:production"
+          "buildTarget": "api:build:development"
         }
       }
     },

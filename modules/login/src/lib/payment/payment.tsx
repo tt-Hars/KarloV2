@@ -144,7 +144,7 @@ const Payment: React.FC<PaymentProps> = () => {
           'Content-Type': 'application/json',
         },
       }).then(() => isSubscribed.action(true));
-    }, []);
+    }, [sessionId]);
     return (
       <Box sx={{ maxWidth: 600, margin: 'auto' }}>
         <Typography variant="h4" align="center" gutterBottom>
