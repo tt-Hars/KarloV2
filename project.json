@@ -69,6 +69,14 @@
       "commands": ["nx run karlo:serve", "nx run api:serve --inspect"]
       }
     },
+    "serveApi": {
+      "defaultConfiguration": "development",
+      "executor": "nx-pm2-plugin:pm2-executor",
+      "options": {
+        "command": "nx run api:serve:development",
+        "name": "api"
+      }
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

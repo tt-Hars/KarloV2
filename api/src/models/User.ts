@@ -55,8 +55,7 @@ const userSchema = new Schema<IUser>(
         type: Date,
         required: false,
         default: null,
-      },
-      required: true,
+      }
     },
   },
   {

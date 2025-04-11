@@ -84,7 +84,7 @@ const Payment: React.FC<PaymentProps> = () => {
           textColor="primary"
         >
           <Tab label="Basic (Entertainment)" value="BASIC_E" />
-          <Tab label="Basic (Productivity)" value="BAISC_P" />
+          <Tab label="Basic (Productivity)" value="BASIC_P" />
           <Tab label="Premium" value="PREMIUM" />
         </Tabs>
       </Box>
@@ -137,7 +137,7 @@ const Payment: React.FC<PaymentProps> = () => {
         method: 'POST',
         body: JSON.stringify({
           session_id: sessionId,
-          user_id: userId,
+          _id: userId,
           subscription_level: subscriptionLevel,
         }),
         headers: {
@@ -207,12 +207,12 @@ const Payment: React.FC<PaymentProps> = () => {
   if (!success && message === '') {
     return <Subscribe />;
   } else if (success && sessionId !== '') {
-    const userId = '3fb82086-654a-4bc0-abbd-96a64b31a0fe'; // should come from redux
+    const userId = window.localStorage.getItem('userId'); // local cache or server cache or db
     return (
       <Success
         onManageBilling={onManageBilling}
         sessionId={sessionId}
-        userId={userId}
+        userId={userId || ''}
         subscriptionLevel={subscriptionType}
       />
     );

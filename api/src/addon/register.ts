@@ -34,9 +34,13 @@ export async function register(req: Request, res: Response) {
     provider_user_id: null,
   };
 
-  const collection = await db.collection(USER_COLLECTION);
-  collection.insertOne(user).then((data) => {
+  try {
+    const collection = await db.collection(USER_COLLECTION);
+    collection.insertOne(user).then((data) => {
     res.status(201);
     res.send(data);
   });
+  } catch (error) {
+    console.error(error);
+  }
 }

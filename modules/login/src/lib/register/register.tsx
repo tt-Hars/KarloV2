@@ -28,6 +28,8 @@ export function Register(props: RegisterProps) {
       },
     });
     if (resp.status === 201) {
+      const data = await resp.json();
+      window.localStorage.setItem('userId', data.insertedId);
       isAuthenticated.action(true);
       isRegistered.action(true);
       navigate('/payment');
