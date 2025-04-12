@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/User';
 import generateToken from '../utils/generateToken';
+import { encryptPassword } from '../utils/password';
 
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
@@ -9,8 +10,8 @@ const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
-  const doesPasswordsMatch = await user.matchPassword(password);
-  if (user && doesPasswordsMatch) {
+  const doesPasswordsMatch = user && await user.matchPassword(password);
+  if (doesPasswordsMatch) {
     generateToken(res, user._id);
 
     res.json({
@@ -28,6 +29,8 @@ const authUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
+  console.log('Incoming request body:', req.body);
+
   const { name, email, password } = req.body;
 
   const userExists = await User.findOne({ email });
@@ -36,7 +39,9 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error('User already exists');
   }
-
+  // const encryptedPassword = await encryptPassword(password);
+  
+try {
   const user = await User.create({
     name,
     email,
@@ -51,10 +56,11 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
     });
-  } else {
-    res.status(400);
-    throw new Error('Invalid user data');
   }
+} catch (error) {
+  res.status(400);
+  throw new Error('Invalid user data::: ' + error);
+} 
 });
 
 // @desc    Logout user / clear cookie

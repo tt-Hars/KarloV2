@@ -22,7 +22,7 @@ export function Register(props: RegisterProps) {
   async function handleRegister() {
     const resp = await fetch('/api/v1/register', {
       method: 'POST',
-      body: JSON.stringify({ email, username, password }),
+      body: JSON.stringify({ email, name: username, password }),
       headers: {
         'Content-Type': 'application/json'
       },

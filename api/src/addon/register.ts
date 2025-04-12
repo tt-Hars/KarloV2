@@ -36,7 +36,7 @@ export async function register(req: Request, res: Response) {
 
   try {
     const collection = await db.collection(USER_COLLECTION);
-    collection.insertOne(user).then((data) => {
+  collection.insertOne(user).then((data) => {
     res.status(201);
     res.send(data);
   });

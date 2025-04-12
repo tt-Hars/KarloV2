@@ -1,7 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { encryptPassword, matchPasswords } from '../utils/password';
-
-export interface IUser {
+export interface IUser { 
   name: string;
   email: string;
   password: string;
@@ -73,6 +72,7 @@ userSchema.pre('save', async function (next) {
   }
 
   this.password = await encryptPassword(this.password);
+  next();
 });
 
 const User = model('User', userSchema);
