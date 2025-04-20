@@ -131,7 +131,7 @@ const Payment: React.FC<PaymentProps> = () => {
     userId,
     subscriptionLevel,
   }) => {
-    const isSubscribed = useLocalStorageManager('subscribed');
+    // const isSubscribed = useLocalStorageManager('subscribed');
     useEffect(() => {
       fetch('/api/v1/update_user_data', {
         method: 'POST',
@@ -143,7 +143,7 @@ const Payment: React.FC<PaymentProps> = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-      }).then(() => isSubscribed.action(true));
+      }).then(() => console.log('User data updated'));
     }, [sessionId]);
     return (
       <Box sx={{ maxWidth: 600, margin: 'auto' }}>

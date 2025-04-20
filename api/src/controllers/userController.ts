@@ -1,7 +1,29 @@
+import jwt from 'jsonwebtoken';
+
 import asyncHandler from 'express-async-handler';
-import User from '../models/User';
-import generateToken from '../utils/generateToken';
+import User, { IUser } from '../models/User';
+import {
+  generateRefreshToken,
+  generateAccessToken,
+  ACCESS_TOKEN,
+  REFRESH_TOKEN,
+} from '../utils/generateToken';
 import { encryptPassword } from '../utils/password';
+import type { Response } from 'express';
+import { Types } from 'mongoose';
+
+const generateTokensAndResponse = (
+  res: Response,
+  user: IUser & { _id: string | Types.ObjectId },
+) => {
+  generateAccessToken(res, user._id);
+  generateRefreshToken(res, user._id);
+  res.json({
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+  });
+};
 
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
@@ -10,19 +32,13 @@ const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
-  const doesPasswordsMatch = user && await user.matchPassword(password);
-  if (doesPasswordsMatch) {
-    generateToken(res, user._id);
+  const doesPasswordsMatch = user && (await user.matchPassword(password));
 
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-    });
-  } else {
+  if (!doesPasswordsMatch) {
     res.status(401);
     throw new Error('Invalid email or password');
   }
+  generateTokensAndResponse(res, user);
 });
 
 // @desc    Register a new user
@@ -40,36 +56,32 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error('User already exists');
   }
   // const encryptedPassword = await encryptPassword(password);
-  
-try {
-  const user = await User.create({
-    name,
-    email,
-    password,
-  });
 
-  if (user) {
-    generateToken(res, user._id);
-
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
+  try {
+    const user = await User.create({
+      name,
+      email,
+      password,
     });
+
+    if (user) {
+      generateTokensAndResponse(res, user);
+    }
+  } catch (error) {
+    res.status(400);
+    throw new Error('Invalid user data::: ' + error);
   }
-} catch (error) {
-  res.status(400);
-  throw new Error('Invalid user data::: ' + error);
-} 
 });
 
 // @desc    Logout user / clear cookie
 // @route   POST /api/users/logout
 // @access  Public
-const logoutUser = (req, res) => {
-  res.cookie('jwt', '', {
-    httpOnly: true,
-    expires: new Date(0),
+const logoutUser = (req, res: Response) => {
+  [ACCESS_TOKEN, REFRESH_TOKEN].forEach((token) => {
+    res.cookie(token, '', {
+      httpOnly: true,
+      expires: new Date(0),
+    });
   });
   res.status(200).json({ message: 'Logged out successfully' });
 };
@@ -118,10 +130,34 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     throw new Error('User not found');
   }
 });
+
+const refreshToken = asyncHandler(async (req, res) => {
+    const token = req.cookies.refreshToken;
+
+    if (!token) {
+      res.status(401);
+      throw new Error('No refresh token');
+    }
+
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET) as any;
+      const user = await User.findById(decoded.userId);
+
+      if (!user) throw new Error('User not found');
+      generateAccessToken(res, user._id);
+      res.json({ success: true });
+    } catch {
+      res.status(401);
+      throw new Error('Invalid refresh token');
+    }
+  },
+);
+
 export {
   authUser,
   registerUser,
   logoutUser,
   getUserProfile,
   updateUserProfile,
+  refreshToken
 };

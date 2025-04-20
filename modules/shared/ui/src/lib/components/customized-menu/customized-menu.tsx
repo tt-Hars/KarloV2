@@ -11,7 +11,7 @@ import {
   useLocalStorageManager,
 } from '@karlo/modules/shared/hooks';
 import { IconButton, Paper, Typography } from '@mui/material';
-import { themeOptions } from '@karlo/modules/shared/data';
+import { themeOptions } from 'modules/shared/constants/src';
 import { useNavigate } from 'react-router-dom';
 
 const UserAvatar = styled('span')`
@@ -68,21 +68,21 @@ function CustomizedMenu() {
     setSelectedTheme(themeId);
   };
 
-  const isAuthenticated = useLocalStorageManager('authenticated', false);
-  const isRegistered = useLocalStorageManager('registered', false);
-  const isSubscribed = useLocalStorageManager('subscribed', false);
+  // const isAuthenticated = useLocalStorageManager('authenticated', false);
+  // const isRegistered = useLocalStorageManager('registered', false);
+  // const isSubscribed = useLocalStorageManager('subscribed', false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [anchorEl2, setAnchorEl2] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const open2 = Boolean(anchorEl2);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
-    if (isAuthenticated.value === true) {
-      console.log('!!logged out!!');
-      isAuthenticated.action(false);
-      isRegistered.action(false);
-      isSubscribed.action(false);
-    }
+    // if (isAuthenticated.value === true) {
+    //   console.log('!!logged out!!');
+    //   isAuthenticated.action(false);
+    //   isRegistered.action(false);
+    //   isSubscribed.action(false);
+    // }
   };
 
   const handleClick2 = (event: React.MouseEvent<HTMLElement>) => {
@@ -99,7 +99,7 @@ function CustomizedMenu() {
 
   return (
     <Paper sx={{display: 'flex', alignItems: 'center'}}>
-      {isAuthenticated.value === true ? (
+      {true ? (
         <Typography variant="h4">Welcome, User!</Typography>
       ) : (
         <></>

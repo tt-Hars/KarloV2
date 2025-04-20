@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { Box, Button, Grid, Link, Paper, Theme, Typography, makeStyles } from '@mui/material';
 import { moduleDetails } from 'src/app/moduleDetails';
 import {TileCard} from '@karlo/modules/shared/ui';
+import { useEffect } from 'react';
 
 /* eslint-disable-next-line */
 export interface WelcomeProps {}
@@ -53,6 +54,17 @@ export function Welcome(props: WelcomeProps) {
       { "route": "_shop", "label": "Shop", "content": "Discover and shop for clothing, electronics, and more.", "cta": "Shop Now" }
     ]
   };
+
+  useEffect(() => {
+    const getProfile = async () => {
+      const profile = await (await fetch('/api/v1/users/profile', {
+        method: 'GET',
+        credentials: 'include'
+      })).json();
+      console.log(profile);
+    }
+    getProfile();
+  }, []);
 
   
 

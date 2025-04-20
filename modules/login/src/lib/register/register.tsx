@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Button, Container, Grid, TextField } from '@mui/material';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 import { Link, useNavigate } from 'react-router-dom';
-import { useLocalStorageManager } from '@karlo/modules/shared/hooks';
+// import { useLocalStorageManager } from '@karlo/modules/shared/hooks';
 import { useEffect, useState } from 'react';
 /* eslint-disable-next-line */
 export interface RegisterProps {}
@@ -16,8 +16,8 @@ export function Register(props: RegisterProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const isAuthenticated = useLocalStorageManager('authenticated');
-  const isRegistered = useLocalStorageManager('registered');
+  // const isAuthenticated = useLocalStorageManager('authenticated');
+  // const isRegistered = useLocalStorageManager('registered');
 
   async function handleRegister() {
     const resp = await fetch('/api/v1/register', {
@@ -30,8 +30,8 @@ export function Register(props: RegisterProps) {
     if (resp.status === 201) {
       const data = await resp.json();
       window.localStorage.setItem('userId', data.insertedId);
-      isAuthenticated.action(true);
-      isRegistered.action(true);
+      // isAuthenticated.action(true);
+      // isRegistered.action(true);
       navigate('/payment');
     }
   }

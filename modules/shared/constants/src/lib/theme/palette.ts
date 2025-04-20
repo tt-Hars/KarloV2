@@ -309,3 +309,307 @@ export const Xc = {
   darkSecondary200: '#b9b3f7',
   darkSecondary800: '#554ae8',
 };
+
+/*
+export const Gc = {
+  light: {
+    background: '#ffffff',
+    primary: {
+      light: '#d2e9ff',
+      200: '#7bbdff',
+      main: '#1976d2',
+      dark: '#1565c0',
+      800: '#0d47a1',
+    },
+    secondary: {
+      light: '#e6d7fb',
+      200: '#ab80e4',
+      main: '#512da8',
+      dark: '#4527a0',
+      800: '#311b92',
+    },
+    success: {
+      light: '#a5f3c6',
+      200: '#4ade80',
+      main: '#16a34a',
+      dark: '#15803d',
+    },
+    error: {
+      light: '#fca5a5',
+      main: '#ef4444',
+      dark: '#b91c1c',
+    },
+    warning: {
+      light: '#fef3c7',
+      main: '#facc15',
+      dark: '#ca8a04',
+    },
+    orange: {
+      light: '#ffece5',
+      main: '#fb923c',
+      dark: '#c2410c',
+    },
+    grey: {
+      50: '#f9fafb',
+      100: '#f3f4f6',
+      200: '#e5e7eb',
+      300: '#d1d5db',
+      500: '#6b7280',
+      600: '#4b5563',
+      700: '#374151',
+      900: '#111827',
+    },
+  },
+  dark: {
+    background: '#0f172a',
+    paper: '#1e293b',
+    level1: '#1e293b',
+    level2: '#1e293b',
+    text: {
+      title: '#f8fafc',
+      primary: '#e2e8f0',
+      secondary: '#94a3b8',
+    },
+    primary: {
+      light: '#d2e9ff',
+      200: '#7bbdff',
+      main: '#1976d2',
+      dark: '#1565c0',
+      800: '#0d47a1',
+    },
+    secondary: {
+      light: '#e6d7fb',
+      200: '#ab80e4',
+      main: '#512da8',
+      dark: '#4527a0',
+      800: '#311b92',
+    },
+  },
+};
+
+export const Wc = {
+  light: {
+    background: '#ffffff',
+    primary: {
+      light: '#ffebee',
+      200: '#ef9a9a',
+      main: '#f44336',
+      dark: '#d32f2f',
+      800: '#b71c1c',
+    },
+    secondary: {
+      light: '#f3e5f5',
+      200: '#ce93d8',
+      main: '#9c27b0',
+      dark: '#7b1fa2',
+      800: '#4a148c',
+    },
+  },
+  dark: {
+    background: '#121212',
+    paper: '#1e1e1e',
+    level1: '#252525',
+    level2: '#2c2c2c',
+    text: {
+      title: '#ffffff',
+      primary: '#e0e0e0',
+      secondary: '#9e9e9e',
+    },
+    primary: {
+      light: '#ffebee',
+      200: '#ef9a9a',
+      main: '#f44336',
+      dark: '#d32f2f',
+      800: '#b71c1c',
+    },
+    secondary: {
+      light: '#f3e5f5',
+      200: '#ce93d8',
+      main: '#9c27b0',
+      dark: '#7b1fa2',
+      800: '#4a148c',
+    },
+  },
+};
+
+export const Zc = {
+  light: {
+    background: '#ffffff',
+    primary: {
+      light: '#e3f2fd',
+      200: '#90caf9',
+      main: '#2196f3',
+      dark: '#1976d2',
+      800: '#0d47a1',
+    },
+    secondary: {
+      light: '#e1f5fe',
+      200: '#81d4fa',
+      main: '#03a9f4',
+      dark: '#0288d1',
+      800: '#01579b',
+    },
+  },
+  dark: {
+    background: '#0d1117',
+    paper: '#161b22',
+    level1: '#1c1f26',
+    level2: '#22262c',
+    text: {
+      title: '#c9d1d9',
+      primary: '#e6edf3',
+      secondary: '#8b949e',
+    },
+    primary: {
+      light: '#e3f2fd',
+      200: '#90caf9',
+      main: '#2196f3',
+      dark: '#1976d2',
+      800: '#0d47a1',
+    },
+    secondary: {
+      light: '#e1f5fe',
+      200: '#81d4fa',
+      main: '#03a9f4',
+      dark: '#0288d1',
+      800: '#01579b',
+    },
+  },
+};
+
+export const Kc = {
+  light: {
+    background: '#ffffff',
+    primary: {
+      light: '#fff3e0',
+      200: '#ffcc80',
+      main: '#ff9800',
+      dark: '#ef6c00',
+      800: '#e65100',
+    },
+    secondary: {
+      light: '#fce4ec',
+      200: '#f48fb1',
+      main: '#e91e63',
+      dark: '#c2185b',
+      800: '#880e4f',
+    },
+  },
+  dark: {
+    background: '#1a1a1a',
+    paper: '#242424',
+    level1: '#2e2e2e',
+    level2: '#383838',
+    text: {
+      title: '#ffffff',
+      primary: '#e0e0e0',
+      secondary: '#b0bec5',
+    },
+    primary: {
+      light: '#fff3e0',
+      200: '#ffcc80',
+      main: '#ff9800',
+      dark: '#ef6c00',
+      800: '#e65100',
+    },
+    secondary: {
+      light: '#fce4ec',
+      200: '#f48fb1',
+      main: '#e91e63',
+      dark: '#c2185b',
+      800: '#880e4f',
+    },
+  },
+};
+
+export const Yc = {
+  light: {
+    background: '#ffffff',
+    primary: {
+      light: '#e8f5e9',
+      200: '#a5d6a7',
+      main: '#4caf50',
+      dark: '#388e3c',
+      800: '#1b5e20',
+    },
+    secondary: {
+      light: '#f1f8e9',
+      200: '#c5e1a5',
+      main: '#8bc34a',
+      dark: '#689f38',
+      800: '#33691e',
+    },
+  },
+  dark: {
+    background: '#121212',
+    paper: '#1d1d1d',
+    level1: '#232323',
+    level2: '#2c2c2c',
+    text: {
+      title: '#ffffff',
+      primary: '#dcedc8',
+      secondary: '#9ccc65',
+    },
+    primary: {
+      light: '#e8f5e9',
+      200: '#a5d6a7',
+      main: '#4caf50',
+      dark: '#388e3c',
+      800: '#1b5e20',
+    },
+    secondary: {
+      light: '#f1f8e9',
+      200: '#c5e1a5',
+      main: '#8bc34a',
+      dark: '#689f38',
+      800: '#33691e',
+    },
+  },
+};
+
+export const Xc = {
+  light: {
+    background: '#ffffff',
+    primary: {
+      light: '#ede7f6',
+      200: '#b39ddb',
+      main: '#673ab7',
+      dark: '#512da8',
+      800: '#311b92',
+    },
+    secondary: {
+      light: '#e8eaf6',
+      200: '#9fa8da',
+      main: '#3f51b5',
+      dark: '#303f9f',
+      800: '#1a237e',
+    },
+  },
+  dark: {
+    background: '#101010',
+    paper: '#181818',
+    level1: '#202020',
+    level2: '#282828',
+    text: {
+      title: '#ffffff',
+      primary: '#e8eaf6',
+      secondary: '#9fa8da',
+    },
+    primary: {
+      light: '#ede7f6',
+      200: '#b39ddb',
+      main: '#673ab7',
+      dark: '#512da8',
+      800: '#311b92',
+    },
+    secondary: {
+      light: '#e8eaf6',
+      200: '#9fa8da',
+      main: '#3f51b5',
+      dark: '#303f9f',
+      800: '#1a237e',
+    },
+  },
+};
+
+*/

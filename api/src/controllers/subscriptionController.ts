@@ -5,7 +5,6 @@ import process from 'process';
 import { Request, Response } from 'express';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-const DOMAIN = 'http://localhost:4200';
 export function get_products() {
   return stripe.products.list({
     limit: 3,
@@ -31,8 +30,8 @@ export const create_checkout_session = async (req: Request, res: Response) => {
       },
     ],
     mode: 'subscription',
-    success_url: `${DOMAIN}/payment?success=true&session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${DOMAIN}/payment?canceled=true`,
+    success_url: `/payment?success=true&session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `/payment?canceled=true`,
   });
 
   // res.redirect(303, session.url); does not work with react properly CORS error
