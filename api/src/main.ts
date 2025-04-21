@@ -16,7 +16,6 @@ import {
   update_user_data,
 } from './addon/payment';
 import { authUser, registerUser } from './controllers/userController';
-import router from './routes/userRoutes';
 
 connectToAstraDb();
 
@@ -29,8 +28,6 @@ app.use(cookieParser());
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-app.use('/api/v1/users', userRoutes);
-
 app.get(BASE_PATH, (req, res) => {
   console.log(process.env.KEYSPACE);
   res.status(200);
@@ -42,7 +39,7 @@ app.post(ROUTE_CONSTANTS.LOGIN, authUser);
 app.post(ROUTE_CONSTANTS.INITIATE_PAYMENT, cors(), create_checkout_session);
 app.get(ROUTE_CONSTANTS.GET_PRODUCTS, products_route);
 app.post(ROUTE_CONSTANTS.UPDATE_USER_DATA, update_user_data);
-app.use(router)
+app.use('/api/v1/users', userRoutes);
 const port = process.env.PORT;
 
 app.use(notFound);

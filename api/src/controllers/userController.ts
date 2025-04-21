@@ -94,9 +94,29 @@ const getUserProfile = asyncHandler(async (req, res) => {
 
   if (user) {
     res.json({
-      _id: user._id,
+      data: {
+        _id: user._id,
       name: user.name,
       email: user.email,
+      }
+    });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
+
+const getInitialData = asyncHandler(async (req, res) => {
+  const user = await User.findById((req as any).user._id);
+  if (user) {
+    res.json({
+      data: {
+        name: user.name,
+        sub: {
+          level: user.subscription_details.subscription_level,
+          expiry: user.subscription_details.subscription_expiry,
+        }
+      },
     });
   } else {
     res.status(404);
@@ -131,7 +151,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-const refreshToken = asyncHandler(async (req, res) => {
+const refresh = asyncHandler(async (req, res) => {
     const token = req.cookies.refreshToken;
 
     if (!token) {
@@ -159,5 +179,6 @@ export {
   logoutUser,
   getUserProfile,
   updateUserProfile,
-  refreshToken
+  refresh,
+  getInitialData
 };

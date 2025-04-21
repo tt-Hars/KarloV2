@@ -55,16 +55,16 @@ export function Welcome(props: WelcomeProps) {
     ]
   };
 
-  useEffect(() => {
-    const getProfile = async () => {
-      const profile = await (await fetch('/api/v1/users/profile', {
-        method: 'GET',
-        credentials: 'include'
-      })).json();
-      console.log(profile);
-    }
-    getProfile();
-  }, []);
+  // useEffect(() => {
+  //   const getProfile = async () => {
+  //     const profile = await (await fetch('/api/v1/users/profile', {
+  //       method: 'GET',
+  //       credentials: 'include'
+  //     })).json();
+  //     console.log(profile);
+  //   }
+  //   getProfile();
+  // }, []);
 
   
 

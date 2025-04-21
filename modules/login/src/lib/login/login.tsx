@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Button, Container, Grid, TextField } from '@mui/material';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useLocalStorageManager } from '@karlo/modules/shared/hooks';
+import { useLocalStorageManager, useLogin } from '@karlo/modules/shared/hooks';
 import { useState } from 'react';
 
 /* eslint-disable-next-line */
@@ -20,28 +20,12 @@ export function Login(props: LoginProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const {mutate: login} = useLogin();
 
   
-  const isAuthenticated = useLocalStorageManager('authenticated');
   const isRegistered = useLocalStorageManager('registered');
-  const isSubscribed = useLocalStorageManager('subscribed');
   async function handleLogin() {
-    const resp = await fetch('/api/v1/one_login', {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    });
-    if (resp.status === 200) {
-      const data = await resp.json();
-      window.localStorage.setItem('userId', data._id);
-      isAuthenticated.action(true);
-      isRegistered.action(true);
-      navigate('/payment');
-    }
-  
-    // isSubscribed.action(false);
+    login({email, password});
   }
 
   return (

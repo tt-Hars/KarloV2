@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 import {
   Dashboard,
@@ -19,15 +19,14 @@ import {
 } from './routeImports';
 import { MainHeading } from '@karlo/modules/shared/ui';
 import { BackdropLoader } from '@karlo/modules/shared/ui';
-import { useLocalStorageManager } from '@karlo/modules/shared/hooks';
+import { useAuth } from '@karlo/modules/shared/hooks';
 
-export const PrivateRoute = (props: { children: EmotionJSX.Element }) => {
+const PrivateRoute = ({ children }: { children: EmotionJSX.Element }) => {
+  const { isAuthenticated, isLoading } = useAuth();
   const location = useLocation();
-  const { children } = props;
-  const isAuthenticated = useLocalStorageManager('authenticated');
-  const isSubscribed = useLocalStorageManager('subscribed');
 
-  return isAuthenticated.value === true ? (
+  if (isLoading) return <BackdropLoader />;
+  return isAuthenticated ? (
     children
   ) : location.pathname === '/' ? (
     <Navigate to="/hello" replace />
@@ -36,13 +35,12 @@ export const PrivateRoute = (props: { children: EmotionJSX.Element }) => {
   );
 };
 
-export const SubscribedRoute = (props: { children: EmotionJSX.Element }) => {
+const SubscribedRoute = ({ children }: { children: EmotionJSX.Element }) => {
+  const { isAuthenticated, isSubscribed, isLoading } = useAuth();
   const location = useLocation();
-  const { children } = props;
-  const isAuthenticated = useLocalStorageManager('authenticated');
-  const isSubscribed = useLocalStorageManager('subscribed');
 
-  return isAuthenticated.value === true && isSubscribed.value === true ? (
+  if (isLoading) return <BackdropLoader />;
+  return isAuthenticated && isSubscribed ? (
     children
   ) : (
     <Navigate to="/payment" replace state={location.pathname} />

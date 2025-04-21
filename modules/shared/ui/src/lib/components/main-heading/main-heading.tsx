@@ -1,16 +1,25 @@
 import styled from '@emotion/styled';
 import { Button, Typography } from '@mui/material';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import Typewriter from 'typewriter-effect';
 import { useRef, useState } from 'react';
+import { useAuthContext } from '@karlo/modules/shared/hooks';
 
 /* eslint-disable-next-line */
 export interface MainHeadingProps {}
 
 export function MainHeading(props: MainHeadingProps) {
   const headingRef = useRef(null);
+  const authContext = useAuthContext();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const { isAuthenticated } = authContext!;
+
+  isAuthenticated && navigate('/', { replace: true });
+  
   const [strings, setStrings] = useState([
     'कुछ करें।',
     'Do Something.',
