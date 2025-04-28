@@ -1,4 +1,7 @@
-export const fetchClient = (
+// shared/hooks/fetchClient.ts
+import { queryClient } from '@karlo/modules/shared/hooks'; // assuming you export it
+
+export const fetchClient = async (
   input: RequestInfo,
   init?: RequestInit & { skipAuth?: boolean }
 ): Promise<Response> => {
@@ -8,8 +11,15 @@ export const fetchClient = (
       'Content-Type': 'application/json',
       ...(init?.headers || {}),
     },
-    credentials: init?.credentials ?? 'include', // important
+    credentials: init?.credentials ?? 'include',
   };
 
-  return fetch(input, options);
+  const response = await fetch(input, options);
+
+  if (response.status === 401 && !init?.skipAuth) {
+    // Clear auth-related cache and force logout
+    queryClient.setQueryData(['user-session'], null);
+  }
+
+  return response;
 };

@@ -31,14 +31,19 @@ const generateTokensAndResponse = (
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
-  const doesPasswordsMatch = user && (await user.matchPassword(password));
+  try {
+    const user = await User.findOne({ email }).session(null);
+    const doesPasswordsMatch = user && (await user.matchPassword(password));
 
-  if (!doesPasswordsMatch) {
+    if (!doesPasswordsMatch) {
+      res.status(401);
+      throw new Error('Invalid email or password');
+    }
+    generateTokensAndResponse(res, user);
+  } catch (error) {
     res.status(401);
     throw new Error('Invalid email or password');
   }
-  generateTokensAndResponse(res, user);
 });
 
 // @desc    Register a new user
@@ -90,37 +95,47 @@ const logoutUser = (req, res: Response) => {
 // @route   GET /api/users/profile
 // @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById((req as any).user._id);
+  try {
+    const user = await User.findById((req as any).user._id);
 
-  if (user) {
-    res.json({
-      data: {
-        _id: user._id,
-      name: user.name,
-      email: user.email,
-      }
-    });
-  } else {
-    res.status(404);
-    throw new Error('User not found');
+    if (user) {
+      res.json({
+        data: {
+          _id: user._id,
+          name: user.name,
+          email: user.email,
+        },
+      });
+    } else {
+      res.status(404);
+      throw new Error('User not found');
+    }
+  } catch (error) {
+    res.status(401);
+    throw new Error('Not authorized, token failed');
   }
 });
 
 const getInitialData = asyncHandler(async (req, res) => {
-  const user = await User.findById((req as any).user._id);
-  if (user) {
-    res.json({
-      data: {
-        name: user.name,
-        sub: {
-          level: user.subscription_details.subscription_level,
-          expiry: user.subscription_details.subscription_expiry,
-        }
-      },
-    });
-  } else {
-    res.status(404);
-    throw new Error('User not found');
+  try {
+    const user = await User.findById((req as any).user._id);
+    if (user) {
+      res.json({
+        data: {
+          name: user.name,
+          sub: {
+            level: user.subscription_details.subscription_level,
+            expiry: user.subscription_details.subscription_expiry,
+          },
+        },
+      });
+    } else {
+      res.status(404);
+      throw new Error('User not found');
+    }
+  } catch (error) {
+    res.status(401);
+    throw new Error('Not authorized, token failed');
   }
 });
 
@@ -152,26 +167,25 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 });
 
 const refresh = asyncHandler(async (req, res) => {
-    const token = req.cookies.refreshToken;
+  const token = req.cookies.refreshToken;
 
-    if (!token) {
-      res.status(401);
-      throw new Error('No refresh token');
-    }
+  if (!token) {
+    res.status(401);
+    throw new Error('No refresh token');
+  }
 
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET) as any;
-      const user = await User.findById(decoded.userId);
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET) as any;
+    const user = await User.findById(decoded.userId);
 
-      if (!user) throw new Error('User not found');
-      generateAccessToken(res, user._id);
-      res.json({ success: true });
-    } catch {
-      res.status(401);
-      throw new Error('Invalid refresh token');
-    }
-  },
-);
+    if (!user) throw new Error('User not found');
+    generateAccessToken(res, user._id);
+    res.json({ success: true });
+  } catch {
+    res.status(401);
+    throw new Error('Invalid refresh token');
+  }
+});
 
 export {
   authUser,
@@ -180,5 +194,5 @@ export {
   getUserProfile,
   updateUserProfile,
   refresh,
-  getInitialData
+  getInitialData,
 };
