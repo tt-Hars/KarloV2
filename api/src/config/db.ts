@@ -10,6 +10,12 @@ const connectToAstraDb = async () => {
   mongoose.set('autoCreate', true);
   mongoose.setDriver(driver);
   try {
+
+    if (mongoose.connection.readyState !== 0) {
+      console.log(`DB already connected, getting disconnected`);
+      await mongoose.disconnect();
+    }
+
     await mongoose.connect(uri, {
       isAstra: true,
     });

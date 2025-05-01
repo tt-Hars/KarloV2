@@ -32,7 +32,7 @@ const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ email }).session(null);
+    const user = await User.findOne({ email });
     const doesPasswordsMatch = user && (await user.matchPassword(password));
 
     if (!doesPasswordsMatch) {
