@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, Box, Button, Tab, Tabs } from '@mui/material';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
-import { useLocalStorageManager } from '@karlo/modules/shared/hooks';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface PaymentProps {

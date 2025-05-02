@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import Typewriter from 'typewriter-effect';
 import { useRef, useState } from 'react';
-import { useAuthContext } from '@karlo/modules/shared/hooks';
+import { useAuthContext } from '@karlo/modules-shared-hooks';
 
 /* eslint-disable-next-line */
 export interface MainHeadingProps {}

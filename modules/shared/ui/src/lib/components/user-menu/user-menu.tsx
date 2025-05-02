@@ -10,7 +10,7 @@ import {
   Button,
 } from '@mui/material';
 import { Logout, AccountCircle, Subscriptions } from '@mui/icons-material';
-import { useAuthContext, useLogout } from '@karlo/modules/shared/hooks';
+import { useAuthContext, useLogout } from '@karlo/modules-shared-hooks';
 import { useNavigate } from 'react-router-dom';
 
 export const UserMenu = () => {

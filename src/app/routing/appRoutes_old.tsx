@@ -9,7 +9,7 @@ import { Suspense } from 'react';
 import { BackdropLoader } from '@karlo/modules/shared/ui';
 import GuardedRoutePublic from './guards/publicRouteGuard';
 import GuardedRoutePrivate from './guards/privateRouteGuard';
-import { useLocalStorageManager } from '@karlo/modules/shared/hooks';
+import { useLocalStorageManager } from '@karlo/modules-shared-hooks';
 
 const loaderFnPr = (
   route: RouteWithChildrenInterface,

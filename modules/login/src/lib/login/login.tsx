@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Button, Container, Grid, TextField } from '@mui/material';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useLocalStorageManager, useLogin } from '@karlo/modules/shared/hooks';
+import { useLocalStorageManager, useLogin } from '@karlo/modules-shared-hooks';
 import { useState } from 'react';
 
 /* eslint-disable-next-line */

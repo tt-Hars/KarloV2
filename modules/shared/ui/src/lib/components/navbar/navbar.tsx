@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import {
   useAuthContext,
   useLocalStorageManager,
-} from '@karlo/modules/shared/hooks';
+} from '@karlo/modules-shared-hooks';
 import {CustomizedMenu} from '../customized-menu/customized-menu';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
