@@ -6,7 +6,9 @@ import { AppRoutes } from './routing/routes';
 
 import { QueryClientProvider } from '@tanstack/react-query';
 
-import { ThemeProvider, queryClient } from '@karlo/modules/shared/hooks';
+import { queryClient } from '@karlo/modules/shared/utils';
+
+import { ThemeProvider } from '@karlo/modules/shared/hooks';
 
 import { AuthProvider } from '@karlo/modules/shared/hooks';
 

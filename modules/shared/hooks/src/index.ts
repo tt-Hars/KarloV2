@@ -7,4 +7,3 @@ export * from './lib/auth-manager/auth-provider';
 export * from './lib/auth-manager/use-auth';
 export * from './lib/auth-manager/use-logout';
 export * from './lib/auth-manager/use-login';
-export * from './lib/react-query/queryClient';

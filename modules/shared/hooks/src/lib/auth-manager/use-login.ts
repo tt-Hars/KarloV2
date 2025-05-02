@@ -1,9 +1,8 @@
 // hooks/useLogin.ts
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { fetchClient } from '@karlo/modules/shared/utils';
+import { fetchClient, queryClient } from '@karlo/modules/shared/utils';
 import { AUTH_V1 } from '@karlo/modules/shared/constants';
-import {queryClient} from '../react-query/queryClient';
 
 export const useLogin = () => {
   const navigate = useNavigate();

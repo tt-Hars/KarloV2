@@ -1,5 +1,8 @@
 // shared/hooks/fetchClient.ts
-import { queryClient } from '@karlo/modules/shared/hooks'; // assuming you export it
+// shared/react-query/queryClient.ts
+import { QueryClient } from '@tanstack/react-query';
+
+export const queryClient = new QueryClient();
 
 export const fetchClient = async (
   input: RequestInfo,

@@ -1,8 +1,7 @@
 import { createContext, useContext, ReactNode } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { fetchClient } from '@karlo/modules/shared/utils';
+import { fetchClient, queryClient } from '@karlo/modules/shared/utils';
 import { PROFILE_V1, REFRESH_V1 } from '@karlo/modules/shared/constants';
-import { queryClient } from '../react-query/queryClient';
 
 type User = {
   id: string;
