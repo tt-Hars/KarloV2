@@ -9,8 +9,6 @@ import '@fontsource/roboto/700.css';
 
 import App from './app/app';
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { DevSupport } from '@react-buddy/ide-toolbox';
-import { ComponentPreviews, useInitial } from './dev';
 
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
@@ -37,12 +35,7 @@ root.render(
   <Provider store={store}>
     <StrictMode>
       <BrowserRouter>
-        <DevSupport
-          ComponentPreviews={ComponentPreviews}
-          useInitialHook={useInitial}
-        >
           <App />
-        </DevSupport>
       </BrowserRouter>
     </StrictMode>
   </Provider>,

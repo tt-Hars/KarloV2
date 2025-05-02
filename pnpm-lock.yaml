@@ -307,7 +307,7 @@ importers:
 
   modules/reader: {}
 
-  modules/shared/data: {}
+  modules/shared/constants: {}
 
   modules/shared/hooks: {}
 

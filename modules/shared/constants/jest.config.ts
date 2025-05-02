@@ -1,11 +1,11 @@
 /* eslint-disable */
 export default {
-  displayName: 'modules-shared-data',
+  displayName: 'modules-shared-constants',
   preset: '../../../jest.preset.js',
   transform: {
     '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
     '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nx/react/babel'] }],
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../../coverage/modules/shared/data',
+  coverageDirectory: '../../../coverage/modules/shared/contants',
 };
