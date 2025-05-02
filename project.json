@@ -3,6 +3,7 @@
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "./src",
   "projectType": "application",
+  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/webpack:webpack",
@@ -66,7 +67,7 @@
     "serveWithApi": {
       "executor": "nx:run-commands",
       "options": {
-      "commands": ["nx run karlo:serve", "nx run api:serve --inspect"]
+        "commands": ["nx run karlo:serve", "nx run api:serve --inspect"]
       }
     },
     "serveApi": {
@@ -81,7 +82,10 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["./src/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "./src/**/*.{ts,tsx,js,jsx}",
+          "./functions/**/*.ts"
+        ]
       }
     },
     "serve-static": {
@@ -103,7 +107,18 @@
           "codeCoverage": true
         }
       }
+    },
+    "serve-functions": {
+      "command": "npx netlify dev"
+    },
+    "deploy-functions": {
+      "dependsOn": ["lint"],
+      "command": "npx netlify deploy",
+      "configurations": {
+        "production": {
+          "command": "npx netlify deploy --prod"
+        }
+      }
     }
-  },
-  "tags": []
+  }
 }

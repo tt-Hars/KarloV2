@@ -21,7 +21,9 @@
       "@karlo/modules/login": ["modules/login/src/index.ts"],
       "@karlo/modules/planner": ["modules/planner/src/index.ts"],
       "@karlo/modules/reader": ["modules/reader/src/index.ts"],
-      "@karlo/modules/shared/constants": ["modules/shared/constants/src/index.ts"],
+      "@karlo/modules/shared/constants": [
+        "modules/shared/constants/src/index.ts"
+      ],
       "@karlo/modules/shared/hooks": ["modules/shared/hooks/src/index.ts"],
       "@karlo/modules/shared/store": ["modules/shared/store/src/index.ts"],
       "@karlo/modules/shared/ui": ["modules/shared/ui/src/index.ts"],
