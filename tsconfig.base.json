@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@karlo/modules-shared-constants": ["modules/constants/src/index.ts"],
+      "@karlo/modules-shared-constants": [
+        "modules/shared/constants/src/index.ts"
+      ],
       "@karlo/modules-shared-hooks": ["modules/shared/hooks/src/index.ts"],
       "@karlo/modules-shared-utils": ["modules/shared/utils/src/index.ts"],
       "@karlo/modules/editor": ["modules/editor/src/index.ts"],

@@ -20,11 +20,11 @@ if (swcJestConfig.swcrc === undefined) {
 
 export default {
   displayName: 'modules-shared-constants',
-  preset: '../../jest.preset.js',
+  preset: '../../../jest.preset.js',
   transform: {
     '^.+\\.[tj]s$': ['@swc/jest', swcJestConfig],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   testEnvironment: 'node',
-  coverageDirectory: '../../coverage/modules/constants',
+  coverageDirectory: '../../../coverage/modules/shared/constants',
 };
