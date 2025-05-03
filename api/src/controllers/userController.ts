@@ -42,7 +42,7 @@ const authUser = asyncHandler(async (req, res) => {
     generateTokensAndResponse(res, user);
   } catch (error) {
     res.status(401);
-    throw new Error('error: ' + error);
+    throw new Error('Invalid email or password');
   }
 });
 
@@ -112,7 +112,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
     }
   } catch (error) {
     res.status(401);
-    throw new Error('error: ' + error);
+    throw new Error('Not authorized, token failed');
   }
 });
 
@@ -135,7 +135,7 @@ const getInitialData = asyncHandler(async (req, res) => {
     }
   } catch (error) {
     res.status(401);
-    throw new Error('error: ' + error);
+    throw new Error('Not authorized, token failed');
   }
 });
 
@@ -181,9 +181,9 @@ const refresh = asyncHandler(async (req, res) => {
     if (!user) throw new Error('User not found');
     generateAccessToken(res, user._id);
     res.json({ success: true });
-  } catch(error) {
+  } catch {
     res.status(401);
-    throw new Error('error: ' + error);
+    throw new Error('Invalid refresh token');
   }
 });
 
