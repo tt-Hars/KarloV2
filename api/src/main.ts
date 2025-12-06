@@ -8,6 +8,7 @@ import connectToAstraDb from './config/db'
 import { notFound, errorHandler } from './middleware/errorMiddleware';
 import ROUTE_CONSTANTS, { BASE_PATH } from './constants/routes';
 import userRoutes from './routes/userRoutes';
+import { REGISTER_V1 } from '@karlo/modules-shared-constants';
 
 dotenv.config()
 import {
@@ -42,7 +43,7 @@ app.get(BASE_PATH, (req, res) => {
   res.send({ message: 'Welcome to karlo' });
 });
 
-app.post(ROUTE_CONSTANTS.REGISTER, registerUser);
+app.post(REGISTER_V1, registerUser);
 app.post(ROUTE_CONSTANTS.LOGIN, authUser);
 app.post(ROUTE_CONSTANTS.INITIATE_PAYMENT, cors(), create_checkout_session);
 app.get(ROUTE_CONSTANTS.GET_PRODUCTS, products_route);

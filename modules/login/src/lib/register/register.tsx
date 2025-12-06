@@ -4,6 +4,8 @@ import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOu
 import { Link, useNavigate } from 'react-router-dom';
 // import { useLocalStorageManager } from '@karlo/modules/shared/hooks';
 import { useEffect, useState } from 'react';
+import { REGISTER_V1 } from '@karlo/modules-shared-constants';
+import { useRegister } from '@karlo/modules-shared-hooks';
 /* eslint-disable-next-line */
 export interface RegisterProps {}
 
@@ -16,24 +18,11 @@ export function Register(props: RegisterProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  // const isAuthenticated = useLocalStorageManager('authenticated');
-  // const isRegistered = useLocalStorageManager('registered');
+    const {mutate: register} = useRegister();
+  
 
   async function handleRegister() {
-    const resp = await fetch('/api/v1/register', {
-      method: 'POST',
-      body: JSON.stringify({ email, name: username, password }),
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    });
-    if (resp.status === 201) {
-      const data = await resp.json();
-      window.localStorage.setItem('userId', data.insertedId);
-      // isAuthenticated.action(true);
-      // isRegistered.action(true);
-      navigate('/payment');
-    }
+    register({email, password, name: username});
   }
 
   return (
