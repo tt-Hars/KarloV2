@@ -67,15 +67,15 @@
     "serveWithApi": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["nx run karlo:serve", "nx run api:serve --inspect", "nx run auth-service-auth-service:serve --inspect", "nx run gateway-service-gateway-service:serve --inspect"]
+        "commands": ["nx run karlo:serve", "nx run payment-service:serve --inspect", "nx run auth-service-auth-service:serve --inspect", "nx run gateway-service-gateway-service:serve --inspect"]
       }
     },
     "serveApi": {
       "defaultConfiguration": "development",
       "executor": "nx-pm2-plugin:pm2-executor",
       "options": {
-        "command": "nx run api:serve:development",
-        "name": "api"
+        "command": "nx run payment-service:serve:development",
+        "name": "payment-service"
       }
     },
     "lint": {

@@ -8,7 +8,7 @@ app.use(cors());
 
 // Proxy configuration
 const AUTH_SERVICE_URL = process.env.AUTH_SERVICE_URL || 'http://localhost:3333';
-const LEGACY_API_URL = process.env.LEGACY_API_URL || 'http://localhost:3334'; // Assuming legacy api runs here
+const PAYMENT_SERVICE_URL = process.env.PAYMENT_SERVICE_URL || 'http://localhost:3334';
 
 app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to Gateway API' });
@@ -23,8 +23,9 @@ app.use(
   })
 );
 
+// Login route is /api/v1/one_login
 app.use(
-  '/api/v1/auth',
+  '/api/v1/one_login',
   createProxyMiddleware({
     target: AUTH_SERVICE_URL,
     changeOrigin: true,
@@ -39,16 +40,30 @@ app.use(
   })
 );
 
-
-// Everything else -> Legacy API
+// Payment Routes -> Payment Service
 app.use(
-  '/',
+  '/api/v1/create_checkout_session',
   createProxyMiddleware({
-    target: LEGACY_API_URL,
+    target: PAYMENT_SERVICE_URL,
     changeOrigin: true,
   })
 );
 
+app.use(
+  '/api/v1/get_products',
+  createProxyMiddleware({
+    target: PAYMENT_SERVICE_URL,
+    changeOrigin: true,
+  })
+);
+
+app.use(
+  '/api/v1/update_user_data',
+  createProxyMiddleware({
+    target: PAYMENT_SERVICE_URL,
+    changeOrigin: true,
+  })
+);
 
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
