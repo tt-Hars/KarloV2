@@ -71,6 +71,13 @@
         "buildTargetName": "build",
         "serveTargetName": "serve"
       }
+    },
+    {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "eslint:lint",
+        "extensions": ["ts", "tsx", "js", "jsx", "html", "vue"]
+      }
     }
   ],
   "defaultProject": "karlo"
