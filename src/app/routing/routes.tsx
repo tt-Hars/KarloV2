@@ -16,8 +16,8 @@ import {
   Read,
   Plan,
   Welcome,
+  MainHeading,
 } from './routeImports';
-import { MainHeading } from '@karlo/modules/shared/ui';
 import { BackdropLoader } from '@karlo/modules/shared/ui';
 import { useAuth } from '@karlo/modules-shared-hooks';
 
