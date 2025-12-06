@@ -38,12 +38,12 @@ app.post(REGISTER_V1, registerUser);
 app.post(ROUTE_CONSTANTS.LOGIN, authUser);
 app.use('/api/v1/users', userRoutes);
 
-const port = process.env.AUTH_SERVICE_PORT || 3333;
+const port = Number(process.env.AUTH_SERVICE_PORT) || 3333;
 
 app.use(notFound);
 app.use(errorHandler);
 
-const server = app.listen(port, () => {
-  console.log(`Auth Service listening at http://localhost:${port}/`);
+const server = app.listen(port, '127.0.0.1', () => {
+  console.log(`Auth Service listening at http://127.0.0.1:${port}/`);
 });
 server.on('error', console.error);
