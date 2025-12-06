@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import { useLocalStorageManager } from '@karlo/modules-shared-hooks';
 import { useEffect, useState } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 /* eslint-disable-next-line */
 export interface DashboardProps {}
@@ -24,6 +24,7 @@ export function Dashboard(props: DashboardProps) {
   useEffect(() => {
     fetch('/api').then(data => data.json()).then(data => setData(data))
   }, [])
+  console.log(data); // Using data
   return (
     <StyledDashboard>
       <Grid minHeight='calc(100vh - 112px)' height="100%" container>

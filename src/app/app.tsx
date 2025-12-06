@@ -1,6 +1,6 @@
 import './styles.css';
 
-import { Navbar } from '@karlo/modules/shared/ui';
+import { Navbar } from './components/navbar/navbar';
 import { AppRoutes } from './routing/routes';
 
 import { QueryClientProvider } from '@tanstack/react-query';

@@ -18,7 +18,7 @@ import {
   Welcome,
   MainHeading,
 } from './routeImports';
-import { BackdropLoader } from '@karlo/modules/shared/ui';
+import { BackdropLoader } from '../components/backdrop-loader/backdrop-loader';
 import { useAuth } from '@karlo/modules-shared-hooks';
 
 const PrivateRoute = ({ children }: { children: EmotionJSX.Element }) => {
