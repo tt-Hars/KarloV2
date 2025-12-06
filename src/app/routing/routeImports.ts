@@ -9,8 +9,11 @@ export const Register = lazy(
 export const Payment = lazy(
   () => import('modules/login/src/lib/payment/payment')
 );
+// MainHeading is not lazy loaded here anymore because it was imported from deep path
+// If it needs to be lazy loaded, it should be exported from index.ts or handled differently.
+// For now, I'm checking if I can import it from the library alias.
 export const MainHeading = lazy(
-  () => import ('modules/shared/ui/src/lib/components/main-heading/main-heading')
+  () => import ('@karlo/modules/shared/ui').then(module => ({ default: module.MainHeading }))
 )
 
 //Post Login

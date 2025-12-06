@@ -1,4 +1,3 @@
-import styled from '@emotion/styled';
 import './styles.css';
 
 import { Navbar } from '@karlo/modules/shared/ui';
