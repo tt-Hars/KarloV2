@@ -1,10 +1,14 @@
 {
-  "/api": {
+  "/api/v1/users": {
     "target": "http://localhost:3333",
     "secure": false
   },
-  "/register1": {
-    "target": "http://localhost:3333",
+  "/api/v1/": {
+    "target": "http://localhost:3334",
+    "secure": false
+  },
+  "/api/*": {
+    "target": "http://localhost:3000",
     "secure": false
   }
 }

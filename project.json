@@ -67,7 +67,7 @@
     "serveWithApi": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["nx run karlo:serve", "nx run api:serve --inspect"]
+        "commands": ["nx run karlo:serve", "nx run api:serve --inspect", "nx run auth-service-auth-service:serve --inspect", "nx run gateway-service-gateway-service:serve --inspect"]
       }
     },
     "serveApi": {
