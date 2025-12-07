@@ -17,6 +17,7 @@ import {
   Plan,
   Welcome,
   MainHeading,
+  Profile
 } from './routeImports';
 import { BackdropLoader } from '../components/backdrop-loader/backdrop-loader';
 import { useAuth } from '@karlo/modules-shared-hooks';
@@ -142,6 +143,16 @@ export const AppRoutes = () => {
             <Suspense fallback={<BackdropLoader />}>
               <SubscribedRoute>
                 <Feed />
+              </SubscribedRoute>
+            </Suspense>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <Suspense fallback={<BackdropLoader />}>
+              <SubscribedRoute>
+                <Profile />
               </SubscribedRoute>
             </Suspense>
           }
