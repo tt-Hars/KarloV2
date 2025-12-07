@@ -14,12 +14,15 @@ app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to Gateway API' });
 });
 
+const pathRewrite = (path: string, req: express.Request) => req.originalUrl;
+
 // Auth Routes -> Auth Service
 app.use(
   '/api/v1/users',
   createProxyMiddleware({
     target: AUTH_SERVICE_URL,
     changeOrigin: true,
+    pathRewrite,
   })
 );
 
@@ -29,6 +32,7 @@ app.use(
   createProxyMiddleware({
     target: AUTH_SERVICE_URL,
     changeOrigin: true,
+    pathRewrite,
   })
 );
 
@@ -37,6 +41,7 @@ app.use(
   createProxyMiddleware({
     target: AUTH_SERVICE_URL,
     changeOrigin: true,
+    pathRewrite,
   })
 );
 
@@ -45,6 +50,7 @@ app.use(
   createProxyMiddleware({
     target: AUTH_SERVICE_URL,
     changeOrigin: true,
+    pathRewrite,
   })
 );
 
@@ -54,6 +60,7 @@ app.use(
   createProxyMiddleware({
     target: PAYMENT_SERVICE_URL,
     changeOrigin: true,
+    pathRewrite,
   })
 );
 
@@ -62,6 +69,7 @@ app.use(
   createProxyMiddleware({
     target: PAYMENT_SERVICE_URL,
     changeOrigin: true,
+    pathRewrite,
   })
 );
 
@@ -70,6 +78,7 @@ app.use(
   createProxyMiddleware({
     target: PAYMENT_SERVICE_URL,
     changeOrigin: true,
+    pathRewrite,
   })
 );
 
