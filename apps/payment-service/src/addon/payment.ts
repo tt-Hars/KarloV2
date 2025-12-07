@@ -15,9 +15,6 @@ const client = new DataAPIClient(
 );
 
 const db = client.db(ASTRA_DB_API_ENDPOINT)
-// Use FRONTEND_URL if available (e.g. from gateway or env), otherwise fallback to localhost:3000 (gateway)
-// Avoid using req.protocol/host directly if behind proxy without trust proxy config
-const domain = FRONTEND_URL || 'http://localhost:3000';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -36,6 +33,9 @@ export function get_session(session_id: string) {
 }
 
 export const create_checkout_session = async (req: Request, res: Response) => {
+  // Use FRONTEND_URL if available (e.g. from env), otherwise check for Netlify URL, otherwise fallback to localhost:3000 (gateway)
+  const domain = FRONTEND_URL || process.env.URL || 'http://localhost:3000';
+
   const price_id = req.body.productId;
   const session = await stripe.checkout.sessions.create({
     billing_address_collection: 'auto',
