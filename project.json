@@ -1,9 +1,6 @@
 {
   "name": "karlo",
   "$schema": "node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "./src",
-  "projectType": "application",
-  "tags": [],
   "targets": {
     "build": {
       "executor": "@nx/webpack:webpack",
@@ -67,7 +64,12 @@
     "serveWithApi": {
       "executor": "nx:run-commands",
       "options": {
-        "commands": ["nx run karlo:serve", "nx run payment-service:serve --inspect", "nx run auth-service-auth-service:serve --inspect", "nx run gateway-service-gateway-service:serve --inspect"]
+        "commands": [
+          "nx run karlo:serve",
+          "nx run payment-service:serve --inspect",
+          "nx run auth-service-auth-service:serve --inspect",
+          "nx run gateway-service-gateway-service:serve --inspect"
+        ]
       }
     },
     "serveApi": {
@@ -120,5 +122,8 @@
         }
       }
     }
-  }
+  },
+  "sourceRoot": "./src",
+  "projectType": "application",
+  "tags": []
 }

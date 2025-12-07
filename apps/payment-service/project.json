@@ -3,6 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/payment-service/src",
   "projectType": "application",
+  "tags": [],
   "targets": {
     "serve": {
       "executor": "@nx/js:node",
@@ -30,6 +31,5 @@
         "jestConfig": "apps/payment-service/jest.config.ts"
       }
     }
-  },
-  "tags": []
+  }
 }

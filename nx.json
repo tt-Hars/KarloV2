@@ -81,7 +81,7 @@
         "targetName": "eslint:lint",
         "extensions": ["ts", "tsx", "js", "jsx", "html", "vue"]
       }
-    },
+    }
   ],
   "defaultProject": "karlo"
 }
