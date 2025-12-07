@@ -1,6 +1,7 @@
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
+import GoogleIcon from '@mui/icons-material/Google';
 import { Link, useLocation } from 'react-router-dom';
-import { useLocalStorageManager, useLogin } from '@karlo/modules-shared-hooks';
+import { useLocalStorageManager, useLogin, useProviderLogin } from '@karlo/modules-shared-hooks';
 import { useState } from 'react';
 import { KarloButton, KarloContainer, KarloGrid, KarloTextField, KarloTypography } from '@karlo/modules/shared/ui';
 
@@ -14,11 +15,24 @@ export function Login(props: LoginProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {mutate: login} = useLogin();
+  const {mutate: providerLogin} = useProviderLogin();
 
   const isRegistered = useLocalStorageManager('registered');
 
   async function handleLogin() {
     login({email, password});
+  }
+
+  async function handleGoogleLogin() {
+    // Mock Google Login for now - In reality, this would use Google Identity Services SDK
+    // to get a token, then verify on backend.
+    // For this skeleton, we assume we got user info.
+    providerLogin({
+      email: 'mock_google_user@example.com',
+      name: 'Mock Google User',
+      provider: 'GOOGLE',
+      providerId: 'mock_google_id_123'
+    });
   }
 
   return (
@@ -74,6 +88,18 @@ export function Login(props: LoginProps) {
             sx={{ minWidth: 200 }}
           >
             Login
+          </KarloButton>
+
+          <KarloTypography variant="body2" color="textSecondary">OR</KarloTypography>
+
+          <KarloButton
+            variant="contained"
+            color="primary"
+            startIcon={<GoogleIcon />}
+            onClick={() => handleGoogleLogin()}
+            sx={{ minWidth: 200 }}
+          >
+            Login with Google
           </KarloButton>
         </KarloGrid>
       </KarloGrid>

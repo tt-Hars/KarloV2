@@ -46,6 +46,52 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Auth user via provider (Google, etc.)
+// @route   POST /api/users/auth/provider
+// @access  Public
+const authProvider = asyncHandler(async (req, res) => {
+  const { email, name, provider, providerId } = req.body;
+
+  if (!email || !provider || !providerId) {
+    res.status(400);
+    throw new Error('Missing required fields: email, provider, providerId');
+  }
+
+  try {
+    let user = await User.findOne({ email });
+
+    if (user) {
+      // User exists, update provider info if not set
+      if (user.provider === 'NONE') {
+        user.provider = provider;
+        user.provider_user_id = providerId;
+        await user.save();
+      } else if (user.provider !== provider) {
+        // Optional: Handle multiple providers or reject
+        // For simplicity, we allow login if email matches, assuming email is verified by provider
+      }
+    } else {
+      // Create new user
+      user = await User.create({
+        name: name || email.split('@')[0],
+        email,
+        provider,
+        provider_user_id: providerId,
+        password: '', // Password not required for provider login
+      });
+    }
+
+    if (user) {
+      generateTokensAndResponse(res, user);
+    } else {
+        throw new Error('Failed to create or retrieve user');
+    }
+  } catch (error) {
+    res.status(400);
+    throw new Error('Provider auth failed: ' + error);
+  }
+});
+
 // @desc    Register a new user
 // @route   POST /api/users
 // @access  Public
@@ -189,6 +235,7 @@ const refresh = asyncHandler(async (req, res) => {
 
 export {
   authUser,
+  authProvider,
   registerUser,
   logoutUser,
   getUserProfile,
