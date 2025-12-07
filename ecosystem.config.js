@@ -22,6 +22,7 @@ module.exports = {
       args: 'run payment-service:serve',
       env: {
         PAYMENT_SERVICE_PORT: 3334,
+        FRONTEND_URL: 'http://localhost:4200',
       },
     },
     {
