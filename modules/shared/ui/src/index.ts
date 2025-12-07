@@ -10,6 +10,7 @@ export * from './lib/components/main-heading/main-heading';
 export * from './lib/views/landing/landing';
 export * from './lib/views/dashboard/dashboard';
 export * from './lib/views/page-not-found/page-not-found';
+export * from './lib/views/profile/profile';
 
 // Components
 export * from './lib/components/welcome/welcome';

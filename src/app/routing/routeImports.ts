@@ -16,6 +16,7 @@ export const MainHeading = lazy(
 
 //Post Login
 export const Dashboard = lazy(() => import('@karlo/modules/shared/ui').then(module => ({ default: module.Dashboard })));
+export const Profile = lazy(() => import('@karlo/modules/shared/ui').then(module => ({ default: module.Profile })));
 export const Welcome = lazy(() => import('@karlo/modules/shared/ui').then(module => ({ default: module.Welcome })));
 export const Watch = lazy(() => import('modules/watch/src/lib/watch/watch'));
 export const Listen = lazy(
