@@ -11,7 +11,7 @@ const mockAuthContext = {
   user: {
     id: '1',
     email: 'test@example.com',
-    username: 'TestUser',
+    name: 'TestUser',
   },
   isAuthenticated: true,
   isSubscribed: false,

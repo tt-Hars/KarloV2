@@ -73,14 +73,14 @@ export function Profile() {
         <TabPanel value={value} index={0}>
           <Grid container spacing={2}>
             <Grid item xs={12} display="flex" flexDirection="column" alignItems="center">
-              <Avatar sx={{ width: 100, height: 100, mb: 2 }}>{user?.username?.charAt(0).toUpperCase() || 'U'}</Avatar>
-              <Typography variant="h5">{user?.username || 'User'}</Typography>
+              <Avatar sx={{ width: 100, height: 100, mb: 2 }}>{user?.name?.charAt(0).toUpperCase() || 'U'}</Avatar>
+              <Typography variant="h5">{user?.name || 'User'}</Typography>
               <Typography variant="body1" color="text.secondary">{user?.email || 'user@example.com'}</Typography>
             </Grid>
             <Grid item xs={12}>
               <Divider sx={{ my: 2 }} />
               <Typography variant="h6" gutterBottom>Account Information</Typography>
-              <Typography variant="body1"><strong>Username:</strong> {user?.username || 'N/A'}</Typography>
+              <Typography variant="body1"><strong>Name:</strong> {user?.name || 'N/A'}</Typography>
               <Typography variant="body1"><strong>Email:</strong> {user?.email || 'N/A'}</Typography>
             </Grid>
           </Grid>

@@ -4,7 +4,7 @@ import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOu
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import Typewriter from 'typewriter-effect';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useAuthContext } from '@karlo/modules-shared-hooks';
 
 /* eslint-disable-next-line */
@@ -28,6 +28,8 @@ const features = [
   }
 ];
 
+const TypewriterWrapper = styled.span``;
+
 export function MainHeading(props: MainHeadingProps) {
   const headingRef = useRef(null);
   const authContext = useAuthContext();
@@ -36,9 +38,11 @@ export function MainHeading(props: MainHeadingProps) {
 
   const { isAuthenticated } = authContext!;
 
-  if (isAuthenticated) {
-     navigate('/', { replace: true });
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+       navigate('/', { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
   
   const [strings, setStrings] = useState([
     'कुछ करें।',
@@ -68,7 +72,7 @@ export function MainHeading(props: MainHeadingProps) {
           gutterBottom
         >
           <Typewriter
-            component={styled.span``}
+            component={TypewriterWrapper}
             onInit={(t) => t.start()}
             options={{
               loop: true,
