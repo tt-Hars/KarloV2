@@ -3,7 +3,7 @@ import { encryptPassword, matchPasswords } from '../utils/password';
 export interface IUser {
   name: string;
   email: string;
-  password: string;
+  password?: string;
   provider: string | null;
   provider_user_id: string | null;
   subscription_details: {
@@ -27,7 +27,9 @@ const userSchema = new Schema<IUser>(
     },
     password: {
       type: String,
-      required: true,
+      required: function() {
+        return this.provider === 'NONE' || !this.provider;
+      },
     },
     provider: {
       type: String,
@@ -63,12 +65,14 @@ const userSchema = new Schema<IUser>(
 );
 
 userSchema.methods.matchPassword = async function (enteredPassword: string) {
+  if (!this.password) return false;
   return await matchPasswords(enteredPassword, this.password);
 };
 
 userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {
+  if (!this.isModified('password') || !this.password) {
     next();
+    return;
   }
 
   this.password = await encryptPassword(this.password);

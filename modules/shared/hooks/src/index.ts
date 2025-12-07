@@ -8,3 +8,4 @@ export * from './lib/auth-manager/use-auth';
 export * from './lib/auth-manager/use-logout';
 export * from './lib/auth-manager/use-login';
 export * from './lib/auth-manager/use-register';
+export * from './lib/auth-manager/use-provider-login';
