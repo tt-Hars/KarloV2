@@ -13,3 +13,4 @@ export * from './lib/views/page-not-found/page-not-found';
 
 // Components
 export * from './lib/components/welcome/welcome';
+export * from './lib/components/karlo-ui';

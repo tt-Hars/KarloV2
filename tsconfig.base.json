@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@/components": ["modules/shared/ui/src/lib/components/karlo-ui/index.ts"],
       "@karlo/modules-shared-constants": [
         "modules/shared/constants/src/index.ts"
       ],
