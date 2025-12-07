@@ -40,6 +40,14 @@ app.use(
   })
 );
 
+app.use(
+  '/api/v1/auth',
+  createProxyMiddleware({
+    target: AUTH_SERVICE_URL,
+    changeOrigin: true,
+  })
+);
+
 // Payment Routes -> Payment Service
 app.use(
   '/api/v1/create_checkout_session',
