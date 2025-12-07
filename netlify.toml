@@ -8,12 +8,37 @@ directory = "functions/"
 # Specifies \`esbuild\` for functions bundling, esbuild is the default for TS
 node_bundler = "esbuild"
 
-[functions."api*"]
-# Apply settings to any functions with a name beginning with "hello"
+[functions."auth"]
+[functions."payment"]
 
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/api/:splat"
+  from = "/api/v1/users/*"
+  to = "/.netlify/functions/auth/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/api/v1/register"
+  to = "/.netlify/functions/auth/api/v1/register"
+  status = 200
+
+[[redirects]]
+  from = "/api/v1/one_login"
+  to = "/.netlify/functions/auth/api/v1/one_login"
+  status = 200
+
+[[redirects]]
+  from = "/api/v1/create_checkout_session"
+  to = "/.netlify/functions/payment/api/v1/create_checkout_session"
+  status = 200
+
+[[redirects]]
+  from = "/api/v1/get_products"
+  to = "/.netlify/functions/payment/api/v1/get_products"
+  status = 200
+
+[[redirects]]
+  from = "/api/v1/update_user_data"
+  to = "/.netlify/functions/payment/api/v1/update_user_data"
   status = 200
 
 [[redirects]]
