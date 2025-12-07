@@ -53,13 +53,13 @@ export const UserMenu = () => {
             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
           >
-            <MenuItem>
+            <MenuItem onClick={() => { handleMenuClose(); navigate('/profile?tab=profile'); }}>
               <ListItemIcon>
                 <AccountCircle fontSize="small" />
               </ListItemIcon>
               <Typography variant="inherit">Profile</Typography>
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={() => { handleMenuClose(); navigate('/profile?tab=subscriptions'); }}>
               <ListItemIcon>
                 <Subscriptions fontSize="small" />
               </ListItemIcon>

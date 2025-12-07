@@ -15,7 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/components": ["modules/shared/ui/src/lib/components/karlo-ui/index.ts"],
+      "@/components": [
+        "modules/shared/ui/src/lib/components/karlo-ui/index.ts"
+      ],
+      "@karlo/auth-service": ["apps/auth-service/auth-service/src/index.ts"],
       "@karlo/modules-shared-constants": [
         "modules/shared/constants/src/index.ts"
       ],
@@ -31,8 +34,7 @@
       "@karlo/modules/shared/ui": ["modules/shared/ui/src/index.ts"],
       "@karlo/modules/shop": ["modules/shop/src/index.ts"],
       "@karlo/modules/watch": ["modules/watch/src/index.ts"],
-      "@karlo/payment-service": ["apps/payment-service/src/index.ts"],
-      "@karlo/auth-service": ["apps/auth-service/auth-service/src/index.ts"]
+      "@karlo/payment-service": ["apps/payment-service/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
