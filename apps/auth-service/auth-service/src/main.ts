@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import serverless from 'serverless-http';
 import connectToAstraDb from './config/db'
 import { notFound, errorHandler } from './middleware/errorMiddleware';
 import ROUTE_CONSTANTS, { BASE_PATH } from './constants/routes';
@@ -43,7 +44,14 @@ const port = Number(process.env.AUTH_SERVICE_PORT) || 3333;
 app.use(notFound);
 app.use(errorHandler);
 
-const server = app.listen(port, '127.0.0.1', () => {
-  console.log(`Auth Service listening at http://127.0.0.1:${port}/`);
+if (process.env.NODE_ENV !== 'production') {
+  const server = app.listen(port, '127.0.0.1', () => {
+    console.log(`Auth Service listening at http://127.0.0.1:${port}/`);
+  });
+  server.on('error', console.error);
+}
+
+// Auth service uses /.netlify/functions/auth as base path
+export const handler = serverless(app, {
+  basePath: '/.netlify/functions/auth'
 });
-server.on('error', console.error);

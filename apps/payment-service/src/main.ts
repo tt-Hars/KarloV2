@@ -44,6 +44,7 @@ if (process.env.NODE_ENV !== 'production') {
   server.on('error', console.error);
 }
 
+// Payment service uses /.netlify/functions/payment as base path
 export const handler = serverless(app, {
-  basePath: '/.netlify/functions'
+  basePath: '/.netlify/functions/payment'
 });

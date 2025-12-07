@@ -30,7 +30,9 @@
       "@karlo/modules/shared/store": ["modules/shared/store/src/index.ts"],
       "@karlo/modules/shared/ui": ["modules/shared/ui/src/index.ts"],
       "@karlo/modules/shop": ["modules/shop/src/index.ts"],
-      "@karlo/modules/watch": ["modules/watch/src/index.ts"]
+      "@karlo/modules/watch": ["modules/watch/src/index.ts"],
+      "@karlo/payment-service": ["apps/payment-service/src/index.ts"],
+      "@karlo/auth-service": ["apps/auth-service/auth-service/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

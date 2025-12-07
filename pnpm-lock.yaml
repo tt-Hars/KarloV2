@@ -13386,6 +13386,12 @@ snapshots:
       - typescript
       - verdaccio
 
+  '@nrwl/devkit@17.3.2(nx@17.3.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.15)))':
+    dependencies:
+      '@nx/devkit': 17.3.2(nx@17.3.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.15)))
+    transitivePeerDependencies:
+      - nx
+
   '@nrwl/devkit@17.3.2(nx@19.0.1(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.15)))':
     dependencies:
       '@nx/devkit': 17.3.2(nx@19.0.1(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.15)))
@@ -13732,7 +13738,7 @@ snapshots:
 
   '@nx/devkit@17.3.2(nx@17.3.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.15)))':
     dependencies:
-      '@nrwl/devkit': 17.3.2(nx@19.0.1(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.15)))
+      '@nrwl/devkit': 17.3.2(nx@17.3.2(@swc-node/register@1.9.2(@swc/core@1.5.29(@swc/helpers@0.5.15))(@swc/types@0.1.21)(typescript@5.4.5))(@swc/core@1.5.29(@swc/helpers@0.5.15)))
       ejs: 3.1.10
       enquirer: 2.3.6
       ignore: 5.3.2
