@@ -1,24 +1,16 @@
-import styled from '@emotion/styled';
-import { Button, Container, Grid, TextField } from '@mui/material';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
-import { Link, useNavigate } from 'react-router-dom';
-// import { useLocalStorageManager } from '@karlo/modules/shared/hooks';
-import { useEffect, useState } from 'react';
-import { REGISTER_V1 } from '@karlo/modules-shared-constants';
+import { useState } from 'react';
 import { useRegister } from '@karlo/modules-shared-hooks';
+import { KarloButton, KarloContainer, KarloGrid, KarloTextField } from '@karlo/modules/shared/ui';
+
 /* eslint-disable-next-line */
 export interface RegisterProps {}
-
-const StyledRegister = styled.div`
-  color: blue;
-`;
 
 export function Register(props: RegisterProps) {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
-    const {mutate: register} = useRegister();
+  const {mutate: register} = useRegister();
   
 
   async function handleRegister() {
@@ -26,20 +18,21 @@ export function Register(props: RegisterProps) {
   }
 
   return (
-    <Container maxWidth="sm">
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
+    <KarloContainer maxWidth="sm">
+      <KarloGrid container spacing={4} direction="column" alignItems="center">
+        <KarloGrid item xs={12} sx={{ width: '100%' }}>
+          <KarloTextField
             required
             fullWidth
-            label="username"
+            label="Username"
             variant="outlined"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            sx={{ mb: 3 }}
           />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
+        </KarloGrid>
+        <KarloGrid item xs={12} sx={{ width: '100%' }}>
+          <KarloTextField
             required
             fullWidth
             label="Email"
@@ -47,10 +40,11 @@ export function Register(props: RegisterProps) {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            sx={{ mb: 3 }}
           />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
+        </KarloGrid>
+        <KarloGrid item xs={12} sx={{ width: '100%' }}>
+          <KarloTextField
             fullWidth
             required
             label="Password"
@@ -58,30 +52,24 @@ export function Register(props: RegisterProps) {
             variant="outlined"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            sx={{ mb: 4 }}
           />
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Grid item xs={6}>
-            <Button
-              fullWidth
+        </KarloGrid>
+
+        <KarloGrid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+            <KarloButton
               variant="outlined"
               size="large"
               endIcon={<ArrowCircleRightOutlinedIcon />}
               color="secondary"
               onClick={() => handleRegister()}
+              sx={{ minWidth: 200 }}
             >
               Register
-            </Button>
-          </Grid>
-        </Grid>
-      </Grid>
-    </Container>
+            </KarloButton>
+        </KarloGrid>
+      </KarloGrid>
+    </KarloContainer>
   );
 }
 

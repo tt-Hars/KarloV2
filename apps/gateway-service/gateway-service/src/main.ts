@@ -6,13 +6,15 @@ const app = express();
 
 app.use(cors());
 
-// Proxy configuration
-const AUTH_SERVICE_URL = process.env.AUTH_SERVICE_URL || 'http://localhost:3333';
-const PAYMENT_SERVICE_URL = process.env.PAYMENT_SERVICE_URL || 'http://localhost:3334';
+// Proxy configuration - Use 127.0.0.1 to match service binding
+const AUTH_SERVICE_URL = process.env.AUTH_SERVICE_URL || 'http://127.0.0.1:3333';
+const PAYMENT_SERVICE_URL = process.env.PAYMENT_SERVICE_URL || 'http://127.0.0.1:3334';
 
 app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to Gateway API' });
 });
+
+const pathRewrite = (path: string, req: express.Request) => req.originalUrl;
 
 // Auth Routes -> Auth Service
 app.use(
@@ -20,6 +22,7 @@ app.use(
   createProxyMiddleware({
     target: AUTH_SERVICE_URL,
     changeOrigin: true,
+    pathRewrite,
   })
 );
 
@@ -29,6 +32,7 @@ app.use(
   createProxyMiddleware({
     target: AUTH_SERVICE_URL,
     changeOrigin: true,
+    pathRewrite,
   })
 );
 
@@ -37,6 +41,16 @@ app.use(
   createProxyMiddleware({
     target: AUTH_SERVICE_URL,
     changeOrigin: true,
+    pathRewrite,
+  })
+);
+
+app.use(
+  '/api/v1/auth',
+  createProxyMiddleware({
+    target: AUTH_SERVICE_URL,
+    changeOrigin: true,
+    pathRewrite,
   })
 );
 
@@ -46,6 +60,7 @@ app.use(
   createProxyMiddleware({
     target: PAYMENT_SERVICE_URL,
     changeOrigin: true,
+    pathRewrite,
   })
 );
 
@@ -54,6 +69,7 @@ app.use(
   createProxyMiddleware({
     target: PAYMENT_SERVICE_URL,
     changeOrigin: true,
+    pathRewrite,
   })
 );
 
@@ -62,6 +78,7 @@ app.use(
   createProxyMiddleware({
     target: PAYMENT_SERVICE_URL,
     changeOrigin: true,
+    pathRewrite,
   })
 );
 

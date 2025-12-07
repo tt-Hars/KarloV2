@@ -7,16 +7,20 @@ const {
   ASTRA_DB_APPLICATION_TOKEN,
   ASTRA_DB_API_ENDPOINT,
   USER_COLLECTION,
-  KEYSPACE,
+  FRONTEND_URL,
 } = process.env;
+
 const client = new DataAPIClient(
   ASTRA_DB_APPLICATION_TOKEN
 );
 
 const db = client.db(ASTRA_DB_API_ENDPOINT)
-const domain = (req: Request) => req.protocol + '://' + req.get('host');
+// Use FRONTEND_URL if available (e.g. from gateway or env), otherwise fallback to localhost:3000 (gateway)
+// Avoid using req.protocol/host directly if behind proxy without trust proxy config
+const domain = FRONTEND_URL || 'http://localhost:3000';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
 export function get_products() {
   return stripe.products.list({
     limit: 3,
@@ -30,6 +34,7 @@ export function get_subscriptions(subscription_id: string) {
 export function get_session(session_id: string) {
   return stripe.checkout.sessions.retrieve(session_id);
 }
+
 export const create_checkout_session = async (req: Request, res: Response) => {
   const price_id = req.body.productId;
   const session = await stripe.checkout.sessions.create({
@@ -41,11 +46,10 @@ export const create_checkout_session = async (req: Request, res: Response) => {
       },
     ],
     mode: 'subscription',
-    success_url: `${domain(req)}/payment?success=true&session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${domain(req)}/payment?canceled=true`,
+    success_url: `${domain}/payment?success=true&session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${domain}/payment?canceled=true`,
   });
 
-  // res.redirect(303, session.url); does not work with react properly CORS error
   res.json(session.url);
 };
 
@@ -54,15 +58,16 @@ export const update_user_data = async (req: Request, res: Response) => {
   const { session_id, _id, subscription_level } = req.body;
   try {
     const session_detail = await get_session(session_id);
-  const subscription_id =
-    typeof session_detail.subscription === 'string'
-      ? session_detail.subscription
-      : session_detail?.subscription?.id;
-  const subscription_detail = await get_subscriptions(subscription_id);
-  const { current_period_end } = subscription_detail;
-  const collection = await db.collection(USER_COLLECTION);
-  collection
-    .updateOne(
+    const subscription_id =
+      typeof session_detail.subscription === 'string'
+        ? session_detail.subscription
+        : session_detail?.subscription?.id;
+    const subscription_detail = await get_subscriptions(subscription_id);
+    const { current_period_end } = subscription_detail;
+
+    // Direct DB update without Mongoose User model
+    const collection = await db.collection(USER_COLLECTION);
+    const result = await collection.updateOne(
       { _id },
       {
         $set: {
@@ -75,18 +80,15 @@ export const update_user_data = async (req: Request, res: Response) => {
           }
         }
       }      
-    )
-    .then((data) => {
-      res.status(200);
-      res.send(data);
-    });
-  } catch {
-    console.error('Error while updating user data');
+    );
+    res.status(200).send(result);
+  } catch (error) {
+    console.error('Error while updating user data', error);
+    res.status(500).send({ message: 'Error updating subscription' });
   }
 };
 
 export const products_route = async (req: Request, res: Response) => {
   const products = await get_products();
-  res.status(200);
-  res.json(products);
+  res.status(200).json(products);
 };

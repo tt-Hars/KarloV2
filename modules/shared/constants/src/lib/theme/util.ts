@@ -1,7 +1,21 @@
-import { Theme, ThemeOptions, createTheme } from '@mui/material/styles';
+import { ThemeOptions, createTheme } from '@mui/material/styles';
 import { PaletteMode } from '@mui/material';
 import themeTypography from './typography';
 import componentStyleOverrides from './componentOverrides'
+
+declare module '@mui/material/styles' {
+  interface Palette {
+    orange: Palette['primary'];
+    dark: Palette['primary'];
+  }
+  interface PaletteOptions {
+    orange?: PaletteOptions['primary'];
+    dark?: PaletteOptions['primary'];
+  }
+  interface TypeText {
+    dark: string;
+  }
+}
 
 export const createdTheme = (e: PaletteMode, color: any) => {
 
@@ -45,7 +59,6 @@ export const createdTheme = (e: PaletteMode, color: any) => {
         main: color.errorMain,
         dark: color.errorDark,
       },
-      // @ts-ignore
       orange: {
         light: color.orangeLight,
         main: color.orangeMain,
@@ -80,7 +93,6 @@ export const createdTheme = (e: PaletteMode, color: any) => {
       text: {
         primary: e === 'dark' ? color.darkTextPrimary : color.grey700,
         secondary: e === 'dark' ? color.darkTextSecondary : color.grey500,
-        // @ts-ignore
         dark: e === 'dark' ? color.darkTextPrimary : color.grey900,
         hint: color.grey100,
       },

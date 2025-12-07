@@ -1,17 +1,11 @@
-import styled from '@emotion/styled';
-import { Button, Container, Grid, TextField } from '@mui/material';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useLocalStorageManager, useLogin } from '@karlo/modules-shared-hooks';
 import { useState } from 'react';
+import { KarloButton, KarloContainer, KarloGrid, KarloTextField, KarloTypography } from '@karlo/modules/shared/ui';
 
 /* eslint-disable-next-line */
 export interface LoginProps {}
-
-const StyledLogin = styled.div`
-  color: blue;
-`;
-
 
 export function Login(props: LoginProps) {
   const location = useLocation();
@@ -19,21 +13,19 @@ export function Login(props: LoginProps) {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
   const {mutate: login} = useLogin();
 
-  
   const isRegistered = useLocalStorageManager('registered');
+
   async function handleLogin() {
     login({email, password});
   }
 
   return (
-    <StyledLogin>
-      <Container maxWidth="sm">
-        <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
+    <KarloContainer maxWidth="sm">
+      <KarloGrid container spacing={4} direction="column" alignItems="center">
+        <KarloGrid item xs={12} sx={{ width: '100%' }}>
+          <KarloTextField
             required
             fullWidth
             label="Email"
@@ -41,60 +33,51 @@ export function Login(props: LoginProps) {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            sx={{ mb: 3 }}
           />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              required
-              label="Password"
-              type="password"
-              variant="outlined"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Grid>
-          <Grid
-            item
-            xs={12}
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-          ></Grid>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
+        </KarloGrid>
+        <KarloGrid item xs={12} sx={{ width: '100%' }}>
+          <KarloTextField
+            fullWidth
+            required
+            label="Password"
+            type="password"
+            variant="outlined"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            sx={{ mb: 4 }}
+          />
+        </KarloGrid>
+
+        <KarloGrid item xs={12} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
           {!isRegistered.value ? (
-            <>
-              <Button
-                component={Link}
-                color="secondary"
-                to="/register"
-                size="large"
-              >
-                Register
-              </Button>
-            </>
+            <KarloButton
+              component={Link}
+              color="secondary"
+              to="/register"
+              size="large"
+              sx={{ minWidth: 200 }}
+            >
+              Register
+            </KarloButton>
           ) : (
-            <h1>Thank you for registering, Please login here</h1>
+            <KarloTypography variant="h5" align="center" gutterBottom>
+              Thank you for registering, Please login here
+            </KarloTypography>
           )}
 
-          <Button
+          <KarloButton
             variant="outlined"
             size="large"
             endIcon={<ArrowCircleRightOutlinedIcon />}
             onClick={() => handleLogin()}
+            sx={{ minWidth: 200 }}
           >
             Login
-          </Button>
-        </Grid>
-      </Container>
-    </StyledLogin>
+          </KarloButton>
+        </KarloGrid>
+      </KarloGrid>
+    </KarloContainer>
   );
 }
 
