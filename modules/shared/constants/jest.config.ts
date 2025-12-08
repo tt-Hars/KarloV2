@@ -3,8 +3,21 @@ import { readFileSync } from 'fs';
 
 // Reading the SWC compilation config and remove the "exclude"
 // for the test files to be compiled by SWC
+let swcConfigPath = '.swcrc';
+try {
+  // Try to use __dirname if available (CJS)
+  swcConfigPath = `${__dirname}/.swcrc`;
+} catch (e) {
+  // If __dirname is not defined (ESM), use import.meta
+  const { fileURLToPath } = await import('url');
+  const { dirname } = await import('path');
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
+  swcConfigPath = `${__dirname}/.swcrc`;
+}
+
 const { exclude: _, ...swcJestConfig } = JSON.parse(
-  readFileSync(`${__dirname}/.swcrc`, 'utf-8'),
+  readFileSync(swcConfigPath, 'utf-8'),
 );
 
 // disable .swcrc look-up by SWC core because we're passing in swcJestConfig ourselves.

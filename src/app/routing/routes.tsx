@@ -1,6 +1,5 @@
-import { Suspense } from 'react';
+import { Suspense, ReactNode } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { EmotionJSX } from '@emotion/react/types/jsx-namespace';
 import {
   Dashboard,
   Landing,
@@ -22,7 +21,7 @@ import {
 import { BackdropLoader } from '../components/backdrop-loader/backdrop-loader';
 import { useAuth } from '@karlo/modules-shared-hooks';
 
-const PrivateRoute = ({ children }: { children: EmotionJSX.Element }) => {
+const PrivateRoute = ({ children }: { children: ReactNode }) => {
   const { isAuthenticated, isLoading } = useAuth();
   const location = useLocation();
 
@@ -36,7 +35,7 @@ const PrivateRoute = ({ children }: { children: EmotionJSX.Element }) => {
   );
 };
 
-const SubscribedRoute = ({ children }: { children: EmotionJSX.Element }) => {
+const SubscribedRoute = ({ children }: { children: ReactNode }) => {
   const { isAuthenticated, isSubscribed, isLoading } = useAuth();
   const location = useLocation();
 
