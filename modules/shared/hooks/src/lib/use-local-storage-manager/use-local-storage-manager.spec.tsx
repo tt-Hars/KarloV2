@@ -1,18 +1,20 @@
 import { act, renderHook } from '@testing-library/react';
-import * as React from 'react';
-
 import useLocalStorageManager from './use-local-storage-manager';
 
 describe('useLocalStorageManager', () => {
-  it('should render successfully', () => {
-    const { result } = renderHook(() => useLocalStorageManager());
+  it('should initialize with default value', () => {
+    const { result } = renderHook(() => useLocalStorageManager('testKey', true));
 
-    expect(result.current.count).toBe(0);
+    expect(result.current.value).toBe(true);
+  });
+
+  it('should toggle value', () => {
+    const { result } = renderHook(() => useLocalStorageManager('testKey', true));
 
     act(() => {
-      result.current.increment();
+      result.current.action();
     });
 
-    expect(result.current.count).toBe(1);
+    expect(result.current.value).toBe(false);
   });
 });

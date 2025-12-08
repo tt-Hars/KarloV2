@@ -1,4 +1,4 @@
-import { EmotionJSX } from '@emotion/react/types/jsx-namespace';
+import { ReactNode } from 'react';
 import {
   Login,
   Register,
@@ -15,7 +15,7 @@ import {
 } from './routeImports';
 
 interface RouteInterface {
-  element: EmotionJSX.Element;
+  element: ReactNode;
   path: string;
   label?: string;
 }
