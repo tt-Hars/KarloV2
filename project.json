@@ -68,7 +68,8 @@
           "nx run karlo:serve",
           "nx run payment-service:serve --inspect",
           "nx run auth-service-auth-service:serve --inspect",
-          "nx run gateway-service-gateway-service:serve --inspect"
+          "nx run gateway-service-gateway-service:serve --inspect",
+          "nx run feeds-service:serve --inspect"
         ]
       }
     },

@@ -9,6 +9,7 @@ app.use(cors());
 // Proxy configuration - Use 127.0.0.1 to match service binding
 const AUTH_SERVICE_URL = process.env.AUTH_SERVICE_URL || 'http://127.0.0.1:3333';
 const PAYMENT_SERVICE_URL = process.env.PAYMENT_SERVICE_URL || 'http://127.0.0.1:3334';
+const FEEDS_SERVICE_URL = process.env.FEEDS_SERVICE_URL || 'http://127.0.0.1:3335';
 
 app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to Gateway API' });
@@ -77,6 +78,16 @@ app.use(
   '/api/v1/update_user_data',
   createProxyMiddleware({
     target: PAYMENT_SERVICE_URL,
+    changeOrigin: true,
+    pathRewrite,
+  })
+);
+
+// Feeds Routes -> Feeds Service
+app.use(
+  '/api/v1/feed',
+  createProxyMiddleware({
+    target: FEEDS_SERVICE_URL,
     changeOrigin: true,
     pathRewrite,
   })

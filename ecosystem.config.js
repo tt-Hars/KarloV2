@@ -26,6 +26,14 @@ module.exports = {
       },
     },
     {
+      name: 'feeds-service',
+      script: 'nx',
+      args: 'run feeds-service:serve',
+      env: {
+        FEEDS_SERVICE_PORT: 3335,
+      },
+    },
+    {
       name: 'frontend',
       script: 'nx',
       args: 'run karlo:serve',

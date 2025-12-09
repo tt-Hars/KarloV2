@@ -9,7 +9,7 @@ import {
   Typography,
   Button,
 } from '@mui/material';
-import { Logout, AccountCircle, Subscriptions } from '@mui/icons-material';
+import { Logout, AccountCircle, Subscriptions, DynamicFeed } from '@mui/icons-material';
 import { useAuthContext, useLogout } from '@karlo/modules-shared-hooks';
 import { useNavigate } from 'react-router-dom';
 
@@ -64,6 +64,12 @@ export const UserMenu = () => {
                 <Subscriptions fontSize="small" />
               </ListItemIcon>
               <Typography variant="inherit">My Subscriptions</Typography>
+            </MenuItem>
+            <MenuItem onClick={() => { handleMenuClose(); navigate('/feed'); }}>
+              <ListItemIcon>
+                <DynamicFeed fontSize="small" />
+              </ListItemIcon>
+              <Typography variant="inherit">Feed</Typography>
             </MenuItem>
             <Divider />
             <MenuItem onClick={handleLogout}>
