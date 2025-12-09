@@ -21,10 +21,20 @@ type AuthContextType = {
   refreshSession: () => void;
 };
 
+/**
+ * Authentication Context.
+ */
 export const AuthContext = createContext<AuthContextType | undefined>(
   undefined,
 );
 
+/**
+ * AuthProvider component that manages user session state.
+ *
+ * @param {Object} props - The component props.
+ * @param {ReactNode} props.children - The child components.
+ * @returns {JSX.Element} The provider component.
+ */
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useQuery({
     queryKey: ['refresh-access-token'],
@@ -77,6 +87,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
+/**
+ * Hook to access authentication context.
+ * Alias for useAuth.
+ *
+ * @throws {Error} If used outside of AuthProvider.
+ * @returns {AuthContextType} The authentication context.
+ */
 export const useAuthContext = () => {
   const context = useContext(AuthContext);
   if (!context) {

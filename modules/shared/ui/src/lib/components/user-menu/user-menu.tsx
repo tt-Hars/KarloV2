@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, ReactNode } from 'react';
 import {
   Avatar,
   IconButton,
@@ -13,7 +13,12 @@ import { Logout, AccountCircle, Subscriptions } from '@mui/icons-material';
 import { useAuthContext, useLogout } from '@karlo/modules-shared-hooks';
 import { useNavigate } from 'react-router-dom';
 
-export const UserMenu = () => {
+/**
+ * User menu component.
+ *
+ * @returns {ReactNode} The rendered user menu.
+ */
+export const UserMenu = (): ReactNode => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();

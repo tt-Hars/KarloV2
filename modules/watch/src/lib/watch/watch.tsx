@@ -17,6 +17,12 @@ export interface Movie {
 
 const BASE_URL = `/.netlify/functions/movies`;
 
+/**
+ * Watch component to display movies.
+ *
+ * @param {WatchProps} props - The component props.
+ * @returns {JSX.Element} The rendered Watch component.
+ */
 export function Watch(props: WatchProps) {
   const [movieData, setMovieData] = useState<Movie[]>([] as Movie[]);
 

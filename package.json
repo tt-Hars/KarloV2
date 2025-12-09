@@ -6,7 +6,8 @@
     "start": "nx serve",
     "dev": "nx serveWithApi",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "storybook": "nx storybook modules-shared-ui"
   },
   "private": true,
   "dependencies": {

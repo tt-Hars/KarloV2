@@ -7,6 +7,12 @@ const StyledShop = styled.div`
   color: pink;
 `;
 
+/**
+ * Shop component.
+ *
+ * @param {ShopProps} props - The component props.
+ * @returns {JSX.Element} The rendered Shop component.
+ */
 export function Shop(props: ShopProps) {
   return (
     <StyledShop>

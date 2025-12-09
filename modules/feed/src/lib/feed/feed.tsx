@@ -7,6 +7,12 @@ const StyledFeed = styled.div`
   color: pink;
 `;
 
+/**
+ * Feed component.
+ *
+ * @param {FeedProps} props - The component props.
+ * @returns {JSX.Element} The rendered Feed component.
+ */
 export function Feed(props: FeedProps) {
   return (
     <StyledFeed>

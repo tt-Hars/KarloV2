@@ -2,6 +2,11 @@ import { useMutation } from '@tanstack/react-query';
 import { fetchClient, queryClient } from '@karlo/modules-shared-utils';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * Hook to handle user logout.
+ *
+ * @returns {UseMutationResult} The mutation result.
+ */
 export const useLogout = () => {
   const navigate = useNavigate();
 

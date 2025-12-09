@@ -7,6 +7,12 @@ const StyledWrite = styled.div`
   color: pink;
 `;
 
+/**
+ * Write component.
+ *
+ * @param {WriteProps} props - The component props.
+ * @returns {JSX.Element} The rendered Write component.
+ */
 export function Write(props: WriteProps) {
   return (
     <StyledWrite>

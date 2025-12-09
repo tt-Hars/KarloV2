@@ -1,5 +1,10 @@
 import { CircularProgress, Backdrop } from '@mui/material';
 
+/**
+ * A full-screen backdrop loader component.
+ *
+ * @returns {JSX.Element} The rendered BackdropLoader component.
+ */
 export const BackdropLoader = () => (
   <Backdrop
   sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}

@@ -1,11 +1,17 @@
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { useRegister } from '@karlo/modules-shared-hooks';
 import { KarloButton, KarloContainer, KarloGrid, KarloTextField } from '@karlo/modules/shared/ui';
 
 /* eslint-disable-next-line */
 export interface RegisterProps {}
 
+/**
+ * Register component allowing users to sign up.
+ *
+ * @param {RegisterProps} props - The component props.
+ * @returns {JSX.Element} The rendered Register component.
+ */
 export function Register(props: RegisterProps) {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -27,7 +33,7 @@ export function Register(props: RegisterProps) {
             label="Username"
             variant="outlined"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
             sx={{ mb: 3 }}
           />
         </KarloGrid>
@@ -39,7 +45,7 @@ export function Register(props: RegisterProps) {
             variant="outlined"
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             sx={{ mb: 3 }}
           />
         </KarloGrid>
@@ -51,7 +57,7 @@ export function Register(props: RegisterProps) {
             type="password"
             variant="outlined"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             sx={{ mb: 4 }}
           />
         </KarloGrid>

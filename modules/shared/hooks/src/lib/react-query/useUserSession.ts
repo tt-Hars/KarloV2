@@ -8,6 +8,11 @@ type UserSession = {
   email: string;
 };
 
+/**
+ * Hook to fetch and manage user session state.
+ *
+ * @returns {UseQueryResult<UserSession>} The query result for user session.
+ */
 export const useUserSession = () => {
   return useQuery<UserSession>({
     queryKey: ['user-session'],

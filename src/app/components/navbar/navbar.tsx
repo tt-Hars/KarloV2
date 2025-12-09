@@ -33,6 +33,11 @@ function HomeIcon() {
   );
 }
 
+/**
+ * Navigation bar component displayed at the top of the application.
+ *
+ * @returns {JSX.Element} The rendered Navbar component.
+ */
 export function Navbar() {
   return (
     <AppBar color="transparent" position="static">

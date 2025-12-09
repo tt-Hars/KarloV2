@@ -1,17 +1,15 @@
-import { render } from '@testing-library/react';
-
+import { render, waitFor } from '@testing-library/react';
 import Watch from './watch';
 
-// Mock global fetch
 global.fetch = jest.fn(() =>
   Promise.resolve({
-    json: () => Promise.resolve({ results: [] }),
+    json: () => Promise.resolve([]),
   })
 ) as jest.Mock;
 
 describe('Watch', () => {
-  it('should render successfully', () => {
+  it('should render successfully', async () => {
     const { baseElement } = render(<Watch />);
-    expect(baseElement).toBeTruthy();
+    await waitFor(() => expect(baseElement).toBeTruthy());
   });
 });

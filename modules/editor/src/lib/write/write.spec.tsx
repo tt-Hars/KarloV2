@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react';
-
 import Write from './write';
 
 describe('Write', () => {

@@ -2,8 +2,18 @@
 // shared/react-query/queryClient.ts
 import { QueryClient } from '@tanstack/react-query';
 
+/**
+ * Shared QueryClient instance for React Query.
+ */
 export const queryClient = new QueryClient();
 
+/**
+ * A wrapper around the native fetch API that handles common logic like headers and auth errors.
+ *
+ * @param {RequestInfo} input - The resource to fetch.
+ * @param {RequestInit & { skipAuth?: boolean }} [init] - Optional settings.
+ * @returns {Promise<Response>} The response.
+ */
 export const fetchClient = async (
   input: RequestInfo,
   init?: RequestInit & { skipAuth?: boolean }

@@ -7,6 +7,12 @@ const StyledPlan = styled.div`
   color: pink;
 `;
 
+/**
+ * Plan component.
+ *
+ * @param {PlanProps} props - The component props.
+ * @returns {JSX.Element} The rendered Plan component.
+ */
 export function Plan(props: PlanProps) {
   return (
     <StyledPlan>
