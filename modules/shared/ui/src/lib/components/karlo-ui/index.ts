@@ -12,3 +12,4 @@ export * from './KarloModal';
 export * from './KarloFab';
 export * from './KarloCircularProgress';
 export * from './KarloIcons';
+export * from './KarloMenuItem';

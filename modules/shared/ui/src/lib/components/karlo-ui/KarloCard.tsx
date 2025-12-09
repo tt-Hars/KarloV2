@@ -19,7 +19,8 @@ export const KarloCardContent = (props: CardContentProps) => {
   return <CardContent {...props} />;
 };
 
-export const KarloCardMedia = (props: CardMediaProps) => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const KarloCardMedia = (props: CardMediaProps | any) => {
   return <CardMedia {...props} />;
 };
 
