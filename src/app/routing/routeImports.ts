@@ -22,7 +22,7 @@ export const Watch = lazy(() => import('modules/watch/src/lib/watch/watch'));
 export const Listen = lazy(
   () => import('modules/listen/src/lib/listen/listen')
 );
-export const Feed = lazy(() => import('@karlo/modules/shared/ui').then(module => ({ default: module.FeedView })));
+export const Feed = lazy(() => import('@karlo/modules/feed').then(module => ({ default: module.FeedView })));
 export const Shop = lazy(() => import('modules/shop/src/lib/shop/shop'));
 export const Write = lazy(() => import('modules/editor/src/lib/write/write'));
 export const Read = lazy(() => import('modules/reader/src/lib/read/read'));
