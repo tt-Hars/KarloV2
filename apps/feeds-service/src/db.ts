@@ -5,8 +5,8 @@ let db: any;
 export const connectDB = () => {
   if (db) return db;
 
-  const client = new DataAPIClient(process.env.ASTRA_DB_TOKEN as string);
-  db = client.db(process.env.ASTRA_DB_ENDPOINT as string, {
+  const client = new DataAPIClient(process.env.ASTRA_DB_APPLICATION_TOKEN as string);
+  db = client.db(process.env.ASTRA_DB_API_ENDPOINT as string, {
     keyspace: process.env.KEYSPACE,
   });
 

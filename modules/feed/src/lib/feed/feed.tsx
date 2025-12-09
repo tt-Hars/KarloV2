@@ -93,7 +93,7 @@ export const FeedView = () => {
         </KarloBox>
       ) : (
         <KarloMasonry columns={{ xs: 1, sm: 2, md: 3, lg: 4 }} spacing={3}>
-          {items.map((item) => (
+          {Array.isArray(items) && items?.map((item) => (
             <FeedCard key={item._id} item={item} onLike={() => handleLike(item._id)} />
           ))}
         </KarloMasonry>
