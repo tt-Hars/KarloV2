@@ -8,6 +8,12 @@ const StyledListen = styled.div`
   color: pink;
 `;
 
+/**
+ * Listen component.
+ *
+ * @param {ListenProps} props - The component props.
+ * @returns {JSX.Element} The rendered Listen component.
+ */
 export function Listen(props: ListenProps) {
   const location = useLocation()
   console.log(location.state)

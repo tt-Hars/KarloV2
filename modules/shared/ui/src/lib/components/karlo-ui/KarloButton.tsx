@@ -16,6 +16,12 @@ const StyledButton = styled(Button)(({ theme }) => ({
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type KarloButtonProps = ButtonProps & { [key: string]: any };
 
+/**
+ * A customized Material UI Button component.
+ *
+ * @param {KarloButtonProps} props - The props for the button.
+ * @returns {JSX.Element} The rendered button component.
+ */
 export const KarloButton = (props: KarloButtonProps) => {
   return <StyledButton {...props} />;
 };

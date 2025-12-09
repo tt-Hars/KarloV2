@@ -19,6 +19,12 @@ interface CancelledProps {
   message: string;
 }
 
+/**
+ * Payment component to handle subscription flow using Stripe.
+ *
+ * @param {PaymentProps} props - The component props.
+ * @returns {JSX.Element} The rendered Payment component.
+ */
 const Payment: React.FC<PaymentProps> = () => {
   const [products, setProducts] = useState<{
     data: [{ default_price: string; metadata: { meta_name: string } }];

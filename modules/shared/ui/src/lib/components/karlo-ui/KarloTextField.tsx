@@ -13,6 +13,12 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 
 export type KarloTextFieldProps = TextFieldProps;
 
+/**
+ * A customized Material UI TextField component.
+ *
+ * @param {KarloTextFieldProps} props - The props for the text field.
+ * @returns {JSX.Element} The rendered text field component.
+ */
 export const KarloTextField = (props: KarloTextFieldProps) => {
   return <StyledTextField variant="outlined" fullWidth {...props} />;
 };

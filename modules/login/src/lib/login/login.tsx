@@ -2,12 +2,18 @@ import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOu
 import GoogleIcon from '@mui/icons-material/Google';
 import { Link, useLocation } from 'react-router-dom';
 import { useLocalStorageManager, useLogin, useProviderLogin } from '@karlo/modules-shared-hooks';
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { KarloButton, KarloContainer, KarloGrid, KarloTextField, KarloTypography } from '@karlo/modules/shared/ui';
 
 /* eslint-disable-next-line */
 export interface LoginProps {}
 
+/**
+ * Login component allowing users to sign in with email/password or Google.
+ *
+ * @param {LoginProps} props - The component props.
+ * @returns {JSX.Element} The rendered Login component.
+ */
 export function Login(props: LoginProps) {
   const location = useLocation();
   console.log(location.state);
@@ -46,7 +52,7 @@ export function Login(props: LoginProps) {
             variant="outlined"
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             sx={{ mb: 3 }}
           />
         </KarloGrid>
@@ -58,7 +64,7 @@ export function Login(props: LoginProps) {
             type="password"
             variant="outlined"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             sx={{ mb: 4 }}
           />
         </KarloGrid>

@@ -10,6 +10,12 @@ import { useAuthContext } from '@karlo/modules-shared-hooks';
 /* eslint-disable-next-line */
 export interface MainHeadingProps {}
 
+/**
+ * Main heading component with typewriter effect and feature list.
+ *
+ * @param {MainHeadingProps} props - The component props.
+ * @returns {JSX.Element} The rendered MainHeading component.
+ */
 const features = [
   {
     title: 'Watch & Listen',
@@ -73,7 +79,7 @@ export function MainHeading(props: MainHeadingProps) {
         >
           <Typewriter
             component={TypewriterWrapper}
-            onInit={(t) => t.start()}
+            onInit={(t: any) => t.start()}
             options={{
               loop: true,
               delay: 75,

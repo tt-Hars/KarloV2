@@ -4,6 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { fetchClient, queryClient } from '@karlo/modules-shared-utils';
 import { AUTH_V1 } from '@karlo/modules-shared-constants';
 
+/**
+ * Hook to handle user login.
+ *
+ * @returns {UseMutationResult} The mutation result.
+ */
 export const useLogin = () => {
   const navigate = useNavigate();
 

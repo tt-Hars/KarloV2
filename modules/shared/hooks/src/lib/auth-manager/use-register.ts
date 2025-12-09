@@ -4,6 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { fetchClient, queryClient } from '@karlo/modules-shared-utils';
 import { REGISTER_V1 } from '@karlo/modules-shared-constants';
 
+/**
+ * Hook to handle user registration.
+ *
+ * @returns {UseMutationResult} The mutation result.
+ */
 export const useRegister = () => {
   const navigate = useNavigate();
 
