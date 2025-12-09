@@ -10,6 +10,7 @@ node_bundler = "esbuild"
 
 [functions."auth"]
 [functions."payment"]
+[functions."feeds"]
 
 [[redirects]]
   from = "/api/v1/users/*"
@@ -39,6 +40,16 @@ node_bundler = "esbuild"
 [[redirects]]
   from = "/api/v1/update_user_data"
   to = "/.netlify/functions/payment/api/v1/update_user_data"
+  status = 200
+
+[[redirects]]
+  from = "/api/v1/feed"
+  to = "/.netlify/functions/feeds/api/v1/feed"
+  status = 200
+
+[[redirects]]
+  from = "/api/v1/feed/*"
+  to = "/.netlify/functions/feeds/api/v1/feed/:splat"
   status = 200
 
 [[redirects]]

@@ -1,0 +1,54 @@
+{
+  "name": "feeds-service",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/feeds-service/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/feeds-service",
+        "main": "apps/feeds-service/src/index.ts",
+        "tsConfig": "apps/feeds-service/tsconfig.app.json",
+        "assets": ["apps/feeds-service/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/feeds-service/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "feeds-service:build",
+        "inspect": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "feeds-service:build:development"
+        },
+        "production": {
+          "buildTarget": "feeds-service:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/feeds-service/jest.config.ts"
+      }
+    }
+  }
+}
