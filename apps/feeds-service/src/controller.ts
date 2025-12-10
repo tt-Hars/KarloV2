@@ -2,17 +2,109 @@ import { Request, Response } from 'express';
 import { getCollection } from './db';
 import { v4 as uuidv4 } from 'uuid';
 
+const getPagination = (req: Request) => {
+    const limit = parseInt(req.query.limit as string) || 20;
+    const offset = parseInt(req.query.offset as string) || 0;
+    return { limit, offset };
+}
+
 /**
- * Get feed items
+ * Get feed items (Universal/Generic)
  * @param req
  * @param res
  */
 export const getFeed = async (req: Request, res: Response) => {
+  return getExploreFeed(req, res);
+};
+
+/**
+ * Get Explore Feed items (Universal/Recommended)
+ * @param req
+ * @param res
+ */
+export const getExploreFeed = async (req: Request, res: Response) => {
   try {
     const collection = getCollection();
-    // Simple pagination could be added here
-    const limit = 20;
-    const feedItems = await collection.find({}, { limit }).toArray();
+    const { limit, offset } = getPagination(req);
+
+    // In a real explore feed, this would be a vector search or personalized recommendation
+    const feedItems = await collection.find({}, { limit, skip: offset }).toArray();
+
+    res.status(200).json(feedItems);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+/**
+ * Get Following Feed items (Mocked for now)
+ * @param req
+ * @param res
+ */
+export const getFollowingFeed = async (req: Request, res: Response) => {
+  try {
+    const collection = getCollection();
+    const { limit, offset } = getPagination(req);
+
+    // MOCK: Assuming the current user follows these authors
+    // In the future, fetch this list from a social graph service
+    const mockedFollowedUsers = [
+        { _id: 'user-id-1', name: 'Jane Doe' },
+        { _id: 'user-id-2', name: 'John Smith' },
+        { _id: 'user-id-3', name: 'TechGuru' }
+    ];
+
+    const followedIds = mockedFollowedUsers.map(u => u._id);
+    const followedNames = mockedFollowedUsers.map(u => u.name);
+
+    // Filter posts where author.name is in the followed list OR author._id is in the followed list
+    const feedItems = await collection.find(
+        {
+            $or: [
+                { "author._id": { $in: followedIds } },
+                { "author.name": { $in: followedNames } }
+            ]
+        },
+        { limit, skip: offset }
+    ).toArray();
+
+    // Fallback if no followed content found, just to show something in the UI for demo
+    if (feedItems.length === 0 && offset === 0) {
+        // Return nothing so the UI shows "You are not following anyone" or similar
+        res.status(200).json([]);
+        return;
+    }
+
+    res.status(200).json(feedItems);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+/**
+ * Get User's Own Posts
+ * @param req
+ * @param res
+ */
+export const getUserPostsFeed = async (req: Request, res: Response) => {
+  try {
+    const collection = getCollection();
+    const { limit, offset } = getPagination(req);
+
+    const userId = req.query.userId as string;
+
+    if (!userId) {
+         // Fallback or error if userId is strictly required.
+         // For now, return empty or generic if missing to avoid crashing.
+         res.status(400).json({ message: 'User ID is required' });
+         return;
+    }
+
+    // Filter by the user's ID
+    const feedItems = await collection.find(
+        { "author._id": userId },
+        { limit, skip: offset }
+    ).toArray();
 
     res.status(200).json(feedItems);
   } catch (error: any) {
@@ -41,7 +133,8 @@ export const createFeedItem = async (req: Request, res: Response) => {
       content,
       mediaUrl,
       aspectRatio,
-      author: author || { name: 'Anonymous' }, // In a real app, get this from auth token
+      // Ensure author has name and id. In production, 'author' should come from req.user
+      author: author || { name: 'Anonymous', _id: 'anon' },
       stats: {
         likes: 0,
         comments: 0,

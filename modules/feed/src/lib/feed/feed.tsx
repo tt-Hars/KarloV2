@@ -1,55 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import FeedCard from './components/FeedCard';
+import React, { useState } from 'react';
+import FeedList from './components/FeedList';
 import {
   KarloContainer,
   KarloTypography,
   KarloButton,
   KarloTextField,
   KarloBox,
-  KarloMasonry,
-  KarloCircularProgress,
   KarloFab,
   KarloModal,
   KarloAddIcon,
   KarloMenuItem
 } from '@karlo/modules/shared/ui';
-
-interface FeedItem {
-  _id: string;
-  type: 'image' | 'text' | 'mixed';
-  content: string;
-  mediaUrl?: string;
-  author: {
-    name: string;
-    avatar?: string;
-  };
-  stats: {
-    likes: number;
-    comments: number;
-    shares: number;
-  };
-}
+import { useAuth } from '@karlo/modules-shared-hooks';
+import { Tabs, Tab } from '@mui/material';
 
 export const FeedView = () => {
-  const [items, setItems] = useState<FeedItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [tabValue, setTabValue] = useState(0);
   const [open, setOpen] = useState(false);
   const [newPost, setNewPost] = useState({ type: 'text', content: '', mediaUrl: '' });
 
-  useEffect(() => {
-    fetchFeed();
-  }, []);
+  const { user } = useAuth();
+  const userId = (user as any)?.data?._id || (user as any)?._id || (user as any)?.id;
 
-  const fetchFeed = async () => {
-    try {
-      const response = await fetch('/api/v1/feed');
-      const data = await response.json();
-      setItems(data);
-    } catch (error) {
-      console.error('Error fetching feed:', error);
-    } finally {
-      setLoading(false);
-    }
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
   };
 
   const handleCreate = async () => {
@@ -61,42 +35,47 @@ export const FeedView = () => {
       });
       setOpen(false);
       setNewPost({ type: 'text', content: '', mediaUrl: '' });
-      fetchFeed();
+      window.location.reload();
     } catch (error) {
        console.error('Error creating post:', error);
     }
   };
 
-  const handleLike = async (id: string) => {
-      // Optimistic update
-      setItems(prev => prev.map(item =>
-          item._id === id ? { ...item, stats: { ...item.stats, likes: item.stats.likes + 1 } } : item
-      ));
-
-      try {
-          await fetch(`/api/v1/feed/${id}/like`, { method: 'POST' });
-      } catch (error) {
-          console.error("Failed to like:", error);
-          // Revert if needed
-      }
-  }
-
   return (
-    <KarloContainer maxWidth="xl" sx={{ py: 4 }}>
-      <KarloTypography variant="h4" gutterBottom sx={{ fontWeight: 'bold', mb: 4 }}>
+    <KarloContainer maxWidth="xl" sx={{ py: 2 }}>
+      <KarloTypography variant="h4" gutterBottom sx={{ fontWeight: 'bold', mb: 1 }}>
         Your Feed
       </KarloTypography>
 
-      {loading ? (
-        <KarloBox display="flex" justifyContent="center" my={5}>
-          <KarloCircularProgress />
-        </KarloBox>
-      ) : (
-        <KarloMasonry columns={{ xs: 1, sm: 2, md: 3, lg: 4 }} spacing={3}>
-          {Array.isArray(items) && items?.map((item) => (
-            <FeedCard key={item._id} item={item} onLike={() => handleLike(item._id)} />
-          ))}
-        </KarloMasonry>
+      <KarloBox sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
+        <Tabs value={tabValue} onChange={handleTabChange} aria-label="feed tabs" centered>
+          <Tab label="Explore" />
+          <Tab label="Following" />
+          <Tab label="My Posts" />
+        </Tabs>
+      </KarloBox>
+
+      {tabValue === 0 && (
+        <FeedList
+            endpoint="/api/v1/feed/explore"
+            emptyMessage="No explore content available."
+        />
+      )}
+      {tabValue === 1 && (
+        <FeedList
+            endpoint="/api/v1/feed/following"
+            emptyMessage="You are not following anyone yet."
+        />
+      )}
+      {tabValue === 2 && userId && (
+        <FeedList
+            endpoint="/api/v1/feed/myposts"
+            params={{ userId }}
+            emptyMessage="You haven't posted anything yet."
+        />
+      )}
+      {tabValue === 2 && !userId && (
+        <KarloTypography>Please log in to see your posts.</KarloTypography>
       )}
 
       <KarloFab color="primary" sx={{ position: 'fixed', bottom: 32, right: 32 }} onClick={() => setOpen(true)}>
