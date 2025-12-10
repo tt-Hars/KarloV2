@@ -2,29 +2,41 @@ import jwt from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
 import User from '../models/User';
 import { NextFunction, Request, Response } from 'express';
-import { log } from 'console';
-import { generateAccessToken, REFRESH_TOKEN } from '../utils/generateToken';
+import { ACCESS_TOKEN } from '../utils/generateToken';
 
 const protect = asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     let token: string;
 
-    token = req.cookies[REFRESH_TOKEN];
-    log('Token from cookies:', token);
+    // 1. Check Authorization Header (Bearer token)
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+        token = req.headers.authorization.split(' ')[1];
+    }
+    // 2. Check Access Token Cookie
+    else if (req.cookies[ACCESS_TOKEN]) {
+        token = req.cookies[ACCESS_TOKEN];
+    }
+
     if (token) {
       try {
         const decoded = jwt.verify(
           token,
-          process.env.JWT_REFRESH_SECRET,
+          process.env.JWT_ACCESS_SECRET,
         ) as any;
-        console.log('Decoded token:', decoded);
+
+        // Fetch user from DB to attach to request
+        // This confirms the user still exists and fetches their latest state/roles
         // @ts-expect-error todo: extend custom Request interface from express which contains user property
-        req.user = await User.findById(decoded.userId);
-        // console.log(query); // shows if any sort is being added
+        req.user = await User.findById(decoded.userId).select('-password');
+
+        if (!req.user) {
+             res.status(401);
+             throw new Error('Not authorized, user not found');
+        }
 
         next();
       } catch (error) {
-        console.error(error);
+        console.error('Token verification failed:', error);
         res.status(401);
         throw new Error('Not authorized, token failed');
       }
