@@ -65,8 +65,9 @@ describe('Social Graph Resolvers', () => {
     it('follow adds entries to both collections', async () => {
       const userId = 'user1';
       const targetId = 'user2';
+      const context = { userId: 'user1' };
 
-      const result = await resolvers.Mutation.follow(null, { userId, targetId });
+      const result = await resolvers.Mutation.follow(null, { userId, targetId }, context);
 
       expect(getFollowingCollection).toHaveBeenCalled();
       expect(getFollowersCollection).toHaveBeenCalled();
@@ -87,13 +88,24 @@ describe('Social Graph Resolvers', () => {
     it('unfollow removes entries from both collections', async () => {
       const userId = 'user1';
       const targetId = 'user2';
+      const context = { userId: 'user1' };
 
-      const result = await resolvers.Mutation.unfollow(null, { userId, targetId });
+      const result = await resolvers.Mutation.unfollow(null, { userId, targetId }, context);
 
       expect(mockFollowingCollection.deleteOne).toHaveBeenCalledWith({ userId, followingId: targetId });
       expect(mockFollowersCollection.deleteOne).toHaveBeenCalledWith({ userId: targetId, followerId: userId });
 
       expect(result).toBe(true);
+    });
+
+    it('follow throws if userId does not match context', async () => {
+      const userId = 'user1';
+      const targetId = 'user2';
+      const context = { userId: 'differentUser' };
+
+      await expect(resolvers.Mutation.follow(null, { userId, targetId }, context))
+        .rejects
+        .toThrow("Not authorized to follow on behalf of another user");
     });
   });
 });

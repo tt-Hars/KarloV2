@@ -1,10 +1,15 @@
 import express from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import { authMiddleware } from './middleware/auth';
 
 const app = express();
 
 app.use(cors());
+app.use(cookieParser());
+// Apply auth middleware globally to all routes
+app.use(authMiddleware);
 
 // Proxy configuration - Use 127.0.0.1 to match service binding
 const AUTH_SERVICE_URL = process.env.AUTH_SERVICE_URL || 'http://127.0.0.1:3333';

@@ -33,7 +33,12 @@ export const resolvers = {
     },
   },
   Mutation: {
-    follow: async (_: any, { userId, targetId }: { userId: string, targetId: string }) => {
+    follow: async (_: any, { userId, targetId }: { userId: string, targetId: string }, context: any) => {
+      // Security Check: Ensure the actor is the authenticated user
+      if (context.userId && context.userId !== userId) {
+          throw new Error("Not authorized to follow on behalf of another user");
+      }
+
       const followingColl = getFollowingCollection();
       const followersColl = getFollowersCollection();
 
@@ -61,7 +66,12 @@ export const resolvers = {
 
       return true;
     },
-    unfollow: async (_: any, { userId, targetId }: { userId: string, targetId: string }) => {
+    unfollow: async (_: any, { userId, targetId }: { userId: string, targetId: string }, context: any) => {
+       // Security Check: Ensure the actor is the authenticated user
+       if (context.userId && context.userId !== userId) {
+           throw new Error("Not authorized to unfollow on behalf of another user");
+       }
+
        const followingColl = getFollowingCollection();
        const followersColl = getFollowersCollection();
 

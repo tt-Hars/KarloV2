@@ -74,8 +74,10 @@ export const getFollowingFeed = async (req: Request, res: Response) => {
     const collection = getCollection();
     const { limit, offset } = getPagination(req);
 
-    // Get userId from query (or headers if available)
-    const userId = (req.query.userId as string) || (req.headers && req.headers['user-id'] as string);
+    // Get userId from trusted header (injected by gateway)
+    // Fallback to query param only for backward compatibility or dev testing,
+    // but in production, we should rely on the secure header.
+    const userId = (req.headers['x-user-id'] as string) || (req.query.userId as string);
 
     if (!userId) {
         // If no user is logged in, return empty or 401. For now, empty.

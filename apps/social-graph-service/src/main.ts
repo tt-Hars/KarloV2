@@ -33,7 +33,11 @@ const startServer = async () => {
         '/graphql',
         cors<cors.CorsRequest>(),
         express.json(),
-        expressMiddleware(server),
+        expressMiddleware(server, {
+            context: async ({ req }) => ({
+                userId: req.headers['x-user-id']
+            })
+        }),
     );
   }
 };
