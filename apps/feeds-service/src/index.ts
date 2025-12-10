@@ -6,7 +6,15 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { notFound, errorHandler } from './middleware/errorMiddleware';
 import ROUTE_CONSTANTS, { BASE_PATH } from './constants/routes';
-import { getFeed, createFeedItem, getFeedItem, likeFeedItem } from './controller';
+import {
+  getFeed,
+  getExploreFeed,
+  getFollowingFeed,
+  getUserPostsFeed,
+  createFeedItem,
+  getFeedItem,
+  likeFeedItem
+} from './controller';
 
 dotenv.config();
 
@@ -20,7 +28,12 @@ app.use(cors()); // Allow CORS for now, can be restricted later
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // Routes
-app.get(ROUTE_CONSTANTS.GET_FEED, getFeed);
+// Note: Specific routes must come before generic parameter routes
+app.get(ROUTE_CONSTANTS.GET_EXPLORE_FEED, getExploreFeed);
+app.get(ROUTE_CONSTANTS.GET_FOLLOWING_FEED, getFollowingFeed);
+app.get(ROUTE_CONSTANTS.GET_USER_POSTS_FEED, getUserPostsFeed);
+
+app.get(ROUTE_CONSTANTS.GET_FEED, getFeed); // Kept for generic access or backward compatibility
 app.post(ROUTE_CONSTANTS.CREATE_FEED_ITEM, createFeedItem);
 app.get(ROUTE_CONSTANTS.GET_FEED_ITEM, getFeedItem);
 app.post(ROUTE_CONSTANTS.LIKE_FEED_ITEM, likeFeedItem);

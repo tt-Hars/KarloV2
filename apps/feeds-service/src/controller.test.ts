@@ -1,4 +1,4 @@
-import { getFeed, createFeedItem, getFeedItem, likeFeedItem } from './controller';
+import { getFeed, getExploreFeed, getFollowingFeed, getUserPostsFeed, createFeedItem, getFeedItem, likeFeedItem } from './controller';
 import { getCollection } from './db';
 import { Request, Response } from 'express';
 
@@ -11,7 +11,7 @@ describe('Feeds Controller', () => {
   let mockCollection: any;
 
   beforeEach(() => {
-    req = {};
+    req = { query: {} };
     res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
@@ -28,7 +28,7 @@ describe('Feeds Controller', () => {
   });
 
   describe('getFeed', () => {
-    it('should return a list of feed items', async () => {
+    it('should act as explore feed', async () => {
       const mockItems = [{ id: '1', content: 'test' }];
       mockCollection.toArray.mockResolvedValue(mockItems);
 
@@ -37,16 +37,91 @@ describe('Feeds Controller', () => {
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith(mockItems);
     });
+  });
 
-    it('should handle errors', async () => {
-      mockCollection.toArray.mockRejectedValue(new Error('DB Error'));
+  describe('getExploreFeed', () => {
+    it('should return a list of explore items', async () => {
+      const mockItems = [{ id: '1', content: 'explore content' }];
+      mockCollection.toArray.mockResolvedValue(mockItems);
 
-      await getFeed(req as Request, res as Response);
+      await getExploreFeed(req as Request, res as Response);
 
-      expect(res.status).toHaveBeenCalledWith(500);
-      expect(res.json).toHaveBeenCalledWith({ message: 'DB Error' });
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(mockItems);
+    });
+
+    it('should handle pagination', async () => {
+        req.query = { limit: '10', offset: '5' };
+        mockCollection.toArray.mockResolvedValue([]);
+
+        await getExploreFeed(req as Request, res as Response);
+
+        expect(mockCollection.find).toHaveBeenCalledWith({}, expect.objectContaining({ limit: 10, skip: 5 }));
     });
   });
+
+  describe('getFollowingFeed', () => {
+    it('should return a list of following items', async () => {
+      const mockItems = [{ id: '1', content: 'following content' }];
+      mockCollection.toArray.mockResolvedValue(mockItems);
+
+      await getFollowingFeed(req as Request, res as Response);
+
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(mockItems);
+    });
+
+    it('should return empty list if no items found at offset 0', async () => {
+      req.query = { offset: '0' };
+      mockCollection.toArray.mockResolvedValue([]);
+
+      await getFollowingFeed(req as Request, res as Response);
+
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith([]);
+    });
+
+    it('should handle pagination', async () => {
+        req.query = { limit: '10', offset: '5' };
+        mockCollection.toArray.mockResolvedValue([]);
+
+        await getFollowingFeed(req as Request, res as Response);
+
+        expect(mockCollection.find).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ limit: 10, skip: 5 }));
+    });
+  });
+
+  describe('getUserPostsFeed', () => {
+    it('should return a list of user posts when userId is provided', async () => {
+      req.query = { userId: '123' };
+      const mockItems = [{ id: '1', content: 'my content', author: { _id: '123' } }];
+      mockCollection.toArray.mockResolvedValue(mockItems);
+
+      await getUserPostsFeed(req as Request, res as Response);
+
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(mockItems);
+    });
+
+    it('should return 400 when userId is missing', async () => {
+      req.query = {}; // No userId
+
+      await getUserPostsFeed(req as Request, res as Response);
+
+      expect(res.status).toHaveBeenCalledWith(400);
+      expect(res.json).toHaveBeenCalledWith({ message: 'User ID is required' });
+    });
+
+    it('should handle pagination', async () => {
+        req.query = { userId: '123', limit: '10', offset: '5' };
+        mockCollection.toArray.mockResolvedValue([]);
+
+        await getUserPostsFeed(req as Request, res as Response);
+
+        expect(mockCollection.find).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ limit: 10, skip: 5 }));
+    });
+  });
+
 
   describe('createFeedItem', () => {
     it('should create a feed item', async () => {
