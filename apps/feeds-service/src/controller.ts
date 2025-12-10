@@ -1,11 +1,39 @@
 import { Request, Response } from 'express';
 import { getCollection } from './db';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 
 const getPagination = (req: Request) => {
     const limit = parseInt(req.query.limit as string) || 20;
     const offset = parseInt(req.query.offset as string) || 0;
     return { limit, offset };
+}
+
+const SOCIAL_GRAPH_URL = process.env.SOCIAL_GRAPH_SERVICE_URL || 'http://127.0.0.1:3336/graphql';
+
+const fetchFollowingIds = async (userId: string): Promise<string[]> => {
+    try {
+        const response = await axios.post(SOCIAL_GRAPH_URL, {
+            query: `
+                query GetFollowing($userId: ID!) {
+                    following(userId: $userId) {
+                        id
+                    }
+                }
+            `,
+            variables: { userId }
+        });
+
+        if (response.data.errors) {
+            console.error('GraphQL Errors:', response.data.errors);
+            return [];
+        }
+
+        return response.data.data.following.map((u: any) => u.id);
+    } catch (error) {
+        console.error('Error fetching following list:', error);
+        return [];
+    }
 }
 
 /**
@@ -37,7 +65,7 @@ export const getExploreFeed = async (req: Request, res: Response) => {
 };
 
 /**
- * Get Following Feed items (Mocked for now)
+ * Get Following Feed items
  * @param req
  * @param res
  */
@@ -46,34 +74,29 @@ export const getFollowingFeed = async (req: Request, res: Response) => {
     const collection = getCollection();
     const { limit, offset } = getPagination(req);
 
-    // MOCK: Assuming the current user follows these authors
-    // In the future, fetch this list from a social graph service
-    const mockedFollowedUsers = [
-        { _id: 'user-id-1', name: 'Jane Doe' },
-        { _id: 'user-id-2', name: 'John Smith' },
-        { _id: 'user-id-3', name: 'TechGuru' }
-    ];
+    // Get userId from query (or headers if available)
+    const userId = (req.query.userId as string) || (req.headers && req.headers['user-id'] as string);
 
-    const followedIds = mockedFollowedUsers.map(u => u._id);
-    const followedNames = mockedFollowedUsers.map(u => u.name);
-
-    // Filter posts where author.name is in the followed list OR author._id is in the followed list
-    const feedItems = await collection.find(
-        {
-            $or: [
-                { "author._id": { $in: followedIds } },
-                { "author.name": { $in: followedNames } }
-            ]
-        },
-        { limit, skip: offset }
-    ).toArray();
-
-    // Fallback if no followed content found, just to show something in the UI for demo
-    if (feedItems.length === 0 && offset === 0) {
-        // Return nothing so the UI shows "You are not following anyone" or similar
+    if (!userId) {
+        // If no user is logged in, return empty or 401. For now, empty.
         res.status(200).json([]);
         return;
     }
+
+    // Fetch followed user IDs from Social Graph Service
+    const followedIds = await fetchFollowingIds(userId);
+
+    if (followedIds.length === 0) {
+        res.status(200).json([]);
+        return;
+    }
+
+    // Filter posts where author._id is in the followed list
+    // Note: We are no longer filtering by name as IDs are more reliable
+    const feedItems = await collection.find(
+        { "author._id": { $in: followedIds } },
+        { limit, skip: offset, sort: { createdAt: -1 } } // Added sort by date desc
+    ).toArray();
 
     res.status(200).json(feedItems);
   } catch (error: any) {

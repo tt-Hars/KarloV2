@@ -1,8 +1,11 @@
 import { getFeed, getExploreFeed, getFollowingFeed, getUserPostsFeed, createFeedItem, getFeedItem, likeFeedItem } from './controller';
 import { getCollection } from './db';
 import { Request, Response } from 'express';
+import axios from 'axios';
 
 jest.mock('./db');
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('Feeds Controller', () => {
   let req: Partial<Request>;
@@ -62,32 +65,55 @@ describe('Feeds Controller', () => {
 
   describe('getFollowingFeed', () => {
     it('should return a list of following items', async () => {
-      const mockItems = [{ id: '1', content: 'following content' }];
+      req.query = { userId: '123' }; // Simulate logged in user
+      // Mock social graph response
+      mockedAxios.post.mockResolvedValue({
+        data: {
+            data: {
+                following: [{ id: 'friend1' }]
+            }
+        }
+      });
+
+      const mockItems = [{ id: '1', content: 'following content', author: { _id: 'friend1' } }];
       mockCollection.toArray.mockResolvedValue(mockItems);
 
       await getFollowingFeed(req as Request, res as Response);
 
+      expect(mockedAxios.post).toHaveBeenCalled();
+      expect(mockCollection.find).toHaveBeenCalledWith(
+          expect.objectContaining({ "author._id": { $in: ['friend1'] } }),
+          expect.anything()
+      );
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith(mockItems);
     });
 
-    it('should return empty list if no items found at offset 0', async () => {
-      req.query = { offset: '0' };
-      mockCollection.toArray.mockResolvedValue([]);
+    it('should return empty list if user follows no one', async () => {
+      req.query = { userId: '123' };
+      mockedAxios.post.mockResolvedValue({
+        data: {
+            data: {
+                following: []
+            }
+        }
+      });
 
       await getFollowingFeed(req as Request, res as Response);
 
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith([]);
+      // Should not call DB if no followers
+      expect(mockCollection.find).not.toHaveBeenCalled();
     });
 
-    it('should handle pagination', async () => {
-        req.query = { limit: '10', offset: '5' };
-        mockCollection.toArray.mockResolvedValue([]);
+    it('should return empty if no userId provided', async () => {
+      req.query = {}; // No userId
 
-        await getFollowingFeed(req as Request, res as Response);
+      await getFollowingFeed(req as Request, res as Response);
 
-        expect(mockCollection.find).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({ limit: 10, skip: 5 }));
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith([]);
     });
   });
 
