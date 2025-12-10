@@ -6,6 +6,7 @@ import {
   KarloBox,
   KarloTypography
 } from '@karlo/modules/shared/ui';
+import { useFollowingList, useFollowUser, useUnfollowUser, useAuth } from '@karlo/modules-shared-hooks';
 
 interface FeedItem {
   _id: string;
@@ -32,6 +33,14 @@ interface FeedListProps {
 const FeedList = ({ endpoint, params = {}, emptyMessage = "No content available." }: FeedListProps) => {
   const [items, setItems] = useState<FeedItem[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Social Graph integration
+  const { user } = useAuth();
+  // Safe access to user ID
+  const userId = (user as any)?.data?._id || (user as any)?._id || (user as any)?.id;
+  const { data: followingList = [] } = useFollowingList(userId);
+  const followMutation = useFollowUser();
+  const unfollowMutation = useUnfollowUser();
 
   // Serialize params to avoid unnecessary re-fetches if object reference changes but values don't
   const paramsString = new URLSearchParams(params).toString();
@@ -71,6 +80,17 @@ const FeedList = ({ endpoint, params = {}, emptyMessage = "No content available.
     }
   };
 
+  const handleFollowToggle = (authorId: string | undefined) => {
+      if (!userId || !authorId) return;
+
+      // If already following, unfollow
+      if (followingList.includes(authorId)) {
+          unfollowMutation.mutate({ userId, targetId: authorId });
+      } else {
+          followMutation.mutate({ userId, targetId: authorId });
+      }
+  };
+
   if (loading) {
     return (
       <KarloBox display="flex" justifyContent="center" my={5}>
@@ -90,7 +110,13 @@ const FeedList = ({ endpoint, params = {}, emptyMessage = "No content available.
   return (
     <KarloMasonry columns={{ xs: 1, sm: 2, md: 3, lg: 4 }} spacing={3}>
       {Array.isArray(items) && items.map((item) => (
-        <FeedCard key={item._id} item={item} onLike={() => handleLike(item._id)} />
+        <FeedCard
+            key={item._id}
+            item={item}
+            onLike={() => handleLike(item._id)}
+            onFollow={() => handleFollowToggle((item.author as any)._id)} // Casting as author might lack _id in frontend type def
+            isFollowing={followingList.includes((item.author as any)._id)}
+        />
       ))}
     </KarloMasonry>
   );
