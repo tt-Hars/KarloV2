@@ -93,6 +93,27 @@ app.use(
   })
 );
 
+const SOCIAL_GRAPH_SERVICE_URL = process.env.SOCIAL_GRAPH_SERVICE_URL || 'http://127.0.0.1:3336';
+
+// Social Graph Routes -> Social Graph Service
+// We proxy /graphql directly.
+app.use(
+  '/graphql',
+  createProxyMiddleware({
+    target: SOCIAL_GRAPH_SERVICE_URL,
+    changeOrigin: true,
+    // Express app.use('/graphql') strips '/graphql' from the req.url before passing to middleware.
+    // So req.url becomes '/'. The upstream service expects '/graphql'.
+    // We need to rewrite the path to include '/graphql' again.
+    pathRewrite: (path, req) => {
+       // If the path is just '/' (stripped), we want it to be '/graphql'
+       // If the path is '/something', we want '/graphql/something'
+       // However, often GraphQL requests are just POST /graphql
+       return '/graphql' + path;
+    }
+  })
+);
+
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   console.log(`Gateway listening at http://localhost:${port}/`);
