@@ -14,7 +14,7 @@ describe('Feeds Controller', () => {
   let mockCollection: any;
 
   beforeEach(() => {
-    req = { query: {} };
+    req = { query: {}, headers: {} };
     res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
@@ -109,6 +109,7 @@ describe('Feeds Controller', () => {
 
     it('should return empty if no userId provided', async () => {
       req.query = {}; // No userId
+      req.headers = {};
 
       await getFollowingFeed(req as Request, res as Response);
 
@@ -152,19 +153,23 @@ describe('Feeds Controller', () => {
   describe('createFeedItem', () => {
     it('should create a feed item', async () => {
       req.body = { content: 'New Post', type: 'text' };
+      req.headers = { 'x-user-id': 'user123' };
       mockCollection.insertOne.mockResolvedValue({ insertedId: '123' });
+      mockedAxios.get.mockResolvedValue({ data: { name: 'Test User', _id: 'user123' } });
 
       await createFeedItem(req as Request, res as Response);
 
       expect(res.status).toHaveBeenCalledWith(201);
       expect(res.json).toHaveBeenCalledWith(expect.objectContaining({
         content: 'New Post',
-        type: 'text'
+        type: 'text',
+        author: { name: 'Test User', _id: 'user123' }
       }));
     });
 
     it('should return 400 if content/media is missing', async () => {
       req.body = {};
+      req.headers = {};
 
       await createFeedItem(req as Request, res as Response);
 

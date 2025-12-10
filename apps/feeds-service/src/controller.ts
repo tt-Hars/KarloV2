@@ -10,6 +10,8 @@ const getPagination = (req: Request) => {
 }
 
 const SOCIAL_GRAPH_URL = process.env.SOCIAL_GRAPH_SERVICE_URL || 'http://127.0.0.1:3336/graphql';
+// Auth Service URL - default to localhost:3333 if not set
+const AUTH_SERVICE_URL = process.env.AUTH_SERVICE_URL || 'http://127.0.0.1:3333';
 
 const fetchFollowingIds = async (userId: string): Promise<string[]> => {
     try {
@@ -33,6 +35,17 @@ const fetchFollowingIds = async (userId: string): Promise<string[]> => {
     } catch (error) {
         console.error('Error fetching following list:', error);
         return [];
+    }
+}
+
+const fetchUserDetails = async (userId: string) => {
+    try {
+        // Call Auth Service to get user details
+        const response = await axios.get(`${AUTH_SERVICE_URL}/api/v1/users/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching user details:', error);
+        return { name: 'Anonymous', _id: userId };
     }
 }
 
@@ -144,11 +157,23 @@ export const getUserPostsFeed = async (req: Request, res: Response) => {
  */
 export const createFeedItem = async (req: Request, res: Response) => {
   try {
-    const { type, content, mediaUrl, aspectRatio, author } = req.body;
+    const { type, content, mediaUrl, aspectRatio } = req.body;
+
+    // Identify user from trusted header
+    const userId = (req.headers['x-user-id'] as string) || (req.query.userId as string);
 
     if (!content && !mediaUrl) {
        res.status(400).json({ message: 'Content or Media URL is required' });
        return;
+    }
+
+    // Hydrate author details
+    let author = { name: 'Anonymous', _id: userId || 'anon' };
+    if (userId) {
+        const userDetails = await fetchUserDetails(userId);
+        if (userDetails) {
+            author = { name: userDetails.name, _id: userDetails._id };
+        }
     }
 
     const collection = getCollection();
@@ -158,8 +183,7 @@ export const createFeedItem = async (req: Request, res: Response) => {
       content,
       mediaUrl,
       aspectRatio,
-      // Ensure author has name and id. In production, 'author' should come from req.user
-      author: author || { name: 'Anonymous', _id: 'anon' },
+      author,
       stats: {
         likes: 0,
         comments: 0,
