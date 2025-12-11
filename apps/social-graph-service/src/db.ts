@@ -7,7 +7,9 @@ export const connectDB = () => {
 
   try {
     if (!process.env.ASTRA_DB_APPLICATION_TOKEN || !process.env.ASTRA_DB_API_ENDPOINT) {
-        throw new Error('Missing Astra DB credentials in environment variables.');
+        // Return a mock DB object or throw a handled error to prevent crash
+        console.warn('WARNING: Missing Astra DB credentials. Database operations will fail.');
+        throw new Error('Missing Astra DB configuration');
     }
 
     const client = new DataAPIClient(process.env.ASTRA_DB_APPLICATION_TOKEN as string);

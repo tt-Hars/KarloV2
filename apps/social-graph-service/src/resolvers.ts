@@ -23,9 +23,10 @@ export const resolvers = {
         // extracting the 'followingId' from the edges
         const users = edges.map((edge: any) => ({ id: edge.followingId }));
         return users;
-      } catch (error) {
-        console.error('Error in following query:', error);
-        throw new Error('Failed to fetch following list');
+      } catch (error: any) {
+        console.error('Error in following query:', error.message);
+        // Return empty list instead of throwing to prevent UI breakage when DB is down
+        return [];
       }
     },
     followers: async (_: any, { userId }: { userId: string }) => {
@@ -36,9 +37,10 @@ export const resolvers = {
         const edges = await collection.find({ userId: userId }).toArray();
         const users = edges.map((edge: any) => ({ id: edge.followerId }));
         return users;
-      } catch (error) {
-        console.error('Error in followers query:', error);
-        throw new Error('Failed to fetch followers list');
+      } catch (error: any) {
+        console.error('Error in followers query:', error.message);
+        // Return empty list instead of throwing to prevent UI breakage when DB is down
+        return [];
       }
     },
   },
