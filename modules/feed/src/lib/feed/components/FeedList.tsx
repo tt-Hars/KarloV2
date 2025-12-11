@@ -33,6 +33,7 @@ interface FeedListProps {
 const FeedList = ({ endpoint, params = {}, emptyMessage = "No content available." }: FeedListProps) => {
   const [items, setItems] = useState<FeedItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   // Social Graph integration
   const { user } = useAuth();
@@ -51,6 +52,7 @@ const FeedList = ({ endpoint, params = {}, emptyMessage = "No content available.
 
   const fetchFeed = async () => {
     setLoading(true);
+    setError(null);
     try {
       // Construct URL with params
       const url = new URL(endpoint, window.location.origin);
@@ -62,6 +64,7 @@ const FeedList = ({ endpoint, params = {}, emptyMessage = "No content available.
       setItems(data);
     } catch (error) {
       console.error(`Error fetching feed from ${endpoint}:`, error);
+      setError("Failed to load feed content.");
       setItems([]);
     } finally {
       setLoading(false);
@@ -97,6 +100,20 @@ const FeedList = ({ endpoint, params = {}, emptyMessage = "No content available.
         <KarloCircularProgress />
       </KarloBox>
     );
+  }
+
+  // Simple check: if items is actually 0 length, it's empty.
+  // If fetch failed, items is also [], so we might show "empty" instead of error.
+  // Ideally, track error state. But for now, distinguishing isn't implemented in fetchFeed.
+  if (error) {
+      return (
+          <KarloBox display="flex" justifyContent="center" my={5} flexDirection="column" alignItems="center">
+              <KarloTypography color="error">{error}</KarloTypography>
+              <KarloTypography variant="caption" sx={{ mt: 1, cursor: 'pointer', textDecoration: 'underline' }} onClick={fetchFeed}>
+                  Retry
+              </KarloTypography>
+          </KarloBox>
+      )
   }
 
   if (items.length === 0) {
