@@ -25,7 +25,9 @@ export const useFollowingList = (userId: string | undefined) => {
       if (response.data.errors) throw new Error(response.data.errors[0].message);
       return response.data.data.following.map((u: any) => u.id) as string[];
     },
-    enabled: !!userId
+    enabled: !!userId,
+    staleTime: 60000, // 1 minute
+    retry: 1
   });
 };
 

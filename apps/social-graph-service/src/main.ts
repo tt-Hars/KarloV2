@@ -27,12 +27,18 @@ let serverlessHandler: any;
 
 const startServer = async () => {
   if (!serverStarted) {
+    console.log('Starting Apollo Server...');
     await server.start();
     serverStarted = true;
+    console.log('Apollo Server started.');
     app.use(
         '/graphql',
         cors<cors.CorsRequest>(),
         express.json(),
+        (req, res, next) => {
+            console.log(`[SocialGraph] Received request: ${req.method} ${req.url}`);
+            next();
+        },
         expressMiddleware(server, {
             context: async ({ req }) => ({
                 userId: req.headers['x-user-id']
