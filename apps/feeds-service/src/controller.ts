@@ -14,28 +14,40 @@ const SOCIAL_GRAPH_URL = process.env.SOCIAL_GRAPH_SERVICE_URL || 'http://127.0.0
 const AUTH_SERVICE_URL = process.env.AUTH_SERVICE_URL || 'http://127.0.0.1:3333';
 
 const fetchFollowingIds = async (userId: string): Promise<string[]> => {
-    try {
-        const response = await axios.post(SOCIAL_GRAPH_URL, {
-            query: `
-                query GetFollowing($userId: ID!) {
-                    following(userId: $userId) {
-                        id
+    const MAX_RETRIES = 3;
+    let attempts = 0;
+
+    while (attempts < MAX_RETRIES) {
+        try {
+            const response = await axios.post(SOCIAL_GRAPH_URL, {
+                query: `
+                    query GetFollowing($userId: ID!) {
+                        following(userId: $userId) {
+                            id
+                        }
                     }
-                }
-            `,
-            variables: { userId }
-        });
+                `,
+                variables: { userId }
+            });
 
-        if (response.data.errors) {
-            console.error('GraphQL Errors:', response.data.errors);
-            return [];
+            if (response.data.errors) {
+                console.error('GraphQL Errors:', response.data.errors);
+                return [];
+            }
+
+            return response.data.data.following.map((u: any) => u.id);
+        } catch (error: any) {
+            attempts++;
+            console.error(`Error fetching following list (Attempt ${attempts}/${MAX_RETRIES}):`, error.message);
+
+            if (attempts >= MAX_RETRIES) {
+                return [];
+            }
+            // Simple backoff
+            await new Promise(resolve => setTimeout(resolve, 500));
         }
-
-        return response.data.data.following.map((u: any) => u.id);
-    } catch (error) {
-        console.error('Error fetching following list:', error);
-        return [];
     }
+    return [];
 }
 
 const fetchUserDetails = async (userId: string) => {

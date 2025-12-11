@@ -9,6 +9,15 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+// Global Error Handlers to debug crashes
+process.on('uncaughtException', (error) => {
+    console.error('CRITICAL: Uncaught Exception:', error);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('CRITICAL: Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
 const app = express();
 const port = process.env.SOCIAL_GRAPH_SERVICE_PORT ? Number(process.env.SOCIAL_GRAPH_SERVICE_PORT) : 3336;
 
