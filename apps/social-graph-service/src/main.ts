@@ -37,23 +37,48 @@ let serverlessHandler: any;
 const startServer = async () => {
   if (!serverStarted) {
     console.log('Starting Apollo Server...');
+    console.log('Env Check:', {
+        ASTRA_TOKEN: !!process.env.ASTRA_DB_APPLICATION_TOKEN,
+        ASTRA_ENDPOINT: !!process.env.ASTRA_DB_API_ENDPOINT
+    });
+
     await server.start();
     serverStarted = true;
     console.log('Apollo Server started.');
+
     app.use(
         '/graphql',
         cors<cors.CorsRequest>(),
         express.json(),
         (req, res, next) => {
-            console.log(`[SocialGraph] Received request: ${req.method} ${req.url}`);
-            next();
+            console.log(`[SocialGraph] Processing ${req.method} ${req.url}`);
+            try {
+                next();
+            } catch (e) {
+                console.error('[SocialGraph] Middleware Error:', e);
+                res.status(500).json({ error: 'Internal Middleware Error' });
+            }
         },
         expressMiddleware(server, {
-            context: async ({ req }) => ({
-                userId: req.headers['x-user-id']
-            })
+            context: async ({ req }) => {
+                console.log('[SocialGraph] Building context...');
+                try {
+                    return {
+                        userId: req.headers['x-user-id']
+                    };
+                } catch (e) {
+                    console.error('[SocialGraph] Context Error:', e);
+                    return {};
+                }
+            }
         }),
     );
+
+    // Add global error handler for Express
+    app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+        console.error('[SocialGraph] Express Global Error:', err);
+        res.status(500).send('Internal Server Error');
+    });
   }
 };
 
@@ -61,9 +86,12 @@ const startServer = async () => {
 if (require.main === module) {
     (async () => {
         await startServer();
-        app.listen(port, '127.0.0.1', () => {
+        const serverInstance = app.listen(port, '127.0.0.1', () => {
             console.log(`Social Graph Service ready at http://127.0.0.1:${port}/graphql`);
         });
+        // Increase keep-alive to avoid race conditions with proxies
+        serverInstance.keepAliveTimeout = 120 * 1000;
+        serverInstance.headersTimeout = 120 * 1000;
     })();
 }
 
