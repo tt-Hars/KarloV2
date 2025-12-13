@@ -1,10 +1,15 @@
 import express from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import { authMiddleware } from './middleware/auth';
 
 const app = express();
 
 app.use(cors());
+app.use(cookieParser());
+// Apply auth middleware globally to all routes
+app.use(authMiddleware);
 
 // Proxy configuration - Use 127.0.0.1 to match service binding
 const AUTH_SERVICE_URL = process.env.AUTH_SERVICE_URL || 'http://127.0.0.1:3333';
@@ -90,6 +95,27 @@ app.use(
     target: FEEDS_SERVICE_URL,
     changeOrigin: true,
     pathRewrite,
+  })
+);
+
+const SOCIAL_GRAPH_SERVICE_URL = process.env.SOCIAL_GRAPH_SERVICE_URL || 'http://127.0.0.1:3336';
+
+// Social Graph Routes -> Social Graph Service
+// We proxy /graphql directly.
+app.use(
+  '/graphql',
+  createProxyMiddleware({
+    target: SOCIAL_GRAPH_SERVICE_URL,
+    changeOrigin: true,
+    // Express app.use('/graphql') strips '/graphql' from the req.url before passing to middleware.
+    // So req.url becomes '/'. The upstream service expects '/graphql'.
+    // We need to rewrite the path to include '/graphql' again.
+    pathRewrite: (path, req) => {
+       // If the path is just '/' (stripped), we want it to be '/graphql'
+       // If the path is '/something', we want '/graphql/something'
+       // However, often GraphQL requests are just POST /graphql
+       return '/graphql' + path;
+    }
   })
 );
 

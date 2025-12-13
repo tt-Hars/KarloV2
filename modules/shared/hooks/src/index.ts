@@ -3,6 +3,7 @@ export * from './lib/theme-context-manager/ThemeProvider';
 export * from './lib/theme-context-manager/themeContext';
 // export * from './lib/react-query/useAuth';
 export * from './lib/react-query/useUserSession';
+export * from './lib/react-query/useSocialGraph';
 export * from './lib/auth-manager/auth-provider';
 export * from './lib/auth-manager/use-auth';
 export * from './lib/auth-manager/use-logout';

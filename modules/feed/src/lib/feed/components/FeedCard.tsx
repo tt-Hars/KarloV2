@@ -30,9 +30,11 @@ interface FeedItemProps {
     };
   };
   onLike: () => void;
+  onFollow?: () => void; // Added callback
+  isFollowing?: boolean;
 }
 
-const FeedCard: React.FC<FeedItemProps> = ({ item, onLike }) => {
+const FeedCard: React.FC<FeedItemProps> = ({ item, onLike, onFollow, isFollowing }) => {
   return (
     <KarloCard>
       {item.type === 'image' && item.mediaUrl && (
@@ -45,11 +47,21 @@ const FeedCard: React.FC<FeedItemProps> = ({ item, onLike }) => {
       )}
 
       <KarloCardContent>
-        <KarloBox display="flex" alignItems="center" mb={1}>
-            <KarloAvatar sx={{ width: 24, height: 24, mr: 1 }} src={item.author.avatar}>{item.author.name[0]}</KarloAvatar>
-             <KarloTypography variant="subtitle2" color="text.secondary">
-                {item.author.name}
-            </KarloTypography>
+        <KarloBox display="flex" alignItems="center" justifyContent="space-between" mb={1}>
+            <KarloBox display="flex" alignItems="center">
+                <KarloAvatar sx={{ width: 24, height: 24, mr: 1 }} src={item.author.avatar}>{item.author.name[0]}</KarloAvatar>
+                 <KarloTypography variant="subtitle2" color="text.secondary">
+                    {item.author.name}
+                </KarloTypography>
+            </KarloBox>
+            {onFollow && (
+                <KarloIconButton size="small" onClick={onFollow} color={isFollowing ? "primary" : "default"}>
+                    {/* Simplified Follow Button UI */}
+                    <KarloTypography variant="caption" sx={{ fontWeight: 'bold', color: isFollowing ? 'primary.main' : 'text.primary' }}>
+                        {isFollowing ? 'Following' : 'Follow'}
+                    </KarloTypography>
+                </KarloIconButton>
+            )}
         </KarloBox>
         <KarloTypography variant="body1" sx={{ fontWeight: item.type === 'text' ? 'bold' : 'normal' }}>
           {item.content}

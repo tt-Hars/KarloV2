@@ -8,6 +8,7 @@ import {
   getInitialData,
   updateUserProfile,
   refresh,
+  getUserById,
 } from '../controllers/userController';
 import { protect } from '../middleware/authMiddleware';
 
@@ -22,6 +23,6 @@ router
   .get(protect, getInitialData)
   .put(protect, updateUserProfile);
 
-// router.route('/').get()
+router.get('/:id', getUserById);
 
 export default router;

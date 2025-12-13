@@ -22,8 +22,8 @@ const connectToAstraDb = async () => {
     console.log(`DB connected`);
   }
   catch (error) {
-    console.error(error.message);
-    process.exit(1)
+    console.error("Database connection failed:", error.message);
+    // Do not exit, allow the server to keep running so it can report the error or recover
   }
 };
 

@@ -66,10 +66,11 @@
       "options": {
         "commands": [
           "nx run karlo:serve",
-          "nx run payment-service:serve --inspect",
-          "nx run auth-service-auth-service:serve --inspect",
-          "nx run gateway-service-gateway-service:serve --inspect",
-          "nx run feeds-service:serve --inspect"
+          "nx run payment-service:serve",
+          "nx run auth-service-auth-service:serve",
+          "nx run gateway-service-gateway-service:serve",
+          "nx run feeds-service:serve",
+          "nx run social-graph-service:serve"
         ]
       }
     },

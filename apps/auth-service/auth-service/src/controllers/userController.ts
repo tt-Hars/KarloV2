@@ -169,6 +169,7 @@ const getInitialData = asyncHandler(async (req, res) => {
       res.json({
         data: {
           name: user.name,
+          _id: user._id ?? user.id,
           sub: {
             level: user.subscription_details.subscription_level,
             expiry: user.subscription_details.subscription_expiry,
@@ -242,4 +243,25 @@ export {
   updateUserProfile,
   refresh,
   getInitialData,
+  getUserById,
 };
+
+const getUserById = asyncHandler(async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        // Add avatar if available in schema
+      });
+    } else {
+      res.status(404);
+      throw new Error('User not found');
+    }
+  } catch (error) {
+    res.status(404); // Using 404 for security/privacy usually, but here for utility
+    throw new Error('User not found or invalid ID');
+  }
+});

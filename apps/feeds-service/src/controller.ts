@@ -1,11 +1,64 @@
 import { Request, Response } from 'express';
 import { getCollection } from './db';
 import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 
 const getPagination = (req: Request) => {
     const limit = parseInt(req.query.limit as string) || 20;
     const offset = parseInt(req.query.offset as string) || 0;
     return { limit, offset };
+}
+
+const SOCIAL_GRAPH_URL = process.env.SOCIAL_GRAPH_SERVICE_URL || 'http://127.0.0.1:3336/graphql';
+// Auth Service URL - default to localhost:3333 if not set
+const AUTH_SERVICE_URL = process.env.AUTH_SERVICE_URL || 'http://127.0.0.1:3333';
+
+const fetchFollowingIds = async (userId: string): Promise<string[]> => {
+    const MAX_RETRIES = 3;
+    let attempts = 0;
+
+    while (attempts < MAX_RETRIES) {
+        try {
+            const response = await axios.post(SOCIAL_GRAPH_URL, {
+                query: `
+                    query GetFollowing($userId: ID!) {
+                        following(userId: $userId) {
+                            id
+                        }
+                    }
+                `,
+                variables: { userId }
+            });
+
+            if (response.data.errors) {
+                console.error('GraphQL Errors:', response.data.errors);
+                return [];
+            }
+
+            return response.data.data.following.map((u: any) => u.id);
+        } catch (error: any) {
+            attempts++;
+            console.error(`Error fetching following list (Attempt ${attempts}/${MAX_RETRIES}):`, error.message);
+
+            if (attempts >= MAX_RETRIES) {
+                return [];
+            }
+            // Simple backoff
+            await new Promise(resolve => setTimeout(resolve, 500));
+        }
+    }
+    return [];
+}
+
+const fetchUserDetails = async (userId: string) => {
+    try {
+        // Call Auth Service to get user details
+        const response = await axios.get(`${AUTH_SERVICE_URL}/api/v1/users/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching user details:', error);
+        return { name: 'Anonymous', _id: userId };
+    }
 }
 
 /**
@@ -37,7 +90,7 @@ export const getExploreFeed = async (req: Request, res: Response) => {
 };
 
 /**
- * Get Following Feed items (Mocked for now)
+ * Get Following Feed items
  * @param req
  * @param res
  */
@@ -46,34 +99,31 @@ export const getFollowingFeed = async (req: Request, res: Response) => {
     const collection = getCollection();
     const { limit, offset } = getPagination(req);
 
-    // MOCK: Assuming the current user follows these authors
-    // In the future, fetch this list from a social graph service
-    const mockedFollowedUsers = [
-        { _id: 'user-id-1', name: 'Jane Doe' },
-        { _id: 'user-id-2', name: 'John Smith' },
-        { _id: 'user-id-3', name: 'TechGuru' }
-    ];
-
-    const followedIds = mockedFollowedUsers.map(u => u._id);
-    const followedNames = mockedFollowedUsers.map(u => u.name);
-
-    // Filter posts where author.name is in the followed list OR author._id is in the followed list
-    const feedItems = await collection.find(
-        {
-            $or: [
-                { "author._id": { $in: followedIds } },
-                { "author.name": { $in: followedNames } }
-            ]
-        },
-        { limit, skip: offset }
-    ).toArray();
-
-    // Fallback if no followed content found, just to show something in the UI for demo
-    if (feedItems.length === 0 && offset === 0) {
-        // Return nothing so the UI shows "You are not following anyone" or similar
+    // Get userId from trusted header (injected by gateway)
+    // Fallback to query param only for backward compatibility or dev testing,
+    // but in production, we should rely on the secure header.
+    const userId = (req.headers['x-user-id'] as string) || (req.query.userId as string);
+    console.log("Fetching following feed for userId:::::::::", userId);
+    if (!userId) {
+        // If no user is logged in, return empty or 401. For now, empty.
         res.status(200).json([]);
         return;
     }
+
+    // Fetch followed user IDs from Social Graph Service
+    const followedIds = await fetchFollowingIds(userId);
+
+    if (followedIds.length === 0) {
+        res.status(200).json([]);
+        return;
+    }
+
+    // Filter posts where author._id is in the followed list
+    // Note: We are no longer filtering by name as IDs are more reliable
+    const feedItems = await collection.find(
+        { "author._id": { $in: followedIds } },
+        { limit, skip: offset, sort: { createdAt: -1 } } // Added sort by date desc
+    ).toArray();
 
     res.status(200).json(feedItems);
   } catch (error: any) {
@@ -119,11 +169,24 @@ export const getUserPostsFeed = async (req: Request, res: Response) => {
  */
 export const createFeedItem = async (req: Request, res: Response) => {
   try {
-    const { type, content, mediaUrl, aspectRatio, author } = req.body;
+    const { type, content, mediaUrl, aspectRatio } = req.body;
+
+    // Identify user from trusted header
+    const userId = (req.headers['x-user-id'] as string) || (req.query.userId as string);
+    console.log("Creating feed item for userId:::::::::", userId);
 
     if (!content && !mediaUrl) {
        res.status(400).json({ message: 'Content or Media URL is required' });
        return;
+    }
+
+    // Hydrate author details
+    let author = { name: 'Anonymous', _id: userId || 'anon' };
+    if (userId) {
+        const userDetails = await fetchUserDetails(userId);
+        if (userDetails) {
+            author = { name: userDetails.name, _id: userDetails._id };
+        }
     }
 
     const collection = getCollection();
@@ -133,8 +196,7 @@ export const createFeedItem = async (req: Request, res: Response) => {
       content,
       mediaUrl,
       aspectRatio,
-      // Ensure author has name and id. In production, 'author' should come from req.user
-      author: author || { name: 'Anonymous', _id: 'anon' },
+      author,
       stats: {
         likes: 0,
         comments: 0,
