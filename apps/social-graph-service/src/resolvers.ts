@@ -17,14 +17,18 @@ export const resolvers = {
   Query: {
     following: async (_: any, { userId }: { userId: string }) => {
       try {
+        console.log(`[Resolver] Fetching following for userId: ${userId}`);
         const collection = getFollowingCollection();
+        console.log(`[Resolver] Got collection, executing find...`);
         // Find all entries where user_id is the follower
-        const edges = await collection.find({ userId: userId }).toArray();
+        const edges = await collection.find({ userId: userId })?.toArray();
+        console.log(`[Resolver] Found ${edges.length} following entries`);
         // extracting the 'followingId' from the edges
-        const users = edges.map((edge: any) => ({ id: edge.followingId }));
+        const users = edges?.map((edge: any) => ({ id: edge.followingId }));
         return users;
       } catch (error: any) {
         console.error('Error in following query:', error.message);
+        console.error('Full error:', error);
         // Return empty list instead of throwing to prevent UI breakage when DB is down
         return [];
       }
@@ -34,8 +38,8 @@ export const resolvers = {
         const collection = getFollowersCollection();
         // Find all entries where target_id is the user
         // Schema: userId (the person being followed), followerId (the person following)
-        const edges = await collection.find({ userId: userId }).toArray();
-        const users = edges.map((edge: any) => ({ id: edge.followerId }));
+        const edges = await collection.find({ userId: userId })?.toArray();
+        const users = edges?.map((edge: any) => ({ id: edge.followerId }));
         return users;
       } catch (error: any) {
         console.error('Error in followers query:', error.message);
