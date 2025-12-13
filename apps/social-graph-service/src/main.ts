@@ -61,10 +61,11 @@ const startServer = async () => {
         },
         expressMiddleware(server, {
             context: async ({ req }) => {
+                const userId = (req.headers['x-user-id'] as string) || (req.query.userId as string) || '';
                 console.log('[SocialGraph] Building context...');
                 try {
                     return {
-                        userId: req.headers['x-user-id']
+                        userId
                     };
                 } catch (e) {
                     console.error('[SocialGraph] Context Error:', e);

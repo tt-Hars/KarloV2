@@ -169,6 +169,7 @@ const getInitialData = asyncHandler(async (req, res) => {
       res.json({
         data: {
           name: user.name,
+          _id: user._id ?? user.id,
           sub: {
             level: user.subscription_details.subscription_level,
             expiry: user.subscription_details.subscription_expiry,

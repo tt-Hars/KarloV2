@@ -29,10 +29,11 @@ const protect = asyncHandler(
 
         // Fetch user from DB to attach to request
         // This confirms the user still exists and fetches their latest state/roles
-        // @ts-expect-error todo: extend custom Request interface from express which contains user property
-        req.user = await User.findById(decoded.userId).select('-password');
+        const user = await User.findById(decoded.userId);
 
-        if (!req.user) {
+        // @ts-expect-error todo: extend custom Request interface from express which contains user property
+        req.user = user;
+        if (!user) {
              res.status(401);
              throw new Error('Not authorized, user not found');
         }

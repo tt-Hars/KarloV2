@@ -22,6 +22,7 @@ export const authMiddleware = (req: Request, res: Response, next: NextFunction) 
     if (token) {
         try {
             const decoded: any = jwt.verify(token, JWT_ACCESS_SECRET);
+            console.log('Decoded JWT::::::::', decoded);
             if (decoded && decoded.userId) {
                 // 3. Inject trusted user ID
                 req.headers[AUTH_HEADER] = decoded.userId;
