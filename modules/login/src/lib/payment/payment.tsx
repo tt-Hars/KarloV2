@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, Box, Button, Tab, Tabs } from '@mui/material';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
-import { useAuth } from '@karlo/modules-shared-hooks';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface PaymentProps {
@@ -213,8 +212,7 @@ const Payment: React.FC<PaymentProps> = () => {
   if (!success && message === '') {
     return <Subscribe />;
   } else if (success && sessionId !== '') {
-    const { user } = useAuth();
-    const userId = (user as any)?.data?._id || (user as any)?._id || (user as any)?.id;
+    const userId = window.localStorage.getItem('userId'); // local cache or server cache or db
     return (
       <Success
         onManageBilling={onManageBilling}

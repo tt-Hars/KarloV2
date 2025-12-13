@@ -12,12 +12,6 @@ export const connectDB = () => {
         throw new Error('Missing Astra DB configuration');
     }
 
-    console.log('[DB] Attempting to connect with:', {
-        endpoint: process.env.ASTRA_DB_API_ENDPOINT,
-        keyspace: process.env.KEYSPACE,
-        token: process.env.ASTRA_DB_APPLICATION_TOKEN ? 'Exists' : 'MISSING'
-    });
-
     const client = new DataAPIClient(process.env.ASTRA_DB_APPLICATION_TOKEN as string);
     db = client.db(process.env.ASTRA_DB_API_ENDPOINT as string, {
       keyspace: process.env.KEYSPACE,
