@@ -86,13 +86,18 @@ const startServer = async () => {
 // If running locally with `node` or `pm2` (not serverless)
 if (require.main === module) {
     (async () => {
-        await startServer();
-        const serverInstance = app.listen(port, '127.0.0.1', () => {
-            console.log(`Social Graph Service ready at http://127.0.0.1:${port}/graphql`);
-        });
-        // Increase keep-alive to avoid race conditions with proxies
-        serverInstance.keepAliveTimeout = 120 * 1000;
-        serverInstance.headersTimeout = 120 * 1000;
+        try {
+            await startServer();
+            const serverInstance = app.listen(port, '127.0.0.1', () => {
+                console.log(`Social Graph Service ready at http://127.0.0.1:${port}/graphql`);
+            });
+            // Increase keep-alive to avoid race conditions with proxies
+            serverInstance.keepAliveTimeout = 120 * 1000;
+            serverInstance.headersTimeout = 120 * 1000;
+        } catch (error) {
+            console.error('Failed to start Social Graph Service:', error);
+            process.exit(1);
+        }
     })();
 }
 

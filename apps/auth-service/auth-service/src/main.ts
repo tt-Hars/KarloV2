@@ -21,7 +21,13 @@ app.use(async (req, res, next) => {
   }
 
   try {
-    await connectToAstraDb();
+    // Race connection against a timeout to prevent Gateway 504s
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('Database connection timeout')), 5000);
+    });
+
+    await Promise.race([connectToAstraDb(), timeoutPromise]);
+
     if ((mongoose.connection.readyState as unknown as number) === 1) {
       next();
     } else {
@@ -29,7 +35,7 @@ app.use(async (req, res, next) => {
     }
   } catch (error) {
     console.error('Database connection error in middleware:', error);
-    res.status(503).json({ message: 'Service Unavailable: Database error' });
+    res.status(503).json({ message: 'Service Unavailable: Database error or timeout' });
   }
 });
 
