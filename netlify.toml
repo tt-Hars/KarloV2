@@ -11,6 +11,12 @@ node_bundler = "esbuild"
 [functions."auth"]
 [functions."payment"]
 [functions."feeds"]
+[functions."graphql"]
+
+[[redirects]]
+  from = "/graphql"
+  to = "/.netlify/functions/graphql"
+  status = 200
 
 [[redirects]]
   from = "/api/v1/users/*"
