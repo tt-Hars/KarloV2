@@ -44,7 +44,9 @@ const port = Number(process.env.AUTH_SERVICE_PORT) || 3333;
 app.use(notFound);
 app.use(errorHandler);
 
-if (process.env.NODE_ENV !== 'production') {
+// Ensure the server listens when run directly (e.g. by Nx/PM2)
+// Use require.main === module check which is more reliable than NODE_ENV for this context
+if (require.main === module) {
   const server = app.listen(port, '127.0.0.1', () => {
     console.log(`Auth Service listening at http://127.0.0.1:${port}/`);
   });
