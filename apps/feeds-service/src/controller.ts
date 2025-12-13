@@ -103,7 +103,7 @@ export const getFollowingFeed = async (req: Request, res: Response) => {
     // Fallback to query param only for backward compatibility or dev testing,
     // but in production, we should rely on the secure header.
     const userId = (req.headers['x-user-id'] as string) || (req.query.userId as string);
-    console.log("Fetching following feed for userId:::::::::", userId);
+
     if (!userId) {
         // If no user is logged in, return empty or 401. For now, empty.
         res.status(200).json([]);
@@ -173,7 +173,6 @@ export const createFeedItem = async (req: Request, res: Response) => {
 
     // Identify user from trusted header
     const userId = (req.headers['x-user-id'] as string) || (req.query.userId as string);
-    console.log("Creating feed item for userId:::::::::", userId);
 
     if (!content && !mediaUrl) {
        res.status(400).json({ message: 'Content or Media URL is required' });

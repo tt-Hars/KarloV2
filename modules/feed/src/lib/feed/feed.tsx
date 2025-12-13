@@ -20,7 +20,7 @@ export const FeedView = () => {
   const [newPost, setNewPost] = useState({ type: 'text', content: '', mediaUrl: '' });
 
   const { user } = useAuth();
-  const userId = (user as any)?.data?.id || (user as any)?._id || (user as any)?.id;
+  const userId = (user as any)?.data?._id || (user as any)?._id || (user as any)?.id;
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
