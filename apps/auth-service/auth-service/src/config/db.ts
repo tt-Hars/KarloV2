@@ -10,15 +10,21 @@ const connectToAstraDb = async () => {
   mongoose.set('autoCreate', true);
   mongoose.setDriver(driver);
   try {
+    // If already connected, return immediately
+    if ((mongoose.connection.readyState as unknown as number) === 1) {
+      return;
+    }
 
-    if (mongoose.connection.readyState !== 0) {
-      console.log(`DB already connected, getting disconnected`);
+    // If connecting or disconnecting, reset the state
+    if ((mongoose.connection.readyState as unknown as number) !== 0) {
+      console.log(`DB status is ${mongoose.connection.readyState}, getting disconnected to retry`);
       await mongoose.disconnect();
     }
 
     await mongoose.connect(uri, {
       isAstra: true,
-    });
+      serverSelectionTimeoutMS: 5000, // Fail fast after 5 seconds
+    } as any);
     console.log(`DB connected`);
   }
   catch (error) {
