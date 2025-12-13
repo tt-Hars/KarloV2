@@ -5,6 +5,25 @@
   "projectType": "application",
   "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/auth-service/auth-service",
+        "main": "apps/auth-service/auth-service/src/main.ts",
+        "tsConfig": "apps/auth-service/auth-service/tsconfig.app.json",
+        "assets": ["apps/auth-service/auth-service/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/auth-service/auth-service/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
