@@ -5,6 +5,25 @@
   "projectType": "application",
   "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/gateway-service/gateway-service",
+        "main": "apps/gateway-service/gateway-service/src/main.ts",
+        "tsConfig": "apps/gateway-service/gateway-service/tsconfig.app.json",
+        "assets": ["apps/gateway-service/gateway-service/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/gateway-service/gateway-service/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",

@@ -5,6 +5,25 @@
   "projectType": "application",
   "tags": [],
   "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/payment-service",
+        "main": "apps/payment-service/src/main.ts",
+        "tsConfig": "apps/payment-service/tsconfig.app.json",
+        "assets": ["apps/payment-service/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/payment-service/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
