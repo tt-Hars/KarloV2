@@ -15,11 +15,16 @@ import {
   getFeedItem,
   likeFeedItem
 } from './controller';
+import { correlationIdMiddleware, Logger, withLogging } from '@karlo/logging';
 
 dotenv.config();
 
+const LOGGING_SERVICE_URL = process.env.LOGGING_SERVICE_URL || 'http://localhost:3337/logs';
+const logger = new Logger('feeds-service', LOGGING_SERVICE_URL);
+
 const app = express();
 
+app.use(correlationIdMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -29,14 +34,14 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 // Routes
 // Note: Specific routes must come before generic parameter routes
-app.get(ROUTE_CONSTANTS.GET_EXPLORE_FEED, getExploreFeed);
-app.get(ROUTE_CONSTANTS.GET_FOLLOWING_FEED, getFollowingFeed);
-app.get(ROUTE_CONSTANTS.GET_USER_POSTS_FEED, getUserPostsFeed);
+app.get(ROUTE_CONSTANTS.GET_EXPLORE_FEED, withLogging(logger, 'getExploreFeed', getExploreFeed));
+app.get(ROUTE_CONSTANTS.GET_FOLLOWING_FEED, withLogging(logger, 'getFollowingFeed', getFollowingFeed));
+app.get(ROUTE_CONSTANTS.GET_USER_POSTS_FEED, withLogging(logger, 'getUserPostsFeed', getUserPostsFeed));
 
-app.get(ROUTE_CONSTANTS.GET_FEED, getFeed); // Kept for generic access or backward compatibility
-app.post(ROUTE_CONSTANTS.CREATE_FEED_ITEM, createFeedItem);
-app.get(ROUTE_CONSTANTS.GET_FEED_ITEM, getFeedItem);
-app.post(ROUTE_CONSTANTS.LIKE_FEED_ITEM, likeFeedItem);
+app.get(ROUTE_CONSTANTS.GET_FEED, withLogging(logger, 'getFeed', getFeed)); // Kept for generic access or backward compatibility
+app.post(ROUTE_CONSTANTS.CREATE_FEED_ITEM, withLogging(logger, 'createFeedItem', createFeedItem));
+app.get(ROUTE_CONSTANTS.GET_FEED_ITEM, withLogging(logger, 'getFeedItem', getFeedItem));
+app.post(ROUTE_CONSTANTS.LIKE_FEED_ITEM, withLogging(logger, 'likeFeedItem', likeFeedItem));
 
 // Health check
 app.get('/', (req, res) => {

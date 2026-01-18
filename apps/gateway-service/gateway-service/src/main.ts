@@ -3,6 +3,7 @@ import { createProxyMiddleware } from 'http-proxy-middleware';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { authMiddleware } from './middleware/auth';
+import { GET_LOGS_V1 } from '@karlo/modules-shared-constants';
 
 const app = express();
 
@@ -95,6 +96,20 @@ app.use(
     target: FEEDS_SERVICE_URL,
     changeOrigin: true,
     pathRewrite,
+  })
+);
+
+const LOGGING_SERVICE_URL = process.env.LOGGING_SERVICE_URL || 'http://127.0.0.1:3337';
+
+// Logging Routes -> Logging Service (Map /api/v1/logs -> /logs)
+app.use(
+  GET_LOGS_V1,
+  createProxyMiddleware({
+    target: LOGGING_SERVICE_URL,
+    changeOrigin: true,
+    pathRewrite: {
+        [`^${GET_LOGS_V1}`]: '/logs'
+    },
   })
 );
 

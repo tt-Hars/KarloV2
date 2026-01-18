@@ -18,6 +18,7 @@ import {
   MainHeading,
   Profile
 } from './routeImports';
+import { LogsView } from '../pages/logs-view/logs-view';
 import { BackdropLoader } from '../components/backdrop-loader/backdrop-loader';
 import { useAuth } from '@karlo/modules-shared-hooks';
 
@@ -202,6 +203,14 @@ export const AppRoutes = () => {
         element={
           <Suspense fallback={<BackdropLoader />}>
             <PageNotFound />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/logs"
+        element={
+          <Suspense fallback={<BackdropLoader />}>
+            <LogsView />
           </Suspense>
         }
       />
