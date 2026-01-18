@@ -65,7 +65,7 @@ export class Logger {
 }
 
 // 3. Function Tracking HOF
-export function withLogging<T extends (...args: any[]) => Promise<any>>(
+export function withLogging<T extends (...args: any[]) => any>(
   logger: Logger,
   fnName: string,
   fn: T
@@ -75,12 +75,12 @@ export function withLogging<T extends (...args: any[]) => Promise<any>>(
     logger.info(`Starting function execution: ${fnName}`, { args, correlationId });
 
     try {
-      const result = await fn(...args);
+      const result = await Promise.resolve(fn(...args));
       logger.info(`Function execution success: ${fnName}`, { result, correlationId });
       return result;
     } catch (error: any) {
       logger.error(`Function execution failed: ${fnName}`, { error: error.message, stack: error.stack, correlationId });
       throw error;
     }
-  }) as T;
+  }) as unknown as T;
 }
