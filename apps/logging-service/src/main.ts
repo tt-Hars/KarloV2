@@ -88,7 +88,7 @@ const flushLogs = async () => {
 // Start the flush interval
 setInterval(flushLogs, FLUSH_INTERVAL_MS);
 
-const port = process.env.PORT || 3337;
+const port = process.env.LOGGING_SERVICE_PORT || 3337;
 const server = app.listen(port, () => {
   console.log(`Logging Service listening at http://localhost:${port}/api`);
 });
