@@ -98,6 +98,20 @@ app.use(
   })
 );
 
+const LOGGING_SERVICE_URL = process.env.LOGGING_SERVICE_URL || 'http://127.0.0.1:3337';
+
+// Logging Routes -> Logging Service (Map /api/v1/logs -> /logs)
+app.use(
+  '/api/v1/logs',
+  createProxyMiddleware({
+    target: LOGGING_SERVICE_URL,
+    changeOrigin: true,
+    pathRewrite: {
+        '^/api/v1/logs': '/logs'
+    },
+  })
+);
+
 const SOCIAL_GRAPH_SERVICE_URL = process.env.SOCIAL_GRAPH_SERVICE_URL || 'http://127.0.0.1:3336';
 
 // Social Graph Routes -> Social Graph Service

@@ -39,6 +39,22 @@ app.post('/logs', (req, res) => {
   res.status(200).send({ message: 'Log buffered' });
 });
 
+app.get('/logs', async (req, res) => {
+    try {
+        const limit = parseInt(req.query.limit as string) || 50;
+        const offset = parseInt(req.query.offset as string) || 0;
+
+        // Dynamic import to avoid circular dependency issues if any
+        const { getLogs } = require('./db');
+        const logs = await getLogs(limit, offset);
+
+        res.status(200).json(logs);
+    } catch (error) {
+        console.error('Error fetching logs:', error);
+        res.status(500).json({ error: 'Failed to fetch logs' });
+    }
+});
+
 // Flush logs to DB periodically
 const flushLogs = async () => {
   if (logBuffer.length === 0) return;

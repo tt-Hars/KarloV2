@@ -13,3 +13,6 @@ export * from './KarloFab';
 export * from './KarloCircularProgress';
 export * from './KarloIcons';
 export * from './KarloMenuItem';
+export * from './KarloAccordion';
+export * from './KarloAccordionSummary';
+export * from './KarloAccordionDetails';

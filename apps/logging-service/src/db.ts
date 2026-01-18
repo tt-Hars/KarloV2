@@ -59,3 +59,20 @@ export const getLogsCollection = () => {
     }
     return database.collection('service_logs');
 }
+
+export const getLogs = async (limit: number, offset: number) => {
+    const collection = getLogsCollection();
+    if (!collection) return [];
+
+    try {
+        const logs = await collection.find({}, {
+            sort: { receivedAt: -1 },
+            limit: limit,
+            skip: offset
+        }).toArray();
+        return logs;
+    } catch (error) {
+        console.error('[LoggingService] Failed to fetch logs:', error);
+        return [];
+    }
+}
