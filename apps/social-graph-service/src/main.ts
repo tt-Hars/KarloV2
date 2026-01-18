@@ -6,6 +6,7 @@ import { typeDefs } from './schema';
 import { resolvers } from './resolvers';
 import serverless from 'serverless-http';
 import dotenv from 'dotenv';
+import { correlationIdMiddleware } from '@karlo/logging';
 
 dotenv.config();
 
@@ -19,6 +20,8 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 const app = express();
+app.use(correlationIdMiddleware);
+
 const port = process.env.SOCIAL_GRAPH_SERVICE_PORT ? Number(process.env.SOCIAL_GRAPH_SERVICE_PORT) : 3336;
 
 const server = new ApolloServer({
@@ -86,13 +89,18 @@ const startServer = async () => {
 // If running locally with `node` or `pm2` (not serverless)
 if (require.main === module) {
     (async () => {
-        await startServer();
-        const serverInstance = app.listen(port, '127.0.0.1', () => {
-            console.log(`Social Graph Service ready at http://127.0.0.1:${port}/graphql`);
-        });
-        // Increase keep-alive to avoid race conditions with proxies
-        serverInstance.keepAliveTimeout = 120 * 1000;
-        serverInstance.headersTimeout = 120 * 1000;
+        try {
+            await startServer();
+            const serverInstance = app.listen(port, '127.0.0.1', () => {
+                console.log(`Social Graph Service ready at http://127.0.0.1:${port}/graphql`);
+            });
+            // Increase keep-alive to avoid race conditions with proxies
+            serverInstance.keepAliveTimeout = 120 * 1000;
+            serverInstance.headersTimeout = 120 * 1000;
+        } catch (error) {
+            console.error('Failed to start Social Graph Service locally:', error);
+            process.exit(1);
+        }
     })();
 }
 

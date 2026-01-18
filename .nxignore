@@ -1,0 +1,5 @@
+logs
+dist
+tmp
+node_modules
+.nx
