@@ -1,9 +1,14 @@
 import express from 'express';
 import * as path from 'path';
 import dotenv from 'dotenv';
-import { getLogsCollection } from './db';
+import { getLogsCollection, initializeDatabase } from './db';
 
 dotenv.config();
+
+// Initialize DB on startup
+initializeDatabase().catch(err => {
+    console.error('[LoggingService] Startup DB initialization failed:', err);
+});
 
 const app = express();
 app.use(express.json());

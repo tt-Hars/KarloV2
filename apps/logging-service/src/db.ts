@@ -28,6 +28,29 @@ export const connectDB = () => {
   }
 };
 
+export const initializeDatabase = async () => {
+  const database = connectDB();
+  if (!database) {
+    console.warn('[LoggingService] DB not connected, skipping initialization');
+    return;
+  }
+
+  try {
+    const collections = await database.listCollections();
+    const collectionExists = collections.some((col: any) => col.name === 'service_logs');
+
+    if (!collectionExists) {
+      console.log('[LoggingService] Creating "service_logs" collection...');
+      await database.createCollection('service_logs');
+      console.log('[LoggingService] "service_logs" collection created.');
+    } else {
+      console.log('[LoggingService] "service_logs" collection already exists.');
+    }
+  } catch (error) {
+    console.error('[LoggingService] Failed to initialize database:', error);
+  }
+};
+
 export const getLogsCollection = () => {
     const database = connectDB();
     if (!database) {
