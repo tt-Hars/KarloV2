@@ -5,6 +5,7 @@
   "scripts": {
     "start": "nx serve",
     "dev": "nx serveWithApi",
+    "dev:parallel": "nx run-many --target=serve --projects=karlo,payment-service,auth-service-auth-service,gateway-service-gateway-service,feeds-service,social-graph-service --parallel=10",
     "build": "nx build",
     "test": "nx test",
     "storybook": "nx storybook modules-shared-ui"
