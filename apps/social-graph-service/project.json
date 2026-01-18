@@ -35,6 +35,7 @@
     "build": {
       "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
+      "dependsOn": [],
       "defaultConfiguration": "production",
       "options": {
         "target": "node",
