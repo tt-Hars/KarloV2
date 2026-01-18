@@ -24,10 +24,25 @@ app.use(correlationIdMiddleware);
 
 app.use(async (req, res, next) => {
   if (!isDbConnected) {
-    await connectToAstraDb();
-    isDbConnected = true;
+    try {
+      // Race condition protection: prevent multiple concurrent connection attempts?
+      // For now, simple await with timeout handling via db config
+      await Promise.race([
+        connectToAstraDb(),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('DB Connection Timeout')), 5000))
+      ]);
+      isDbConnected = true;
+      next();
+    } catch (error) {
+      console.error('Failed to connect to DB during request:', error.message);
+      res.status(503).json({
+        message: 'Service Unavailable',
+        error: 'Database connection failed'
+      });
+    }
+  } else {
+    next();
   }
-  next();
 });
 
 app.use(cors());

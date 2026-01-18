@@ -18,12 +18,13 @@ const connectToAstraDb = async () => {
 
     await mongoose.connect(uri, {
       isAstra: true,
+      serverSelectionTimeoutMS: 5000, // Fail fast after 5s
     });
     console.log(`DB connected`);
   }
   catch (error) {
-    console.error(error.message);
-    process.exit(1)
+    console.error('Database connection error:', error.message);
+    throw error; // Let the caller handle it
   }
 };
 
