@@ -7,6 +7,7 @@ tmp
 /out-tsc
 .nx
 .env
+*.log
 
 # dependencies
 node_modules
