@@ -5,6 +5,8 @@ import { getLogsCollection, initializeDatabase } from './db';
 
 dotenv.config();
 
+console.log('[LoggingService] Service starting...');
+
 // Initialize DB on startup
 initializeDatabase().catch(err => {
     console.error('[LoggingService] Startup DB initialization failed:', err);

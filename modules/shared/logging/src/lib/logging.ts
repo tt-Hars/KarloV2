@@ -49,8 +49,8 @@ export class Logger {
     const sanitizedLogEntry = JSON.parse(stringify(logEntry));
 
     axios.post(this.loggingServiceUrl, sanitizedLogEntry).catch((err) => {
-      // Intentionally simplified error log to prevent recursion or massive output
-      console.error('Failed to send log to logging service:', err.message);
+      // Log full error for debugging
+      console.error('Failed to send log to logging service:', err.message, err.code, err.response?.data);
     });
 
     // Also log to console for local debugging
