@@ -29,6 +29,11 @@ export const fetchClient = async (
 
   const response = await fetch(input, options);
 
+  const correlationId = response.headers.get('x-correlation-id');
+  if (correlationId) {
+    console.log(`[Request] ${input.toString()} | Correlation ID: ${correlationId}`);
+  }
+
   if (response.status === 401 && !init?.skipAuth) {
     // Clear auth-related cache and force logout
     queryClient.setQueryData(['user-session'], null);

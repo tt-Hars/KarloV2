@@ -1,0 +1,5 @@
+{"service":"test-service","message":"test log"}
+{"service":"test-service","message":"test log"}
+{"service":"test-service","message":"test log"}
+{"timestamp":"2026-01-18T07:12:09.994Z","service":"auth-service","correlationId":"31bde4df-6378-483c-ac15-70e39ec25865","level":"info","message":"Function execution success: authUser"}
+{"service":"test-service","message":"test log"}

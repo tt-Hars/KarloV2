@@ -1,2 +1,44 @@
-npm warn Unknown project config "strict-peer-dependencies". This will stop working in the next major version of npm.
-npm warn Unknown project config "auto-install-peers". This will stop working in the next major version of npm.
+
+> nx run auth-service-auth-service:serve:development
+
+[0m[7m[1m[36m NX [39m[22m[27m[0m  [36mRunning target [1mbuild[22m for project auth-service-auth-service and [1m2[22m tasks it depends on:[39m
+[2m> [22m[2mnx run[22m modules-shared-constants:build  [2m[existing outputs match the cache, left as is][22m
+[2m> [22m[2mnx run[22m logging:build  [2m[existing outputs match the cache, left as is][22m
+[2m> [22m[2mnx run[22m auth-service-auth-service:build  [2m[existing outputs match the cache, left as is][22m
+> webpack-cli build --node-env=production
+chunk (runtime: main) [1m[32mmain.js[39m[22m (main) 67.9 KiB (javascript) 123 bytes (runtime) [1m[33m[entry][39m[22m [1m[32m[rendered][39m[22m
+webpack compiled [1m[32msuccessfully[39m[22m (8c9933a13f4837cd)
+[0m[7m[1m[32m NX [39m[22m[27m[0m  [32mSuccessfully ran target [1mbuild[22m for project auth-service-auth-service and [1m2[22m tasks it depends on[39m
+[2mNx read the output from the cache instead of running the command for 3 out of 3 tasks.[22m
+Auth Service listening at http://127.0.0.1:3333/
+DB connected
+[auth-service] [info] Starting function execution: authUser (CID: 87278dd7-c240-4c0f-aa54-4a1900876af2)
+[1m[31mFailed to send log to logging service: Converting circular structure to JSON[39m[22m
+[1m[31m    --> starting at object with constructor 'Socket'[39m[22m
+[1m[31m    |     property 'parser' -> object with constructor 'HTTPParser'[39m[22m
+[1m[31m    --- property 'socket' closes the circle[39m[22m
+[1m[31m[39m[22m
+[31merror[39m: https://test.apps.astra.datastax.com/api/json/v1/default_keyspace/users: The pending stream has been canceled (caused by: getaddrinfo ENOTFOUND test.apps.astra.datastax.com)
+[31merror[39m: Data: { findOne: { filter: { email: 'test@test.com' }, options: {} } }
+[31merror[39m: Error: Command "findOne" failed with the following errors: [{"message":"The pending stream has been canceled (caused by: getaddrinfo ENOTFOUND test.apps.astra.datastax.com)"}]
+    at handleIfErrorResponse (/app/node_modules/.pnpm/stargate-mongoose@0.5.8_mongoose@8.20.2/node_modules/stargate-mongoose/src/client/httpClient.ts:411:15)
+    at HTTPClient.executeCommandWithUrl (/app/node_modules/.pnpm/stargate-mongoose@0.5.8_mongoose@8.20.2/node_modules/stargate-mongoose/src/client/httpClient.ts:390:30)
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at /app/node_modules/.pnpm/stargate-mongoose@0.5.8_mongoose@8.20.2/node_modules/stargate-mongoose/src/collections/collection.ts:266:26
+    at executeOperation (/app/node_modules/.pnpm/stargate-mongoose@0.5.8_mongoose@8.20.2/node_modules/stargate-mongoose/src/collections/utils.ts:148:15)
+    at model.Query._findOne (/app/node_modules/.pnpm/mongoose@8.20.2/node_modules/mongoose/lib/query.js:2710:15)
+    at model.Query.exec (/app/node_modules/.pnpm/mongoose@8.20.2/node_modules/mongoose/lib/query.js:4627:63)
+[auth-service] [info] Function execution success: authUser (CID: 87278dd7-c240-4c0f-aa54-4a1900876af2)
+[1m[31mFailed to send log to logging service: Error[39m[22m
+[1m[31m[39m[22m
+[1m[31mWatch error: Daemon closed the connection[39m[22m
+
+
+
+ NX   Running target serve for project auth-service-auth-service failed
+
+Failed tasks:
+
+- auth-service-auth-service:serve:development
+
+Hint: run the command with --verbose for more details.

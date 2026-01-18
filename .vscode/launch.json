@@ -4,20 +4,74 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug social-graph-service with Nx",
-      "runtimeExecutable": "pnpm exec",
-      "runtimeArgs": ["nx", "serve", "social-graph-service"],
-      "env": {
-        "NODE_OPTIONS": "--inspect=9229"
-      },
+      "name": "Debug auth-service",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["nx", "serve", "auth-service-auth-service"],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
-      "skipFiles": ["<node_internals>/**"],
-      "sourceMaps": true,
-      "outFiles": [
-        "${workspaceFolder}/apps/social-graph-service/dist/**/*.(m|c|)js",
-        "!**/node_modules/**"
-      ]
+      "port": 9229,
+      "restart": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug gateway-service",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["nx", "serve", "gateway-service-gateway-service"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9230,
+      "restart": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug payment-service",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["nx", "serve", "payment-service"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9231,
+      "restart": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug feeds-service",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["nx", "serve", "feeds-service"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9232,
+      "restart": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug social-graph-service",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["nx", "serve", "social-graph-service"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9233,
+      "restart": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug logging-service",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["nx", "serve", "logging-service"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "port": 9234,
+      "restart": true,
+      "skipFiles": ["<node_internals>/**"]
     }
   ]
 }

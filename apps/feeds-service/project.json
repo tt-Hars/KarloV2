@@ -29,7 +29,8 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "feeds-service:build",
-        "inspect": true
+        "inspect": false,
+        "args": ["--inspect=0.0.0.0:9232"]
       },
       "configurations": {
         "development": {

@@ -36,7 +36,8 @@
       "@karlo/modules/watch": ["modules/watch/src/index.ts"],
       "@karlo/payment-service": ["apps/payment-service/src/index.ts"],
       "@karlo/feeds-service": ["apps/feeds-service/src/index.ts"],
-      "@karlo/social-graph-service": ["apps/social-graph-service/src/main.ts"]
+      "@karlo/social-graph-service": ["apps/social-graph-service/src/main.ts"],
+      "@karlo/logging": ["modules/shared/logging/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

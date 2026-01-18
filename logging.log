@@ -1,0 +1,29 @@
+
+ NX   Running target serve for project logging-service and 1 task it depends on:
+
+
+
+> nx run logging-service:build  [existing outputs match the cache, left as is]
+
+> webpack-cli build --node-env=production
+
+chunk (runtime: main) [1m[32mmain.js[39m[22m (main) 1.55 KiB [1m[33m[entry][39m[22m [1m[32m[rendered][39m[22m
+webpack compiled [1m[32msuccessfully[39m[22m (3da04028a63457b7)
+
+> nx run logging-service:serve:development
+
+[2m> [22m[2mnx run[22m logging-service:build  [2m[existing outputs match the cache, left as is][22m
+> webpack-cli build --node-env=production
+chunk (runtime: main) [1m[32mmain.js[39m[22m (main) 1.55 KiB [1m[33m[entry][39m[22m [1m[32m[rendered][39m[22m
+webpack compiled [1m[32msuccessfully[39m[22m (3da04028a63457b7)
+[0m[7m[1m[32m NX [39m[22m[27m[0m  [32mSuccessfully ran target [1mbuild[22m for project logging-service[39m
+[2mNx read the output from the cache instead of running the command for 1 out of 1 tasks.[22m
+Listening at http://localhost:3337/api
+[1m[31mWatch error: Daemon closed the connection[39m[22m
+Task "logging-service:serve:development" is continuous but exited with code 1
+
+
+
+ NX   Successfully ran target serve for project logging-service and 1 task it depends on
+
+Nx read the output from the cache instead of running the command for 1 out of 2 tasks.
