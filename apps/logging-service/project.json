@@ -1,0 +1,56 @@
+{
+  "name": "logging-service",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/logging-service/src",
+  "projectType": "application",
+  "targets": {
+    "prune-lockfile": {
+      "dependsOn": ["build"],
+      "cache": true,
+      "executor": "@nx/js:prune-lockfile",
+      "outputs": [
+        "{workspaceRoot}/dist/apps/logging-service/package.json",
+        "{workspaceRoot}/dist/apps/logging-service/pnpm-lock.yaml"
+      ],
+      "options": {
+        "buildTarget": "build"
+      }
+    },
+    "copy-workspace-modules": {
+      "dependsOn": ["build"],
+      "cache": true,
+      "outputs": [
+        "{workspaceRoot}/dist/apps/logging-service/workspace_modules"
+      ],
+      "executor": "@nx/js:copy-workspace-modules",
+      "options": {
+        "buildTarget": "build"
+      }
+    },
+    "prune": {
+      "dependsOn": ["prune-lockfile", "copy-workspace-modules"],
+      "executor": "nx:noop"
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "logging-service:build",
+        "runBuildTargetDependencies": false,
+        "inspect": false,
+        "args": ["--inspect=0.0.0.0:9234"]
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "logging-service:build:development"
+        },
+        "production": {
+          "buildTarget": "logging-service:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}

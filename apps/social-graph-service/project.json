@@ -71,7 +71,9 @@
       "dependsOn": ["build"],
       "options": {
         "buildTarget": "social-graph-service:build",
-        "runBuildTargetDependencies": false
+        "runBuildTargetDependencies": false,
+        "inspect": false,
+        "args": ["--inspect=0.0.0.0:9233"]
       },
       "configurations": {
         "development": {

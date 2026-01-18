@@ -10,7 +10,8 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "payment-service:build:development",
-        "inspect": true
+        "inspect": false,
+        "args": ["--inspect=0.0.0.0:9231"]
       },
       "configurations": {
         "development": {

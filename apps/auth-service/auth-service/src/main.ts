@@ -9,12 +9,18 @@ import ROUTE_CONSTANTS, { BASE_PATH } from './constants/routes';
 import userRoutes from './routes/userRoutes';
 import { REGISTER_V1 } from '@karlo/modules-shared-constants';
 import { authUser, registerUser } from './controllers/userController';
+import { correlationIdMiddleware, Logger, withLogging } from '@karlo/logging';
 
 dotenv.config()
+
+const LOGGING_SERVICE_URL = process.env.LOGGING_SERVICE_URL || 'http://localhost:3337/logs';
+const logger = new Logger('auth-service', LOGGING_SERVICE_URL);
 
 let isDbConnected = false;
 
 const app = express();
+
+app.use(correlationIdMiddleware);
 
 app.use(async (req, res, next) => {
   if (!isDbConnected) {
@@ -35,8 +41,8 @@ app.get(BASE_PATH, (req, res) => {
 });
 
 // Auth Routes
-app.post(REGISTER_V1, registerUser);
-app.post(ROUTE_CONSTANTS.LOGIN, authUser);
+app.post(REGISTER_V1, withLogging(logger, 'registerUser', registerUser));
+app.post(ROUTE_CONSTANTS.LOGIN, withLogging(logger, 'authUser', authUser));
 app.use('/api/v1/users', userRoutes);
 
 const port = Number(process.env.AUTH_SERVICE_PORT) || 3333;
