@@ -11,6 +11,7 @@ import {
     KarloCircularProgress,
     KarloCard
 } from '@karlo/modules/shared/ui';
+import { GET_LOGS_V1 } from '@karlo/modules-shared-constants';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 interface LogEntry {
@@ -34,7 +35,7 @@ export const LogsView = () => {
         try {
             setLoading(true);
             // Request goes to Gateway -> Logging Service
-            const response = await axios.get(`/api/v1/logs?limit=${LIMIT}&offset=${currentOffset}`);
+            const response = await axios.get(`${GET_LOGS_V1}?limit=${LIMIT}&offset=${currentOffset}`);
             if (response.data) {
                 if (currentOffset === 0) {
                     setLogs(response.data);
